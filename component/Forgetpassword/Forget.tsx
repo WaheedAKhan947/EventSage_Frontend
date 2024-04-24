@@ -9,13 +9,10 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const Forget = ({navigation}: any) => {
   const [email, setEmail] = useState('');
-
   const [isSigningUp, setIsSigningUp] = useState(false);
   const handlePasswordReset = async () => {
     try {
@@ -30,7 +27,6 @@ const Forget = ({navigation}: any) => {
           },
         },
       );
-
       if (response.status === 200) {
         const responseData = response.data;
         console.log(response);
@@ -53,7 +49,6 @@ const Forget = ({navigation}: any) => {
       setIsSigningUp(false);
     }
   };
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
@@ -61,12 +56,12 @@ const Forget = ({navigation}: any) => {
           onPress={() => navigation.goBack()}
           style={styles.backButton}>
           <Image
-            source={require('../../assets/arrow.png')}
+            source={require('../../assets/wback.png')}
             style={styles.backIcon}
           />
         </TouchableOpacity>
         <Image
-          source={require('../../assets/pngImage.png')}
+          source={require('../../assets/tutu_white.png')}
           style={styles.logo}
         />
 
@@ -76,36 +71,27 @@ const Forget = ({navigation}: any) => {
         </View>
 
         <View style={styles.inputContainer}>
-          <Image
-            source={require('../../assets/Vector2.png')}
-            style={styles.icon}
-          />
           <TextInput
             style={styles.input}
             placeholder="Email"
-            placeholderTextColor="#F6BED6"
+            placeholderTextColor="#FFFFFF"
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
           />
         </View>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            handlePasswordReset();
-          }}>
-          <LinearGradient
-            colors={['#E6548D', '#F1C365']}
-            style={styles.gradient}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}>
+        <View style={styles.submitBtn}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              handlePasswordReset();
+            }}>
             <Text style={styles.buttonText}>Submit</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <View style={styles.ascontainer}>
-          <Text style={styles.legalTexted}>Remember the password? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.toLogin}
+            onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.legalTexted}>Remember the password? </Text>
             <Text style={styles.legalLinked}>Sign In</Text>
           </TouchableOpacity>
         </View>
@@ -119,7 +105,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 40,
-    backgroundColor: '#470D25',
+    backgroundColor: '#000000',
   },
   backButton: {
     position: 'absolute',
@@ -128,14 +114,15 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   backIcon: {
-    width: 24,
-    height: 24,
+    width: 30,
+    height: 30,
+    marginBottom: 20,
   },
   input: {
     flex: 1,
     height: 40,
     backgroundColor: 'transparent',
-    color: '#fff',
+    color: '#FFFFFF',
     fontSize: 16,
     fontFamily: 'IbarraRealNova-Regular',
   },
@@ -143,7 +130,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.3)',
+    borderBottomColor: '#FFFFFF',
     marginBottom: 30,
   },
   icon: {
@@ -152,25 +139,26 @@ const styles = StyleSheet.create({
     height: 20,
   },
   button: {
-    width: '100%',
-    marginTop: 10,
-  },
-  gradient: {
-    padding: 15,
+    backgroundColor: '#E6E6E9',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    margin: 30,
+    borderRadius: 100,
     alignItems: 'center',
-    width: '100%',
+    justifyContent: 'center',
+    width: 160,
   },
   buttonText: {
-    color: '#270614',
+    color: '#000000',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '800',
     fontFamily: 'IbarraRealNova-Regular',
   },
   logo: {
-    width: 170,
-    height: 170,
+    width: 126,
+    height: 122,
     alignSelf: 'center',
-    marginBottom: 40,
+    marginTop: 40,
   },
   ascontainer: {
     flexDirection: 'row',
@@ -179,13 +167,14 @@ const styles = StyleSheet.create({
   },
 
   legalTexted: {
-    color: '#F6BED6',
-    fontSize: 16,
+    color: '#F4F4F6',
+    fontSize: 11,
     fontFamily: 'IbarraRealNova-Regular',
   },
   legalLinked: {
-    fontSize: 16,
-    color: '#F6BED6',
+    fontSize: 11,
+    color: '#F4F4F6',
+    fontWeight: '400',
     textDecorationLine: 'underline',
     fontFamily: 'IbarraRealNova-Regular',
   },
@@ -204,17 +193,31 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#fff',
+    color: '#F4F4F6',
     fontFamily: 'IbarraRealNova-Regular',
   },
   title: {
-    fontSize: 30,
-    color: '#E581AB',
+    fontSize: 32,
+    width: 340,
+    fontWeight: '600',
+    color: '#F4F4F6',
     fontFamily: 'IbarraRealNova-Regular',
-    marginBottom: 5,
+    marginTop: 60,
+    marginBottom: 20,
+    textTransform: 'uppercase',
   },
   maincontent: {
     marginBottom: 40,
+    alignItems: 'center',
+  },
+  submitBtn: {
+    marginTop: 130,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  toLogin: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

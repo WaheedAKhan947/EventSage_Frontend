@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -17,17 +17,21 @@ const Verify = ({navigation}: any) => {
   const [code, setCode] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [emailID, setEmailID] = useState<string | null>(null);
-
+  const et1 = useRef();
+  const et2 = useRef();
+  const et3 = useRef();
+  const et4 = useRef();
   useEffect(() => {
     const fetchEmail = async () => {
       const email = await AsyncStorage.getItem('userEmail');
       setEmailID(email);
     };
-    
+
     fetchEmail();
   }, []);
-  
-  const hiddenPart = emailID?.split("@")[0].slice(0, 3) + "****@" + emailID?.split("@")[1]
+
+  const hiddenPart =
+    emailID?.split('@')[0].slice(0, 3) + '****@' + emailID?.split('@')[1];
   const handleSubmit = async () => {
     try {
       if (!code) {
@@ -104,68 +108,125 @@ const Verify = ({navigation}: any) => {
         onPress={() => navigation.goBack()}
         style={styles.backButton}>
         <Image
-          source={require('../../assets/arrow.png')}
+          source={require('../../assets/wback.png')}
           style={styles.backIcon}
         />
       </TouchableOpacity>
 
-      <Image source={require('../../assets/pngImage.png')} style={styles.logo} />
+      <Image
+        source={require('../../assets/tutu_white.png')}
+        style={styles.logo}
+      />
 
       <View style={styles.maincontent}>
         <Text style={styles.title}>Forgot Password</Text>
         <Text style={styles.subtitle}>
-          Password recovery email sent to {hiddenPart}
+          Password recovery email sent to{' '}
+          <Text style={styles.hidden}>{hiddenPart}</Text>
         </Text>
       </View>
 
       <View style={styles.inputContainer}>
         <TextInput
+          ref={et1}
           style={styles.input}
           onChangeText={text => setCode(text)}
           value={code}
           keyboardType="number-pad"
-          maxLength={6}
+          maxLength={1}
           autoFocus={true}
-          placeholder="Enter Code"
-          placeholderTextColor="#F6BED6"
+          placeholderTextColor="#FFFFFF"
+          onChangeText={txt => {
+            if (txt.length >= 1) {
+              et2.current.focus();
+            }
+          }}
+        />
+        <TextInput
+          ref={et2}
+          style={styles.input}
+          onChangeText={text => setCode(text)}
+          value={code}
+          keyboardType="number-pad"
+          maxLength={1}
+          autoFocus={true}
+          placeholderTextColor="#FFFFFF"
+          onChangeText={txt => {
+            if (txt.length >= 1) {
+              et3.current.focus();
+            }
+            else if (txt.length<1){
+              et1.current.focus();
+            }
+          }}
+        />
+        <TextInput
+          ref={et3}
+          style={styles.input}
+          onChangeText={text => setCode(text)}
+          value={code}
+          keyboardType="number-pad"
+          maxLength={1}
+          autoFocus={true}
+          placeholderTextColor="#FFFFFF"
+          onChangeText={txt => {
+            if (txt.length >= 1) {
+              et4.current.focus();
+            }
+            else if (txt.length<1){
+              et2.current.focus();
+            }
+          }}
+        />
+        <TextInput
+          ref={et4}
+          style={styles.input}
+          onChangeText={text => setCode(text)}
+          value={code}
+          keyboardType="number-pad"
+          maxLength={1}
+          autoFocus={true}
+          placeholderTextColor="#FFFFFF"
+          onChangeText={txt => {
+            if (txt.length >= 1) {
+              et4.current.focus();
+            }
+            else if (txt.length<1){
+              et3.current.focus();
+            }
+          }}
         />
       </View>
 
       <View style={styles.seccont}>
-        <View style={styles.verifycode}>
-          <Image source={require('../../assets/succ.png')} />
-          <Text style={styles.vertext}>Success!</Text>
-        </View>
-
         <View style={styles.resend}>
           <Text style={styles.vertext}>
-            Didn't receive email?
             <TouchableOpacity onPress={handlePasswordReset} disabled={loading}>
-              <Text style={[styles.resendLink, styles.vertext]}>Resend</Text>
+              <Text style={[styles.resendLink, styles.vertext]}>
+                Resend Code
+              </Text>
             </TouchableOpacity>
           </Text>
         </View>
       </View>
+      <View>
+        <View style={{alignItems: 'center'}}>
+          <TouchableOpacity
+            style={styles.button}
+            disabled={loading}
+            onPress={handleSubmit}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
 
-      <TouchableOpacity
-        style={styles.button}
-        disabled={loading}
-        onPress={handleSubmit}>
-        <LinearGradient
-          colors={['#E6548D', '#F1C365']}
-          style={styles.gradient}
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </LinearGradient>
-      </TouchableOpacity>
-
-      <View style={styles.contactsup}>
-        <TouchableOpacity onPress={handleContactSupport}>
-          <Text style={styles.vertext}>
-            Still not working? <Text style={styles.link}>Contact Support</Text>
-          </Text>
-        </TouchableOpacity>
+        {/* <View style={styles.contactsup}>
+          <TouchableOpacity onPress={handleContactSupport}>
+            <Text style={styles.contactsupText}>
+              Still not working?{' '}
+              <Text style={styles.link}>Contact Support</Text>
+            </Text>
+          </TouchableOpacity>
+        </View> */}
       </View>
     </SafeAreaView>
   );
@@ -175,7 +236,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 40,
-    backgroundColor: '#470D25',
+    backgroundColor: '#000000',
   },
   backButton: {
     position: 'absolute',
@@ -188,17 +249,19 @@ const styles = StyleSheet.create({
     height: 24,
   },
   input: {
-    flex: 1,
-    height: 40,
+    textAlign: 'center',
+    width: 50,
+    height: 60,
     backgroundColor: 'transparent',
-    color: 'white',
-    fontSize: 20,
+    color: '#FFFFFF',
+    fontSize: 32,
     fontFamily: 'IbarraRealNova-Regular',
+    borderBottomWidth: 2,
+    borderBottomColor: 'rgba(255, 255, 255, 0.3)',
   },
   inputContainer: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.3)',
+    justifyContent: 'space-between',
     marginBottom: 10,
   },
   icon: {
@@ -207,39 +270,49 @@ const styles = StyleSheet.create({
     height: 24,
   },
   button: {
-    width: '100%',
-    marginTop: 20,
-  },
-  gradient: {
-    padding: 15,
+    backgroundColor: '#E6E6E9',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 100,
     alignItems: 'center',
-    width: '100%',
+    justifyContent: 'center',
+    marginTop: 80,
+    width: 160,
   },
+
   buttonText: {
-    color: '#270614',
+    color: 'black',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'poppins',
   },
   logo: {
-    width: 170,
-    height: 170,
+    width: 126,
+    height: 122,
     alignSelf: 'center',
+    marginTop: 25,
     marginBottom: 20,
   },
   subtitle: {
     fontSize: 16,
-    color: '#fff',
+    color: '#F4F4F6',
     fontFamily: 'IbarraRealNova-Regular',
     textAlign: 'center',
   },
+  hidden: {
+    fontWeight: 'bold',
+  },
   title: {
-    fontSize: 30,
-    color: '#E581AB',
+    fontSize: 32,
+    width: 345,
+    color: '#F4F4F6',
+    fontWeight: '600',
     fontFamily: 'IbarraRealNova-Regular',
-    marginBottom: 5,
+    marginBottom: 20,
+    textTransform: 'uppercase',
   },
   maincontent: {
+    marginTop: 30,
     marginBottom: 40,
     alignItems: 'center',
   },
@@ -248,9 +321,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   vertext: {
-    color: '#E581AB',
+    color: '#FFFFFF',
     fontFamily: 'IbarraRealNova-Regular',
-    marginLeft: 10,
     fontSize: 16,
   },
   foottext: {
@@ -259,17 +331,20 @@ const styles = StyleSheet.create({
     fontFamily: 'IbarraRealNova-Regular',
   },
   resend: {
-    marginTop: 20,
     alignItems: 'flex-start',
+    fontWeight: '500',
   },
   contactsup: {
-    marginTop: 40,
-    width: 170,
-    alignItems: 'center',
-    alignSelf: 'center',
+    color: '#F4F4F6',
+  },
+  contactupText: {
+    color: '#F4F4F6',
   },
   resendLink: {
     textDecorationLine: 'underline',
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '500',
   },
   link: {
     textDecorationLine: 'underline',
