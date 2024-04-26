@@ -141,7 +141,7 @@ const Verify = ({navigation}: any) => {
           value={code}
           keyboardType="number-pad"
           maxLength={1}
-          autoFocus={true}
+          autoFocus={true}  
           placeholderTextColor="#FFFFFF"
           value={f1}
           onChangeText={txt => {

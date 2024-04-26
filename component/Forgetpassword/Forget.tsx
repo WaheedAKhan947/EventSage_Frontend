@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 40,
+    width: 340,
     backgroundColor: 'transparent',
     color: '#FFFFFF',
     fontSize: 16,
@@ -128,6 +129,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
+    width:370,
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#FFFFFF',
@@ -151,8 +153,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#000000',
     fontSize: 16,
-    fontWeight: '800',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily:'Poppins',
   },
   logo: {
     width: 126,
