@@ -109,29 +109,28 @@ const PaymentMehtod = ({navigation}: any) => {
         </View>
       </View>
       <View style={[styles.fullWidth, styles.dropdownContainer]}>
-      <TouchableOpacity  style={{flex:1,flexDirection:"row"}}>
+      <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }} onPress={toggleDropdown}>
         <Image
           source={require('../../assets/wcountry.png')}
           style={styles.image}
         />
-        <Text style={{color:"#fff"}}>Country or region</Text>
+        <Text style={{ color: '#fff' }}>
+          {selectedCountry ? selectedCountry.name : 'Country or region'} 
+        </Text>
       </TouchableOpacity>
 
       {isDropdownOpen && (
-        <View >
-           
-          <CountryPicker
-            withFlag
-            withCountryNameButton
-            withAlphaFilter
-            withCallingCode
-            onSelect={handleSelectCountry}
-            countryCode={selectedCountry?.cca2}
-          />
-           
-        </View>
+        <CountryPicker
+          
+          withCountryNameButton
+          withAlphaFilter
+          withCallingCode
+          onSelect={handleSelectCountry}
+          countryCode={selectedCountry?.cca2}
+        />
       )}
-        <TouchableOpacity  onPress={toggleDropdown}>
+
+      <TouchableOpacity onPress={toggleDropdown}>
         <Image
           source={require('../../assets/selectdp.png')}
           style={styles.dropdownIcon}

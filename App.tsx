@@ -42,7 +42,7 @@ function ReservationStack() {
         },
       }}
     >
-      <Stack.Screen name="reservation" component={Reservation} options={{
+      <Tab.Screen name="reservation" component={Reservation} options={{
         tabBarIcon: ({focused}) =>(
           <View style={{alignItems:"center",justifyContent:"center"}}>
             <Image
@@ -57,7 +57,7 @@ function ReservationStack() {
           </View>
         )
       }} />
-      <Stack.Screen name="reservationhistory" component={Reservations} 
+      <Tab.Screen name="reservationhistory" component={Reservations} 
        options={{
         tabBarIcon: ({focused}) =>(
           <View style={{alignItems:"center",justifyContent:"center"}}>
@@ -73,7 +73,7 @@ function ReservationStack() {
           </View>
         )
       }}/>
-      <Stack.Screen name="managepayment" component={ManagePayment} 
+      <Tab.Screen name="managepayment" component={ManagePayment} 
        options={{
         tabBarIcon: ({focused}) =>(
           <View style={{alignItems:"center",justifyContent:"center"}}>
@@ -89,7 +89,7 @@ function ReservationStack() {
           </View>
         )
       }} /> 
-      <Stack.Screen name="profile" component={Profile}  options={{
+      <Tab.Screen name="profile" component={Profile}  options={{
         tabBarIcon: ({focused}) =>(
           <View style={{alignItems:"center",justifyContent:"center"}}>
             <Image

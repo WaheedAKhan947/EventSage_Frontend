@@ -11,20 +11,11 @@ interface ProfileDropdownProps {
 }
 const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
   isVisible,
-  onLogout,
   onAccountSettings,
   onClose,
 }) => {
   const navigation = useNavigation();
-
-  const handleLogout = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Login' }],
-    });
-    onLogout();
-  };
-
+  
   return (
     <Modal
       animationType="fade"
@@ -105,7 +96,7 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
             </View>
           </View>
           <View style={styles.footer}>
-            <TouchableOpacity onPress={handleLogout} style={styles.footer}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Login')} style={styles.footer}>
               <View style={styles.itemContent}>
                 <Image source={require('../../assets/logout.png')} style={styles.icon} />
                 <Text style={styles.dropdownText}>Logout</Text>

@@ -38,10 +38,8 @@ const Reservation = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState('');
   const [totalPrice, setTotalPrice] = useState(100);
-  const [selectedPreferredTime, setSelectedPreferredTime] = useState(
-    new Date(),
-  );
-  const [selectedBackupTime, setSelectedBackupTime] = useState(new Date());
+  const [selectedPreferredTime, setSelectedPreferredTime] = useState<Date | null>(null);
+  const [selectedBackupTime, setSelectedBackupTime] = useState< Date | null>(null);
   const [showPreferredTimePicker, setShowPreferredTimePicker] = useState(false);
   const [showBackupTimePicker, setShowBackupTimePicker] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -364,7 +362,8 @@ const Reservation = ({ navigation }: any) => {
             style={styles.image}
           />
           <Text style={styles.dropdownText}>
-            {selectedPreferredTime.toLocaleTimeString()}
+          {selectedPreferredTime ? selectedPreferredTime.toLocaleTimeString() : 'Prefer Time'}
+         
           </Text>
           <Image
             source={require('../../assets/selectdp.png')}
@@ -419,7 +418,7 @@ const Reservation = ({ navigation }: any) => {
             style={styles.image}
           />
           <Text style={styles.dropdownText}>
-            {selectedBackupTime.toLocaleTimeString()}
+          {selectedBackupTime ? selectedBackupTime.toLocaleTimeString() : 'Backup Time'}
           </Text>
           <Image
             source={require('../../assets/selectdp.png')}

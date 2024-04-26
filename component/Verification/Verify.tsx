@@ -25,10 +25,12 @@ const Verify = ({navigation}: any) => {
   const [f2, setf2] = useState('');
   const [f3, setf3] = useState('');
   const [f4, setf4] = useState('');
-  const et1 = useRef();
-  const et2 = useRef();
-  const et3 = useRef();
-  const et4 = useRef();
+  const et1: React.RefObject<TextInput> = React.createRef();
+  const et2: React.RefObject<TextInput> = React.createRef();
+  const et3: React.RefObject<TextInput> = React.createRef();
+  const et4: React.RefObject<TextInput> = React.createRef();
+
+  
 
 
   useEffect(() => {
@@ -74,7 +76,7 @@ const Verify = ({navigation}: any) => {
           const errorMessage = response.data.message || 'Something went wrong.';
           Alert.alert('Error', errorMessage);
         }
-      } catch (error) {
+      } catch (error: any) {
         Alert.alert('Error', error.response?.data.message || 'Failed to verify code!');
       } finally {
         setLoading(false);
@@ -152,13 +154,6 @@ const Verify = ({navigation}: any) => {
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
-          value={f1}
-          onChangeText={txt => {
-            setf1(txt);
-            if (txt.length >= 1) {
-              et2.current.focus();
-            }
-          }}
         />
         <TextInput
           ref={et2}
@@ -172,15 +167,7 @@ const Verify = ({navigation}: any) => {
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
-          value={f2}
-          onChangeText={txt => {
-            setf2(txt);
-            if (txt.length >= 1) {
-              et3.current.focus();
-            } else if (txt.length < 1) {
-              et1.current.focus();
-            }
-          }}
+    
         />
         <TextInput
           ref={et3}
@@ -194,15 +181,7 @@ const Verify = ({navigation}: any) => {
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
-          value={f3}
-          onChangeText={txt => {
-            setf3(txt);
-            if (txt.length >= 1) {
-              et4.current.focus();
-            } else if (txt.length < 1) {
-              et2.current.focus();
-            }
-          }}
+          
         />
         <TextInput
           ref={et4}
@@ -216,15 +195,7 @@ const Verify = ({navigation}: any) => {
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
-          value={f4}
-          onChangeText={txt => {
-            setf4(txt);
-            if (txt.length >= 1) {
-              et4.current.focus();
-            } else if (txt.length < 1) {
-              et3.current.focus();
-            }
-          }}
+          
         />
       </View>
 
@@ -365,7 +336,7 @@ const styles = StyleSheet.create({
   resend: {
     marginTop: 20,
     alignItems: 'flex-start',
-    fontSize: '16',
+    fontSize: 16,
     fontWeight: '500',
   },
   contactsup: {
@@ -389,7 +360,7 @@ const styles = StyleSheet.create({
   seccont: {
     alignItems: 'flex-start',
     marginTop: 10,
-  },
+  }
 });
 
 export default Verify;

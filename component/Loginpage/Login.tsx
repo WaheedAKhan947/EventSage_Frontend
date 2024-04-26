@@ -146,7 +146,7 @@ const SignIn = ({ navigation }: any) => {
             <Text style={styles.legalLink}>Terms of Service</Text>
             <Text style={styles.legalText}> and </Text>
             <Text
-              onPress={() => navigation.navigate('reservation')}
+              
               style={styles.legalLink}>
               Community Guidelines
             </Text>
