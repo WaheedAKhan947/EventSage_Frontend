@@ -17,6 +17,10 @@ const Verify = ({navigation}: any) => {
   const [code, setCode] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [emailID, setEmailID] = useState<string | null>(null);
+  const [f1, setf1] = useState('');
+  const [f2, setf2] = useState('');
+  const [f3, setf3] = useState('');
+  const [f4, setf4] = useState('');
   const et1 = useRef();
   const et2 = useRef();
   const et3 = useRef();
@@ -129,14 +133,19 @@ const Verify = ({navigation}: any) => {
       <View style={styles.inputContainer}>
         <TextInput
           ref={et1}
-          style={styles.input}
+          style={[
+            styles.input,
+            {borderBottomColor: f1.length >= 1 ? '#242424' : '#FFFFFF'},
+          ]}
           onChangeText={text => setCode(text)}
           value={code}
           keyboardType="number-pad"
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
+          value={f1}
           onChangeText={txt => {
+            setf1(txt);
             if (txt.length >= 1) {
               et2.current.focus();
             }
@@ -144,54 +153,66 @@ const Verify = ({navigation}: any) => {
         />
         <TextInput
           ref={et2}
-          style={styles.input}
+          style={[
+            styles.input,
+            {borderBottomColor: f2.length >= 1 ? '#242424' : '#FFFFFF'},
+          ]}
           onChangeText={text => setCode(text)}
           value={code}
           keyboardType="number-pad"
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
+          value={f2}
           onChangeText={txt => {
+            setf2(txt);
             if (txt.length >= 1) {
               et3.current.focus();
-            }
-            else if (txt.length<1){
+            } else if (txt.length < 1) {
               et1.current.focus();
             }
           }}
         />
         <TextInput
           ref={et3}
-          style={styles.input}
+          style={[
+            styles.input,
+            {borderBottomColor: f3.length >= 1 ? '#242424' : '#FFFFFF'},
+          ]}
           onChangeText={text => setCode(text)}
           value={code}
           keyboardType="number-pad"
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
+          value={f3}
           onChangeText={txt => {
+            setf3(txt);
             if (txt.length >= 1) {
               et4.current.focus();
-            }
-            else if (txt.length<1){
+            } else if (txt.length < 1) {
               et2.current.focus();
             }
           }}
         />
         <TextInput
           ref={et4}
-          style={styles.input}
+          style={[
+            styles.input,
+            {borderBottomColor: f4.length >= 1 ? '#242424' : '#FFFFFF'},
+          ]}
           onChangeText={text => setCode(text)}
           value={code}
           keyboardType="number-pad"
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
+          value={f4}
           onChangeText={txt => {
+            setf4(txt);
             if (txt.length >= 1) {
               et4.current.focus();
-            }
-            else if (txt.length<1){
+            } else if (txt.length < 1) {
               et3.current.focus();
             }
           }}
@@ -210,23 +231,21 @@ const Verify = ({navigation}: any) => {
         </View>
       </View>
       <View>
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', marginTop: 50}}>
           <TouchableOpacity
             style={styles.button}
             disabled={loading}
             onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Submit</Text>
+            <Text style={styles.buttonText}>Continue</Text>
           </TouchableOpacity>
         </View>
-
-        {/* <View style={styles.contactsup}>
+        <View style={styles.contactsup}>
           <TouchableOpacity onPress={handleContactSupport}>
-            <Text style={styles.contactsupText}>
-              Still not working?{' '}
-              <Text style={styles.link}>Contact Support</Text>
+            <Text style={styles.contactupText}>
+              Still not working? <Text>Contact Support</Text>
             </Text>
           </TouchableOpacity>
-        </View> */}
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -255,9 +274,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     color: '#FFFFFF',
     fontSize: 32,
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins',
     borderBottomWidth: 2,
-    borderBottomColor: 'rgba(255, 255, 255, 0.3)',
+    borderBottomColor: '#E6E6E9',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -296,15 +315,19 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: '#F4F4F6',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins',
     textAlign: 'center',
+    lineHeight: 25,
   },
   hidden: {
     fontWeight: 'bold',
+    fontFamily: 'Poppins',
   },
   title: {
-    fontSize: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 345,
+    fontSize: 32,
     color: '#F4F4F6',
     fontWeight: '600',
     fontFamily: 'IbarraRealNova-Regular',
@@ -328,26 +351,31 @@ const styles = StyleSheet.create({
   foottext: {
     flexDirection: 'row',
     color: '#E581AB',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins',
   },
   resend: {
+    marginTop: 20,
     alignItems: 'flex-start',
+    fontSize: '16',
     fontWeight: '500',
   },
   contactsup: {
-    color: '#F4F4F6',
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
   },
   contactupText: {
     color: '#F4F4F6',
+    fontFamily: 'Poppins',
+    fontSize: 11,
+    fontWeight: '300',
   },
   resendLink: {
     textDecorationLine: 'underline',
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '500',
-  },
-  link: {
-    textDecorationLine: 'underline',
   },
   seccont: {
     alignItems: 'flex-start',
