@@ -10,8 +10,11 @@ import React, {useState} from 'react';
 import CountryPicker from 'react-native-country-picker-modal';
 
 const PaymentMehtod = ({navigation}: any) => {
+
+ 
   const [fullName, setFullName] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState<any>(null);
+
   const [zipCode, setZipCode] = useState('');
   const [exp, setExp] = useState('');
   const [cvv, setCVV] = useState('');
@@ -20,6 +23,8 @@ const PaymentMehtod = ({navigation}: any) => {
     const numericValue = text.replace(/[^0-9]/g, '');
     setCardNumber(numericValue);
   };
+  
+  
 
   
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -28,10 +33,11 @@ const PaymentMehtod = ({navigation}: any) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleSelectCountry = (country) => {
+  const handleSelectCountry = (country: any) => {
     setSelectedCountry(country);
     setIsDropdownOpen(false);
   };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -103,24 +109,24 @@ const PaymentMehtod = ({navigation}: any) => {
         </View>
       </View>
       <View style={[styles.fullWidth, styles.dropdownContainer]}>
-      <TouchableOpacity onPress={toggleDropdown}>
+      <TouchableOpacity  style={{flex:1,flexDirection:"row"}}>
         <Image
           source={require('../../assets/wcountry.png')}
           style={styles.image}
         />
+        <Text style={{color:"#fff"}}>Country or region</Text>
       </TouchableOpacity>
 
       {isDropdownOpen && (
         <View >
+           
           <CountryPicker
             withFlag
             withCountryNameButton
             withAlphaFilter
             withCallingCode
             onSelect={handleSelectCountry}
-            placeholder="Select Country"
             countryCode={selectedCountry?.cca2}
-            placeholderTextColor="#fff"
           />
            
         </View>

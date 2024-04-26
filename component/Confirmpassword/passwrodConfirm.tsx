@@ -92,13 +92,13 @@ const Confirmpass = ({navigation}: any) => {
           onPress={() => navigation.goBack()}
           style={styles.backButton}>
           <Image
-            source={require('../../assets/arrow.png')}
+            source={require('../../assets/wback.png')}
             style={styles.backIcon}
           />
         </TouchableOpacity>
 
         <Image
-          source={require('../../assets/pngImage.png')}
+          source={require('../../assets/tutu_white.png')}
           style={styles.logo}
         />
 
@@ -113,7 +113,7 @@ const Confirmpass = ({navigation}: any) => {
           <TextInput
             style={styles.input}
             placeholder="New Password"
-            placeholderTextColor="#F6BED6"
+            placeholderTextColor="#F4F4F6"
             value={newPassword}
             onChangeText={setNewPassword}
             secureTextEntry={!showPassword}
@@ -131,7 +131,7 @@ const Confirmpass = ({navigation}: any) => {
           <TextInput
             style={styles.input}
             placeholder="Confirm New Password"
-            placeholderTextColor="#F6BED6"
+            placeholderTextColor="#F4F4F6"
             value={confirmPassword}
             onChangeText={setConfirmPassword}
             secureTextEntry={!showPassword2}
@@ -149,13 +149,7 @@ const Confirmpass = ({navigation}: any) => {
           style={styles.button}
           onPress={handleChangePassword}
           disabled={loading}>
-          <LinearGradient
-            colors={['#E6548D', '#F1C365']}
-            style={styles.gradient}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </LinearGradient>
+          <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -167,7 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 40,
-    backgroundColor: '#470D25',
+    backgroundColor: '#000',
   },
   backButton: {
     position: 'absolute',
@@ -181,9 +175,9 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
+    height:55,
     backgroundColor: 'transparent',
-    color: '#fff',
+    color: '#F4F4F6',
     fontSize: 16,
     fontFamily: 'IbarraRealNova-Regular',
   },
@@ -198,27 +192,30 @@ const styles = StyleSheet.create({
     marginRight: 10,
     width: 20,
     height: 20,
+    tintColor: 'white',
   },
   button: {
-    width: '100%',
-    marginTop: 20,
-  },
-  gradient: {
-    padding: 15,
+    backgroundColor: '#E6E6E9',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 100,
     alignItems: 'center',
-    width: '100%',
+    justifyContent: 'center',
+    marginTop: 180,
+    width: 160,
   },
   buttonText: {
-    color: '#270614',
+    color: 'black',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'poppins',
   },
   logo: {
-    width: 170,
-    height: 170,
+    width: 126,
+    height: 122,
     alignSelf: 'center',
-    marginBottom: 40,
+    marginTop: 25,
+    marginBottom: 20,
   },
   ascontainer: {
     flexDirection: 'row',
@@ -257,7 +254,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    color: '#E581AB',
+    color: '#F4F4F6',
     fontFamily: 'IbarraRealNova-Regular',
     marginBottom: 5,
   },

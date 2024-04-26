@@ -1,38 +1,26 @@
-// App.js
-import * as React from 'react';
+import React from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Image, Modal, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Reservation from '../ReservationReq/Reservation';
 import Reservations from '../ReservationsHistory/ReservationsHistory';
+import ReservationRequest from '../ReservationRequest/ReservationRequest';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Tab = createBottomTabNavigator();
 
-export default function BottomTabNavigator() {
+const Tab=createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const BottomTabNavigator = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'ReservationRequest') {
-              iconName = focused ? 'calendar' : 'calendar-outline';
-            } else if (route.name === 'Reservations') {
-              iconName = focused ? 'list' : 'list-outline';
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'blue',
-          inactiveTintColor: 'gray',
-        }}
-      >
-        <Tab.Screen name="Reservation" component={Reservation} options={{ title: 'Request' }} />
-        <Tab.Screen name="Reservationhistory" component={Reservations} options={{ title: 'Reservations' }} />
-      </Tab.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen name="reservationrequests" component={ReservationRequest} />
+      <Tab.Screen name="reservationhistory" component={Reservations} />
+      
+    </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default BottomTabNavigator;

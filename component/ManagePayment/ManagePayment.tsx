@@ -10,20 +10,20 @@ const ManagePayment = ({navigation}: any) => {
       holderName: 'Eric Sullivan',
       addedDate: '12 Feb, 2024'
     },
-    // You can add more payment methods here
+    
   ]);
 
-  // Function to delete a payment method
-  const deletePaymentMethod = (id) => {
+ 
+  const deletePaymentMethod = (id: string) => {
     setPaymentMethods(prevMethods => prevMethods.filter(method => method.id !== id));
   };
 
   const addPaymentMethod = () => {
     const newMethod = {
-      id: String(paymentMethods.length + 1),  // Simple id generation
+      id: String(paymentMethods.length + 1), 
       cardType: 'Visa ****1234',
       holderName: 'New User',
-      addedDate: 'Today'  // Example date, you can set this dynamically
+      addedDate: 'Today'  
     };
     setPaymentMethods([...paymentMethods, newMethod]);
   };

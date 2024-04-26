@@ -8,7 +8,7 @@ import Login from './component/Loginpage/Login'
 import { enableScreens } from 'react-native-screens';
 import Privacy from './component/privacyPage/Privacy';
 import Forget from './component/Forgetpassword/Forget';
-import Confirmpass from './component/Confirmpassword/Confirmpass';
+import Confirmpass from './component/Confirmpassword/passwrodConfirm';
 import Verify from './component/Verification/Verify';
 import Profile from './component/Profile/Profile';
 import Reservations from './component/ReservationsHistory/ReservationsHistory';
@@ -120,7 +120,7 @@ const App = () => {
     <Stack.Screen name="privacy" component={Privacy} />
     <Stack.Screen name="forget" component={Forget} />
     <Stack.Screen name="verification" component={Verify} />
-    <Stack.Screen name="confirmpass" component={Confirmpass} />
+    <Stack.Screen name="confirmation" component={Confirmpass} />
     <Stack.Screen name="profile" component={Profile} />
     <Stack.Screen name="reservationhistory" component={Reservations} />
     <Stack.Screen name="reservationrequests" component={ReservationStack} />

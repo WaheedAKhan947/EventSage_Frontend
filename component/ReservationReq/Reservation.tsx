@@ -29,10 +29,10 @@ const Reservation = ({ navigation }: any) => {
   const startDate = getFormatedDate(tomorrow, 'YYYY/MM/DD');
 
   const [selectedOption, setSelectedOption] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<Boolean>(false);
   const [fullName, setFullName] = useState('');
 
-  const [guests, setGuests] = useState('');
+  const [guests, setGuests] = useState<Number>(0);
   const [exp, setExp] = useState('');
   const [cvv, setCVV] = useState('');
   const [open, setOpen] = useState(false);
@@ -79,7 +79,7 @@ const Reservation = ({ navigation }: any) => {
         {
           restaurant: selectedOption,
           date: date,
-          guests: parseInt(guests),
+          guests: guests,
           preferredTime: selectedPreferredTime,
           backupTime: selectedBackupTime,
           fullName,
@@ -207,7 +207,7 @@ const Reservation = ({ navigation }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const guestsOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Example options
 
-  const handleGuestSelect = (guest) => {
+  const handleGuestSelect = (guest:number) => {
     setGuests(guest);
     setModalVisible(false);
   };
