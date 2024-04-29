@@ -1,14 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, Image, Alert, SafeAreaView, StyleSheet } from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Alert,
+  SafeAreaView,
+  StyleSheet,
+} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-const Verify = ({ navigation }: any) => {
+const Verify = ({navigation}: any) => {
   const [code, setCode] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [emailID, setEmailID] = useState<string | null>(null);
-
 
   useEffect(() => {
     const fetchEmail = async () => {
@@ -19,7 +26,8 @@ const Verify = ({ navigation }: any) => {
     fetchEmail();
   }, []);
 
-  const hiddenPart = emailID?.split('@')[0].slice(0, 3) + '@' + emailID?.split('@')[1];
+  const hiddenPart =
+    emailID?.split('@')[0].slice(0, 3) + '@' + emailID?.split('@')[1];
 
   const handleSubmit = async () => {
     const completeCode = code;
@@ -45,15 +53,19 @@ const Verify = ({ navigation }: any) => {
       if (response.status === 200) {
         Alert.alert(
           'Success',
-          response.data.message || 'Verification successful, please update your password!',
+          response.data.message ||
+            'Verification successful, please update your password!',
         );
-        navigation.navigate('confirmation', { email: emailID });
+        navigation.navigate('confirmation', {email: emailID});
       } else {
         const errorMessage = response.data.message || 'Something went wrong.';
         Alert.alert('Error', errorMessage);
       }
     } catch (error) {
-      Alert.alert('Error', error.response?.data.message || 'Failed to verify code!');
+      Alert.alert(
+        'Error',
+        error.response?.data.message || 'Failed to verify code!',
+      );
     } finally {
       setLoading(false);
     }
@@ -90,8 +102,7 @@ const Verify = ({ navigation }: any) => {
     }
   };
 
-
-  const handleContactSupport = () => { };
+  const handleContactSupport = () => {};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -112,27 +123,12 @@ const Verify = ({ navigation }: any) => {
       <View style={styles.maincontent}>
         <Text style={styles.title}>Forgot Password</Text>
         <View>
-  <Text style={styles.subtitle}>
-    Password recovery email sent to{' '}
-  </Text>
-  <View style={styles.hiddenContainer}>
-    <Text style={{color:"#fff",fontSize:16}}>{hiddenPart}</Text>
-  </View>
-</View>
+          <Text style={styles.subtitle}>Password recovery email sent to </Text>
+          <View style={styles.hiddenContainer}>
+            <Text style={{color: '#fff', fontSize: 16}}>{hiddenPart}</Text>
+          </View>
+        </View>
       </View>
-      <OTPInputView
-        style={{width: '100%', height: 70}}
-        pinCount={4}
-        // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-        // onCodeChanged = {code => { this.setState({code})}}
-        autoFocusOnLoad
-        codeInputFieldStyle={styles.underlineStyleBase}
-        codeInputHighlightStyle={styles.underlineStyleHighLighted}
-        onCodeFilled={code => {
-          console.log(`Code is ${code}, you are good to go!`);
-        }}
-      />
-
 
       <OTPInputView
         style={styles.otpInput}
@@ -140,7 +136,7 @@ const Verify = ({ navigation }: any) => {
         autoFocusOnLoad
         codeInputFieldStyle={styles.underlineStyleBase}
         codeInputHighlightStyle={styles.underlineStyleHighLighted}
-        onCodeFilled={(code) => setCode(code)}
+        onCodeFilled={code => setCode(code)}
       />
       <View style={styles.seccont}>
         <View style={styles.resend}>
@@ -154,7 +150,7 @@ const Verify = ({ navigation }: any) => {
         </View>
       </View>
       <View>
-        <View style={{ alignItems: 'center',marginTop:100}}>
+        <View style={{alignItems: 'center', marginTop: 100}}>
           <TouchableOpacity
             style={styles.button}
             disabled={loading}
@@ -178,7 +174,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000000',
-    paddingVertical:30
+    paddingVertical: 30,
   },
   backButton: {
     position: 'absolute',
@@ -207,14 +203,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   hiddenContainer: {
-    flexDirection: 'row', 
-    color:"#fff",
-    alignItems:"center",
-    justifyContent:"center"
-    
+    fontFamily: 'Poppins-Medium',
+    fontSize:16,
+    lineHeight: 25,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   hidden: {
-    color:"#fff"
+    color: '#fff',
   },
   icon: {
     marginRight: 10,
@@ -247,10 +244,9 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: '#F4F4F6',
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Light',
     textAlign: 'center',
     lineHeight: 25,
-    fontWeight:"500"
   },
   title: {
     justifyContent: 'center',
@@ -259,7 +255,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: '#F4F4F6',
     fontWeight: '600',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'PlayfairDisplay-Bold',
     marginBottom: 10,
     textTransform: 'uppercase',
   },
@@ -284,7 +280,7 @@ const styles = StyleSheet.create({
   resend: {
     alignItems: 'flex-start',
     fontSize: 16,
-    paddingHorizontal:20,
+    paddingHorizontal: 20,
     fontWeight: '500',
   },
   contactsup: {
@@ -307,15 +303,14 @@ const styles = StyleSheet.create({
   },
   seccont: {
     alignItems: 'flex-start',
-   
   },
   borderStyleBase: {
     width: 40,
-    height: 45
+    height: 45,
   },
 
   borderStyleHighLighted: {
-    borderColor: "#fff",
+    borderColor: '#fff',
   },
 
   underlineStyleBase: {
@@ -323,14 +318,14 @@ const styles = StyleSheet.create({
     height: 60,
     borderWidth: 0,
     borderBottomWidth: 1,
-    fontSize:30
+    fontSize: 30,
   },
 
   underlineStyleHighLighted: {
-    borderColor: "#fff",
+    borderColor: '#fff',
   },
   otpInput: {
-    marginTop:30,
+    marginTop: 30,
     width: '90%',
     height: 120,
     justifyContent: 'center',

@@ -113,7 +113,7 @@ const Confirmpass = ({navigation}: any) => {
           <TextInput
             style={styles.input}
             placeholder="New Password"
-            placeholderTextColor="#F4F4F6"
+            placeholderTextColor="#FFFFFF"
             value={newPassword}
             onChangeText={setNewPassword}
             secureTextEntry={!showPassword}
@@ -131,7 +131,7 @@ const Confirmpass = ({navigation}: any) => {
           <TextInput
             style={styles.input}
             placeholder="Confirm New Password"
-            placeholderTextColor="#F4F4F6"
+            placeholderTextColor="#FFFFFF"
             value={confirmPassword}
             onChangeText={setConfirmPassword}
             secureTextEntry={!showPassword2}
@@ -177,9 +177,9 @@ const styles = StyleSheet.create({
     flex: 1,
     height:55,
     backgroundColor: 'transparent',
-    color: '#F4F4F6',
+    color: '#FFFFFF',
     fontSize: 16,
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins-Medium',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -249,13 +249,13 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#fff',
-    fontFamily: 'IbarraRealNova-Regular',
+    color: '#F4F4F6',
+    fontFamily: 'Poppins-Light',
   },
   title: {
     fontSize: 30,
     color: '#F4F4F6',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'PlayfairDisplay-SemiBold',
     marginBottom: 5,
   },
   maincontent: {

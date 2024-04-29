@@ -236,7 +236,6 @@ const styles = StyleSheet.create({
 
   legalLinks: {
     marginTop: 20,
-    width: 350,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -247,6 +246,8 @@ const styles = StyleSheet.create({
     color: '#F4F4F6',
     fontSize: 11,
     fontWeight: "300",
+    justifyContent:'center',
+    alignItems:'center',
     textAlign: 'center',
     fontFamily: 'poppins',
   },
@@ -260,6 +261,7 @@ const styles = StyleSheet.create({
 
   legalTexted: {
     color: '#F4F4F6',
+    textAlign:'center',
     fontSize: 16,
     fontWeight: "300",
     fontFamily: 'Poppins-Light',

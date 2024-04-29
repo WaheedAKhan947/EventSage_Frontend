@@ -120,23 +120,20 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
+    height: 45,
     width: 340,
     backgroundColor: 'transparent',
     color: '#FFFFFF',
     fontSize: 16,
-    fontFamily: 'IbarraRealNova-Regular',
-  
+    fontFamily: 'Poppins-Medium',
   },
   inputContainer: {
     flexDirection: 'row',
-    width:370,
+    width: 370,
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#FFFFFF',
     marginBottom: 30,
-    width:360
-    
   },
   icon: {
     marginRight: 10,
@@ -147,7 +144,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E6E6E9',
     paddingVertical: 16,
     paddingHorizontal: 16,
-    margin: 30,
+    margin: 15,
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
@@ -156,7 +153,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#000000',
     fontSize: 16,
-    fontFamily:"Poppins"
+    fontFamily: 'Poppins',
   },
   logo: {
     width: 126,
@@ -173,14 +170,13 @@ const styles = StyleSheet.create({
   legalTexted: {
     color: '#F4F4F6',
     fontSize: 11,
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins-Light',
   },
   legalLinked: {
     fontSize: 11,
     color: '#F4F4F6',
-    fontWeight: '400',
     textDecorationLine: 'underline',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins-Medium',
   },
 
   headerContainer: {
@@ -198,16 +194,16 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: '#F4F4F6',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins-Light',
   },
   title: {
     fontSize: 32,
-    width: 340,
+    textAlign: 'center',
     fontWeight: '600',
     color: '#F4F4F6',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'PlayfairDisplay-SemiBold',
     marginTop: 60,
-    marginBottom: 20,
+    marginBottom: 10,
     textTransform: 'uppercase',
   },
   maincontent: {
@@ -215,7 +211,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitBtn: {
-    marginTop: 130,
+    marginTop: 40,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
