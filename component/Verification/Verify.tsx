@@ -52,7 +52,7 @@ const Verify = ({ navigation }: any) => {
         const errorMessage = response.data.message || 'Something went wrong.';
         Alert.alert('Error', errorMessage);
       }
-    } catch (error) {
+    } catch (error:any) {
       Alert.alert('Error', error.response?.data.message || 'Failed to verify code!');
     } finally {
       setLoading(false);

@@ -477,10 +477,8 @@ const Reservation = ({ navigation }: any) => {
 
           </TouchableOpacity>
         </View>
-
-
       </ScrollView>
-      {/* <ReservationFooter  />  */}
+    
     </View>
 
   );
@@ -531,7 +529,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     backgroundColor: '#000000',
     fontSize: 16,
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins-Medium',
   },
 
   dropdownContainer: {
@@ -540,8 +538,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: "#fff",
-    height: 40,
-    marginVertical: 10
+    height: 45,
+    marginVertical: 10,
+    fontSize: 16,
+    fontFamily: 'Poppins-Medium',
   },
   row: {
     flexDirection: 'row',
@@ -556,7 +556,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#E6E6E9',
     marginRight: 'auto',
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
 
   },
 
@@ -595,8 +595,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'black',
     fontSize: 16,
-    fontWeight: '600',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
   },
   logo: {
     width: 155,
@@ -633,12 +632,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     color: '#fff',
     fontSize: 16,
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
 
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    fontFamily: 'Poppins-Medium',
 
   },
   icon: {
@@ -655,25 +655,23 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 14,
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
   },
   textp: {
     color: '#fff',
     fontSize: 24,
-    fontWeight: '500',
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
   },
   subtitle: {
     fontSize: 16,
     color: '#E6E6E9',
     textAlign: 'center',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Regular',
   },
   title: {
-    fontSize: 28,
+    fontSize: 30,
     color: '#fff',
-    fontWeight: "600",
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'PlayfairDisplay-SemiBold',
     textAlign: 'center',
     marginBottom: 10,
     marginTop: 45

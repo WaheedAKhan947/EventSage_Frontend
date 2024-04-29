@@ -181,11 +181,12 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
+    height: 45,
     backgroundColor: 'transparent',
     color: 'white',
     fontSize: 16,
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
+  
   },
   inputContainer: {
     flexDirection: 'row',
@@ -213,12 +214,12 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
   },
   linkText: {
     color: '#fff',
     fontSize: 16,
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
     textDecorationLine: "underline",
   },
   logo: {
@@ -235,27 +236,27 @@ const styles = StyleSheet.create({
   },
 
   legalLinks: {
-    marginTop: 20,
+    marginTop: 10,
     width: 350,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: "poppins"
+    fontFamily: "Poppins-Light"
   },
   legalText: {
     color: '#F4F4F6',
     fontSize: 11,
     fontWeight: "300",
     textAlign: 'center',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Light',
   },
   legalLink: {
     fontSize: 11,
     fontWeight: "300",
     color: '#F4F4F6',
     textAlign: 'center',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Light',
   },
 
   legalTexted: {

@@ -93,13 +93,13 @@ return (
       {data.map((item, index) => (
         <View style={styles.mainbox} key={index}>
           <View style={styles.box1}>
-            <Text style={{ fontSize: 13, color: "#E6E6E9" }}>Restaurent</Text>
-            <Text style={{ fontSize: 18, color: "#fff" }}>{item.restaurant}</Text>
+            <Text style={{ fontSize: 13,fontFamily:"Poppins-Light", color: "#E6E6E9" }}>Restaurent</Text>
+            <Text style={{ fontSize: 18,fontFamily:"Poppins-Light",color: "#fff" }}>{item.restaurant}</Text>
           </View>
           <View style={styles.box2}>
             <View style={styles.b1}>
-              <Text style={{ fontSize: 13, color: "#E6E6E9" }}>Date</Text>
-              <Text style={{ fontSize: 14, color: "#fff" }}>{item.date}</Text>
+              <Text style={{ fontSize: 13,fontFamily:"Poppins-Light", color: "#E6E6E9" }}>Date</Text>
+              <Text style={{ fontSize: 14,fontFamily:"Poppins-Medium", color: "#fff" }}>{item.date}</Text>
             </View>
             <View style={styles.b2}>
               <Text style={{ fontSize: 13, color: "#E6E6E9" }}>Total</Text>
@@ -194,10 +194,9 @@ textp: {
 },
 
 title: {
-  fontSize: 28,
+  fontSize: 30,
   color: '#fff',
-  fontWeight: "600",
-  fontFamily: 'IbarraRealNova-Regular',
+  fontFamily: 'PlayfairDisplay-SemiBold',
   textAlign: 'center',
   marginBottom: 20,
   marginTop: 45

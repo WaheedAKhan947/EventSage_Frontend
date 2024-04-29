@@ -92,7 +92,7 @@ const SignUp = ({navigation}: any) => {
       <View style={{flex:1, flexDirection:"column",gap:10,marginTop:10}}>
       <Text style={styles.title}>Let's Get Started!</Text>
       <View style={styles.ascontainer}>
-        <Text style={styles.legalTexted}>Already have an account? </Text>
+        <Text style={styles.subt}>Already have an account? </Text>
         <Text
           style={styles.legalLinked}
           onPress={() => navigation.navigate('Login')}>
@@ -184,13 +184,13 @@ const SignUp = ({navigation}: any) => {
         <Text style={styles.legalText}> and </Text>
         <Text
           onPress={() => navigation.navigate('dropdown')}
-          style={styles.legalLink}>
+          style={{fontSize:11, fontFamily: 'Poppins-Light',color: '#F4F4F6'}}>
           Community Guidelines
         </Text>
-        <Text style={styles.legalText}> and have read the </Text>
+        <Text style={{fontSize:11, fontFamily: 'Poppins-Light',color: '#F4F4F6'}}> and have read the </Text>
         <Text
           onPress={() => navigation.navigate('privacy')}
-          style={styles.legalLink}>
+          style={{fontSize:11, fontFamily: 'Poppins-Light',color: '#F4F4F6'}}>
           {' '}
           Privacy Policy
         </Text>
@@ -211,8 +211,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     color: '#fff',
-    fontWeight: '600',
-    fontFamily: 'Playfair Display',
+    fontFamily: 'PlayfairDisplay-SemiBold',
+    textAlign:"center"
   },
   subtitle: {
     fontSize: 16,
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center',
     fontWeight: 'normal',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins-Light',
   },
   txt: {
     fontSize: 14,
@@ -231,18 +231,18 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
+    height: 45,
     backgroundColor: 'transparent',
     color: '#fff',
     fontSize: 16,
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'Poppins-Medium'
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: 'white',
-    marginVertical:13,
+    marginVertical:10,
   },
   icon: {
     marginRight: 10,
@@ -263,12 +263,12 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
   },
 
   logo: {
     width: 126,
-    height: 125,
+    height: 122,
     alignSelf: 'center',
   },
   ascontainer: {
@@ -283,33 +283,39 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Light',
   },
   legalText: {
-    fontFamily: 'poppins',
-    color: '#fff',
+    fontFamily: 'Poppins-Light',
+    color: '#F4F4F6',
     fontSize: 11,
     textAlign: 'center',
   },
   legalLink: {
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Light',
     fontSize: 11,
-    color: 'white',
+    color: '#fff',
     textAlign: 'center',
   },
 
   legalTexted: {
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Light',
     fontWeight:"300",
-    color: '#fff',
+    color: '#F4F4F6',
     fontSize: 16,
   },
   legalLinked: {
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
     fontSize: 16,
-    color: '#fff',
+    color: '#F4F4F6',
     textDecorationLine: 'underline',
   },
+  subt:{
+    fontFamily: 'Poppins-Light',
+    fontSize: 16,
+    color: "#fff"
+
+  }
 });
 
 export default SignUp;

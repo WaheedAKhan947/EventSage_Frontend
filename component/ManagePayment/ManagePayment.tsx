@@ -36,7 +36,7 @@ const ManagePayment = ({ navigation }: any) => {
           />
         </TouchableOpacity>
         <View>
-          <Text style={{ color: "#fff", fontSize: 30, fontFamily: 'IbarraRealNova-Regular', textAlign: "center", marginTop: 20 }}>PAYMENT METHODS</Text>
+          <Text style={{ color: "#fff", fontSize: 32, fontFamily: 'PlayfairDisplay-SemiBold', textAlign: "center", marginTop: 20 }}>PAYMENT METHODS</Text>
         </View>
 
         {paymentMethods.map((method) => (

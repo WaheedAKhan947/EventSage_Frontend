@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   itemTextStyle: {
     color: '#fff',  
     fontSize: 16,
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
      borderBottomWidth:1,
     borderBottomColor:"#E6E6E9",
     padding:4
@@ -94,8 +94,9 @@ const styles = StyleSheet.create({
 
   },
   dropdown: {
-    height: 40,
+    height: 45,
     alignItems:"center",
+    
   },
   icon: {
     marginRight: 10,
@@ -108,13 +109,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     fontSize: 16,
     color: '#fff',
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
   },
   placeholderStyle: {
     marginLeft: 35,
     fontSize: 16,
     color: '#fff',
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
   },
   selectedTextStyle: {
     fontSize: 16,

@@ -114,7 +114,7 @@ const PaymentMehtod = ({navigation}: any) => {
           source={require('../../assets/wcountry.png')}
           style={styles.image}
         />
-        <Text style={{ color: '#fff' }}>
+        <Text style={{ color: '#fff',fontFamily:"Poppins-Medium",fontSize:16 }}>
           {selectedCountry ? selectedCountry.name : 'Country or region'} 
         </Text>
       </TouchableOpacity>
@@ -150,7 +150,7 @@ const PaymentMehtod = ({navigation}: any) => {
         
       </View>
 
-      <View style={{ flex: 1, alignSelf: "center", justifyContent: "flex-end", marginBottom: 40 }}>
+      <View style={{ flex: 1, alignSelf: "center", justifyContent: "flex-end", marginBottom:30 }}>
           <TouchableOpacity style={styles.button} onPress={PaymentMehtod}>
 
             <Text style={styles.buttonText}>Save card & continue</Text>
@@ -235,8 +235,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'black',
     fontSize: 16,
-    fontWeight: '600',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
   },
   logo: {
     width: 140,
@@ -266,7 +265,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     color: '#fff',
     fontSize: 16,
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -274,6 +273,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E9',
     marginVertical:20,
+    
   },
   icon: {
     marginRight: 12,
@@ -299,14 +299,14 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#fff',
+    color: '#E6E6E9',
     textAlign: 'center',
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Regular',
   },
   title: {
-    fontSize: 25,
+    fontSize: 29,
     color: '#fff',
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'PlayfairDisplay-SemiBold',
     textAlign: 'center',
     marginBottom:10
    
