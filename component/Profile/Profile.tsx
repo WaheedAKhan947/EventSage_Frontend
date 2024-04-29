@@ -13,6 +13,10 @@ import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
 
 const Profile = ({ navigation }: any) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
 
   const handleUpdateProfile = () => {
     Alert.alert(
@@ -67,23 +71,43 @@ const Profile = ({ navigation }: any) => {
         <Text style={styles.subtitle}>Track your personal information here</Text>
         <View style={styles.mainbox}>
           <View style={styles.box1}>
-            <View style={styles.maincontent}>
-              <View style={styles.inputContainer}>
-                <Text style={styles.input}>Eric Survillan</Text>
-              </View>
-              <View style={styles.inputContainer}>
-                <Text style={styles.input}>sample@gmail.com</Text>
-              </View>
-              <View style={styles.inputContainer}>
-                <Text style={styles.input}>824-8585-628</Text>
-              </View>
-            </View>
+          <View style={styles.maincontent}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Full Name"
+          placeholderTextColor="#fff"
+          value={name}
+          onChangeText={setName}
+        
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#fff"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          placeholderTextColor="#fff"
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          keyboardType="numeric" 
+        />
+      </View>
+    </View>
           </View>
           <View style={styles.box2}>
-            <View style={{ flex: 1, alignSelf: "center", justifyContent: "flex-end" }}>
+            <View style={{ flex: 1, alignSelf: "center", justifyContent: "center" }}>
               <TouchableOpacity style={styles.button} onPress={handleUpdateProfile}>
 
-                <Text style={styles.buttonText}>Request Reservation</Text>
+                <Text style={styles.buttonText}>Update Changes</Text>
 
               </TouchableOpacity>
             </View>
@@ -101,8 +125,8 @@ const Profile = ({ navigation }: any) => {
 const styles = StyleSheet.create({
 
   mainContainer: {
-    flex: 1,
-    position: 'relative',
+    flexGrow: 1,
+    
 
   },
   container: {
@@ -111,7 +135,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     backgroundColor: '#000000',
     fontSize: 16,
-    fontFamily: 'IbarraRealNova-Regular',
+    
 
   },
 
@@ -177,12 +201,13 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: 25,
+    height: 50,
     backgroundColor: 'transparent',
     color: '#fff',
     fontSize: 16,
     fontFamily: 'Poppins',
-    marginTop: 2
+    width:"100%"
+    
   },
   inputContainer: {
     flexDirection: 'row',
@@ -190,7 +215,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E9',
     marginBottom: 30,
-    paddingBottom: 20
+    color:"#fff"
+  
+  
   },
   maincontent: {
     marginTop: 40,
@@ -213,8 +240,9 @@ const styles = StyleSheet.create({
   },
   mainbox: {
     flexGrow: 1,
-    justifyContent: "space-between",
-    marginBottom: 40
+    justifyContent:"space-between",
+    marginBottom:60
+   
 
   },
   box1: {},

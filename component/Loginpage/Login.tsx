@@ -10,7 +10,7 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+
 
 const SignIn = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -65,100 +65,103 @@ const SignIn = ({ navigation }: any) => {
         : 'Something went wrong.';
       Alert.alert('Error', errorMessage);
     } finally {
-      setIsSigningIn(false); 
+      setIsSigningIn(false);
     }
   };
 
   return (
     <View style={styles.container}>
       <View>
-      <Image
-        source={require('../../assets/tutu_white.png')}
-        style={styles.logo}
-      />
+        <Image
+          source={require('../../assets/tutu_white.png')}
+          style={styles.logo}
+        />
 
-      <View style={styles.maincontainer}>
-        <Text style={{ fontSize: 32, fontWeight: "600", color: "white", fontFamily: 'IbarraRealNova-Regular' }}>LOGIN</Text>
-        <View style={{ flexDirection: "row", marginTop: 10 }}>
-          <Text style={styles.legalTexted}>Don't have an account? </Text>
-          <Text
-            style={styles.legalLinked}
-            onPress={() => navigation.navigate('Signup')}>
-            Sign up
-          </Text>
-        </View>
-      </View>
-
-      <View style={{ marginTop: 10}}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#fff"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-          />
+        <View style={styles.maincontainer}>
+          <Text style={{ fontSize: 32, fontWeight: "600", color: "white", fontFamily: 'IbarraRealNova-Regular' }}>LOGIN</Text>
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <Text style={styles.legalTexted}>Don't have an account? </Text>
+            <Text
+              style={styles.legalLinked}
+              onPress={() => navigation.navigate('Signup')}>
+              Sign up
+            </Text>
+          </View>
         </View>
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            placeholderTextColor="#fff"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!showPassword}
-          />
-          <TouchableOpacity onPress={togglePasswordVisibility}>
-            <Image
-              source={require('../../assets/hiddenpass.png')}
-              style={styles.icon}
+
+        <View style={{ marginTop: 10 }}>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="#fff"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
             />
-          </TouchableOpacity>
+          </View>
+
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              placeholderTextColor="#fff"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+            />
+            <TouchableOpacity onPress={togglePasswordVisibility}>
+              <Image
+                source={require('../../assets/hiddenpass.png')}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View >
+            <TouchableOpacity onPress={() => navigation.navigate('forget')}>
+              <Text style={styles.linkText}>Forgot Password?</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
 
-      <View >
-        <TouchableOpacity onPress={() => navigation.navigate('forget')}>
-          <Text style={styles.linkText}>Forgot Password?</Text>
-        </TouchableOpacity>
-      </View>
-      </View>
 
-<View>
-      <View style={{ alignItems: "center",}}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleSignIn}
-          disabled={isSigningIn}>
-          <Text style={styles.buttonText}>
-            {isSigningIn ? 'Login...' : 'Login'}
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <View>
+          <View style={{ alignItems: "center", marginTop: 150 }}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleSignIn}
+              disabled={isSigningIn}>
+              <Text style={styles.buttonText}>
+                {isSigningIn ? 'Login' : 'Login'}
+              </Text>
+            </TouchableOpacity>
+          </View>
 
 
 
-      <View style={styles.legalLinks}>
-        <Text style={styles.legalText}>By signing in, I accept the </Text>
-        <Text style={styles.legalLink}>Terms of Service</Text>
-        <Text style={styles.legalText}> and </Text>
-        <Text
-          onPress={() => navigation.navigate('reservation')}
-          style={styles.legalLink}>
-          Community Guidelines
-        </Text>
-        <Text style={styles.legalText}> and have read the </Text>
-        <Text
-          onPress={() => navigation.navigate('privacy')}
-          style={styles.legalLink}>
-          {' '}
-          Privacy Policy
-        </Text>
-      </View>
+          <View style={styles.legalLinks}>
+            <Text style={styles.legalText}>By signing in, I accept the </Text>
+            <Text style={styles.legalLink}>Terms of Service</Text>
+            <Text style={styles.legalText}> and </Text>
+            <Text
+              
+              style={styles.legalLink}>
+              Community Guidelines
+            </Text>
+            <Text style={styles.legalText}> and have read the </Text>
+            <Text
+              onPress={() => navigation.navigate('privacy')}
+              style={styles.legalLink}>
+              {' '}
+              Privacy Policy
+            </Text>
+          </View>
+        </View>
       </View>
     </View>
+
   );
 };
 const styles = StyleSheet.create({
@@ -166,7 +169,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#000000',
-    justifyContent:"space-between"
+
   },
 
   txt: {
@@ -204,7 +207,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 160
   },
-  
+
   buttonText: {
     color: 'black',
     fontSize: 16,
@@ -231,24 +234,24 @@ const styles = StyleSheet.create({
   },
 
   legalLinks: {
-    marginTop:20,
+    marginTop: 20,
     width: 350,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily:"poppins"
+    fontFamily: "poppins"
   },
   legalText: {
     color: '#F4F4F6',
     fontSize: 11,
-    fontWeight:"300",
+    fontWeight: "300",
     textAlign: 'center',
     fontFamily: 'poppins',
   },
   legalLink: {
     fontSize: 11,
-    fontWeight:"300",
+    fontWeight: "300",
     color: '#F4F4F6',
     textAlign: 'center',
     fontFamily: 'poppins',
@@ -257,7 +260,7 @@ const styles = StyleSheet.create({
   legalTexted: {
     color: 'white',
     fontSize: 16,
-    fontWeight:"300",
+    fontWeight: "300",
     fontFamily: 'poppins',
   },
   legalLinked: {

@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontFamily: 'IbarraRealNova-Regular',
+  
   },
   inputContainer: {
     flexDirection: 'row',
@@ -134,6 +135,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#FFFFFF',
     marginBottom: 30,
+    width:360
+    
   },
   icon: {
     marginRight: 10,
@@ -153,7 +156,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#000000',
     fontSize: 16,
+<<<<<<< HEAD
     fontFamily:'Poppins',
+=======
+    fontFamily:"Poppins"
+>>>>>>> ee8e910c8ab75b28ecc61ed1ed884f126362cad1
   },
   logo: {
     width: 126,

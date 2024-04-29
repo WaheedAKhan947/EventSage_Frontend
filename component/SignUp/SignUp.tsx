@@ -171,7 +171,7 @@ const SignUp = ({navigation}: any) => {
         onPress={handleSignUp}
         disabled={isSigningUp}>
           <Text style={styles.buttonText}>
-            {isSigningUp ? 'Signing Up...' : 'Sign Up'}
+            {isSigningUp ? 'Signing Up' : 'Sign Up'}
           </Text>
       </TouchableOpacity>
       </View>

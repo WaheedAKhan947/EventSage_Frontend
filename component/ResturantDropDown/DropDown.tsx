@@ -58,7 +58,7 @@ const DropdownComponent = ({
         iconStyle={styles.iconStyle}
         data={restaurants}
         activeColor="#242424"
-        maxHeight={250}
+        maxHeight={300}
         labelField="label"
         valueField="value"
         placeholder={!isFocus ? 'Select Restaurant' : ''}
@@ -85,16 +85,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins',
      borderBottomWidth:1,
     borderBottomColor:"#E6E6E9",
+    padding:4
 
   },
   container: {
     paddingVertical: 8,
+    
 
   },
   dropdown: {
     height: 40,
-    position:"relative",
-    top:12
+    alignItems:"center",
   },
   icon: {
     marginRight: 10,
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins',
   },
   placeholderStyle: {
-    marginLeft: 30,
+    marginLeft: 35,
     fontSize: 16,
     color: '#fff',
     fontFamily: 'Poppins',
@@ -119,13 +120,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     marginLeft: 30,
+    marginTop:10,
     fontFamily: 'Poppins',
   },
   iconStyle: {
     width: 20,
     height: 20,
     position: 'relative',
-    left: 5,
+  
   },
   inputSearchStyle: {
     
@@ -136,8 +138,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     backgroundColor: '#242424',
-    color: 'white',
-   
+    color: 'white',   
   },
 
   inputImage: {

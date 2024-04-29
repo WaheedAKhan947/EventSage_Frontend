@@ -39,6 +39,7 @@ const Reservations = ({navigation}: any) => {
     guests: 2,
   },
   
+  
 ];
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   
@@ -155,6 +156,7 @@ mainContainer: {
   position: 'relative',
 
 
+
 },
 container: {
   flexGrow: 1,
@@ -163,7 +165,7 @@ container: {
   backgroundColor: '#000000',
   fontSize: 16,
   fontFamily: 'IbarraRealNova-Regular',
-  gap:10
+  gap:10,
 },
 
 logo: {
