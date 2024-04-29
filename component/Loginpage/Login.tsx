@@ -78,7 +78,7 @@ const SignIn = ({ navigation }: any) => {
         />
 
         <View style={styles.maincontainer}>
-          <Text style={{ fontSize: 32, fontWeight: "600", color: "white", fontFamily: 'PlayfairDisplay-Bold' }}>LOGIN</Text>
+          <Text style={{ fontSize:32,color: "white",fontFamily:"PlayfairDisplay-SemiBold" }}>LOGIN</Text>
           <View style={{ flexDirection: "row", marginTop: 10 }}>
             <Text style={styles.legalTexted}>Don't have an account? </Text>
             <Text
@@ -128,7 +128,7 @@ const SignIn = ({ navigation }: any) => {
 
 
         <View>
-          <View style={{ alignItems: "center", marginTop: 150 }}>
+          <View style={{ alignItems: "center",marginTop:100 }}>
             <TouchableOpacity
               style={styles.button}
               onPress={handleSignIn}
@@ -146,7 +146,7 @@ const SignIn = ({ navigation }: any) => {
             <Text style={styles.legalLink}>Terms of Service</Text>
             <Text style={styles.legalText}> and </Text>
             <Text
-              
+              onPress={() => navigation.navigate('reservation')}
               style={styles.legalLink}>
               Community Guidelines
             </Text>
@@ -167,7 +167,8 @@ const SignIn = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical:40,
     backgroundColor: '#000000',
 
   },
@@ -258,16 +259,17 @@ const styles = StyleSheet.create({
   },
 
   legalTexted: {
-    color: 'white',
+    color: '#F4F4F6',
     fontSize: 16,
     fontWeight: "300",
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Light',
+  
   },
   legalLinked: {
     fontSize: 16,
     color: 'white',
     textDecorationLine: 'underline',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
   },
 });
 

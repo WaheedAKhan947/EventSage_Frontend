@@ -121,7 +121,6 @@ const PaymentMehtod = ({navigation}: any) => {
 
       {isDropdownOpen && (
         <CountryPicker
-          
           withCountryNameButton
           withAlphaFilter
           withCallingCode

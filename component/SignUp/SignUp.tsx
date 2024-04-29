@@ -10,7 +10,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+
 
 const SignUp = ({navigation}: any) => {
   const [fullName, setFullName] = useState('');
@@ -89,7 +89,7 @@ const SignUp = ({navigation}: any) => {
         source={require('../../assets/tutu_white.png')}
         style={styles.logo}
       />
-      <View style={{flex:1, flexDirection:"column",gap:10,marginTop:20}}>
+      <View style={{flex:1, flexDirection:"column",gap:10,marginTop:10}}>
       <Text style={styles.title}>Let's Get Started!</Text>
       <View style={styles.ascontainer}>
         <Text style={styles.legalTexted}>Already have an account? </Text>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     alignItems:"center",
-    paddingVertical: 20,
+    paddingVertical: 40,
     paddingHorizontal: 20,
     backgroundColor: '#000000',
   },
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: 'white',
-    marginVertical:15,
+    marginVertical:13,
   },
   icon: {
     marginRight: 10,

@@ -12,17 +12,14 @@ const ReservationRequest = ({navigation}: any) => {
   };
 
   const handleDeny = () => {
-    // Logic for denying action
     toggleModal();
   };
 
   const handleApprove = () => {
-    // Logic for approving action
     toggleModal();
   };
 
   const handleSelectPreferredTime = () => {
-    // Logic for selecting preferred time
     toggleModal();
   };
   const data = [
@@ -151,11 +148,11 @@ const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'flex-end', // Align modal to the bottom
+    justifyContent: 'flex-end', 
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'flex-end', // Align modal to the bottom
+    justifyContent: 'flex-end', 
   },
  
   
