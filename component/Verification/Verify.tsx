@@ -12,34 +12,23 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Confirmpass from '../Confirmpassword/passwrodConfirm';
-
-
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 const Verify = ({navigation}: any) => {
-  const [code, setCode] = useState<string>();
+  // const [code, setCode] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [emailID, setEmailID] = useState<string | null>(null);
-  const [f1, setf1] = useState('');
-  const [f2, setf2] = useState('');
-  const [f3, setf3] = useState('');
-  const [f4, setf4] = useState('');
-<<<<<<< HEAD
-  const et1 = useRef();
-  const et2 = useRef();
-  const et3 = useRef();
-  const et4 = useRef();
-=======
-  const et1: React.RefObject<TextInput> = React.createRef();
-  const et2: React.RefObject<TextInput> = React.createRef();
-  const et3: React.RefObject<TextInput> = React.createRef();
-  const et4: React.RefObject<TextInput> = React.createRef();
+  // const [f1, setf1] = useState('');
+  // const [f2, setf2] = useState('');
+  // const [f3, setf3] = useState('');
+  // const [f4, setf4] = useState('');
+  // const et1: React.RefObject<TextInput> = React.createRef();
+  // const et2: React.RefObject<TextInput> = React.createRef();
+  // const et3: React.RefObject<TextInput> = React.createRef();
+  // const et4: React.RefObject<TextInput> = React.createRef();
 
-  
-
-
->>>>>>> ee8e910c8ab75b28ecc61ed1ed884f126362cad1
   useEffect(() => {
     const fetchEmail = async () => {
       const email = await AsyncStorage.getItem('userEmail');
@@ -51,48 +40,48 @@ const Verify = ({navigation}: any) => {
 
   const hiddenPart =
     emailID?.split('@')[0].slice(0, 3) + '@' + emailID?.split('@')[1];
-    const handleSubmit = async () => {
-      const completeCode = f1 + f2 + f3 + f4;  
-      if (completeCode.length < 4) {
-        Alert.alert('Error', 'Please enter the complete code!');
-        return;
-      }
-      try {
-        setLoading(true);
-        const response = await axios.post(
-          'https://jittery-tan-millipede.cyclic.app/api/v1/auth/confirmOtp',
-          {
-            email: emailID,
-            otp: completeCode,
+  const handleSubmit = async () => {
+    const completeCode = f1 + f2 + f3 + f4;
+    if (completeCode.length < 4) {
+      Alert.alert('Error', 'Please enter the complete code!');
+      return;
+    }
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        'https://jittery-tan-millipede.cyclic.app/api/v1/auth/confirmOtp',
+        {
+          email: emailID,
+          otp: completeCode,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
           },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
+        },
+      );
+
+      if (response.status === 200) {
+        Alert.alert(
+          'Success',
+          response.data.message ||
+            'Verification successful, please update your password!',
         );
-    
-        if (response.status === 200) {
-          Alert.alert(
-            'Success',
-            response.data.message || 'Verification successful, please update your password!',
-          );
-          
-          navigation.navigate('confirmation', { email: emailID }); 
-        } else {
-          const errorMessage = response.data.message || 'Something went wrong.';
-          Alert.alert('Error', errorMessage);
-        }
-<<<<<<< HEAD
-      } catch (error) {
-=======
-      } catch (error: any) {
->>>>>>> ee8e910c8ab75b28ecc61ed1ed884f126362cad1
-        Alert.alert('Error', error.response?.data.message || 'Failed to verify code!');
-      } finally {
-        setLoading(false);
+
+        navigation.navigate('confirmation', {email: emailID});
+      } else {
+        const errorMessage = response.data.message || 'Something went wrong.';
+        Alert.alert('Error', errorMessage);
       }
-    };
+    } catch (error: any) {
+      Alert.alert(
+        'Error',
+        error.response?.data.message || 'Failed to verify code!',
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
   const handlePasswordReset = async () => {
     try {
       setLoading(true);
@@ -151,8 +140,20 @@ const Verify = ({navigation}: any) => {
           <Text style={styles.hidden}>{hiddenPart}</Text>
         </Text>
       </View>
+      <OTPInputView
+        style={{width: '100%', height: 70}}
+        pinCount={4}
+        // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
+        // onCodeChanged = {code => { this.setState({code})}}
+        autoFocusOnLoad
+        codeInputFieldStyle={styles.underlineStyleBase}
+        codeInputHighlightStyle={styles.underlineStyleHighLighted}
+        onCodeFilled={code => {
+          console.log(`Code is ${code}, you are good to go!`);
+        }}
+      />
 
-      <View style={styles.inputContainer}>
+      {/* <View style={styles.inputContainer}>
         <TextInput
           ref={et1}
           style={[
@@ -165,16 +166,6 @@ const Verify = ({navigation}: any) => {
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
-<<<<<<< HEAD
-          value={f1}
-          onChangeText={txt => {
-            setf1(txt);
-            if (txt.length >= 1) {
-              et2.current.focus();
-            }
-          }}
-=======
->>>>>>> ee8e910c8ab75b28ecc61ed1ed884f126362cad1
         />
         <TextInput
           ref={et2}
@@ -188,19 +179,6 @@ const Verify = ({navigation}: any) => {
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
-<<<<<<< HEAD
-          value={f2}
-          onChangeText={txt => {
-            setf2(txt);
-            if (txt.length >= 1) {
-              et3.current.focus();
-            } else if (txt.length < 1) {
-              et1.current.focus();
-            }
-          }}
-=======
-    
->>>>>>> ee8e910c8ab75b28ecc61ed1ed884f126362cad1
         />
         <TextInput
           ref={et3}
@@ -214,19 +192,6 @@ const Verify = ({navigation}: any) => {
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
-<<<<<<< HEAD
-          value={f3}
-          onChangeText={txt => {
-            setf3(txt);
-            if (txt.length >= 1) {
-              et4.current.focus();
-            } else if (txt.length < 1) {
-              et2.current.focus();
-            }
-          }}
-=======
-          
->>>>>>> ee8e910c8ab75b28ecc61ed1ed884f126362cad1
         />
         <TextInput
           ref={et4}
@@ -240,21 +205,8 @@ const Verify = ({navigation}: any) => {
           maxLength={1}
           autoFocus={true}
           placeholderTextColor="#FFFFFF"
-<<<<<<< HEAD
-          value={f4}
-          onChangeText={txt => {
-            setf4(txt);
-            if (txt.length >= 1) {
-              et4.current.focus();
-            } else if (txt.length < 1) {
-              et3.current.focus();
-            }
-          }}
-=======
-          
->>>>>>> ee8e910c8ab75b28ecc61ed1ed884f126362cad1
         />
-      </View>
+      </View> */}
 
       <View style={styles.seccont}>
         <View style={styles.resend}>
@@ -393,11 +345,7 @@ const styles = StyleSheet.create({
   resend: {
     marginTop: 20,
     alignItems: 'flex-start',
-<<<<<<< HEAD
-    fontSize: '16',
-=======
     fontSize: 16,
->>>>>>> ee8e910c8ab75b28ecc61ed1ed884f126362cad1
     fontWeight: '500',
   },
   contactsup: {
@@ -421,7 +369,26 @@ const styles = StyleSheet.create({
   seccont: {
     alignItems: 'flex-start',
     marginTop: 10,
-  }
+  },
+  borderStyleBase: {
+    width: 30,
+    height: 45,
+  },
+
+  borderStyleHighLighted: {
+    borderColor: '#03DAC6',
+  },
+
+  underlineStyleBase: {
+    width: 30,
+    height: 45,
+    borderWidth: 0,
+    borderBottomWidth: 2,
+  },
+
+  underlineStyleHighLighted: {
+    borderColor: '#03DAC6',
+  },
 });
 
 export default Verify;

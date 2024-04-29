@@ -78,7 +78,7 @@ const SignIn = ({ navigation }: any) => {
         />
 
         <View style={styles.maincontainer}>
-          <Text style={{ fontSize: 32, fontWeight: "600", color: "white", fontFamily: 'IbarraRealNova-Regular' }}>LOGIN</Text>
+          <Text style={{ fontSize: 32, fontWeight: "600", color: "white", fontFamily: 'PlayfairDisplay-Bold' }}>LOGIN</Text>
           <View style={{ flexDirection: "row", marginTop: 10 }}>
             <Text style={styles.legalTexted}>Don't have an account? </Text>
             <Text
