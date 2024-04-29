@@ -12,6 +12,10 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import Confirmpass from '../Confirmpassword/passwrodConfirm';
+
+
 
 const Verify = ({navigation}: any) => {
   const [code, setCode] = useState<string>();
@@ -35,42 +39,45 @@ const Verify = ({navigation}: any) => {
   }, []);
 
   const hiddenPart =
-    emailID?.split('@')[0].slice(0, 3) + '****@' + emailID?.split('@')[1];
-  const handleSubmit = async () => {
-    try {
-      if (!code) {
-        return Alert.alert('please enter the code!');
+    emailID?.split('@')[0].slice(0, 3) + '@' + emailID?.split('@')[1];
+    const handleSubmit = async () => {
+      const completeCode = f1 + f2 + f3 + f4;  
+      if (completeCode.length < 4) {
+        Alert.alert('Error', 'Please enter the complete code!');
+        return;
       }
-      setLoading(true);
-      const response = await axios.post(
-        'https://jittery-tan-millipede.cyclic.app/api/v1/auth/confirmOtp',
-        {
-          email: emailID,
-          otp: code,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
+      try {
+        setLoading(true);
+        const response = await axios.post(
+          'https://jittery-tan-millipede.cyclic.app/api/v1/auth/confirmOtp',
+          {
+            email: emailID,
+            otp: completeCode,
           },
-        },
-      );
-
-      if (response.status === 200) {
-        Alert.alert(
-          'Success',
-          response.data.message || 'please update your password!',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
         );
-        navigation.navigate('confirmpass');
-      } else {
-        const errorMessage = response.data.message || 'Something went wrong.';
-        Alert.alert('Error', errorMessage);
+    
+        if (response.status === 200) {
+          Alert.alert(
+            'Success',
+            response.data.message || 'Verification successful, please update your password!',
+          );
+          
+          navigation.navigate('confirmation', { email: emailID }); 
+        } else {
+          const errorMessage = response.data.message || 'Something went wrong.';
+          Alert.alert('Error', errorMessage);
+        }
+      } catch (error) {
+        Alert.alert('Error', error.response?.data.message || 'Failed to verify code!');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      Alert.alert('Error', 'please enter valid code!');
-    }
-  };
+    };
   const handlePasswordReset = async () => {
     try {
       setLoading(true);
@@ -141,7 +148,7 @@ const Verify = ({navigation}: any) => {
           value={code}
           keyboardType="number-pad"
           maxLength={1}
-          autoFocus={true}  
+          autoFocus={true}
           placeholderTextColor="#FFFFFF"
           value={f1}
           onChangeText={txt => {
