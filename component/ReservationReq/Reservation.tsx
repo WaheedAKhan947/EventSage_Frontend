@@ -470,7 +470,7 @@ const Reservation = ({ navigation }: any) => {
 
         {/* Modal */}
 
-        <View style={{ flex: 1, alignSelf: "center", justifyContent: "center" }}>
+        <View style={{ flex: 1, alignSelf: "center", justifyContent: "center",marginBottom:20 }}>
           <TouchableOpacity style={styles.button} onPress={handleReservation}>
 
             <Text style={styles.buttonText}>Request Reservation</Text>
@@ -493,7 +493,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 10,
 
-
   },
   modalpref: {
     flex: 1,
@@ -510,8 +509,6 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 370,
     maxHeight: 300,
-
-
   },
   modalItem: {
     textAlign: "center",
@@ -544,12 +541,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#fff",
     height: 40,
-    marginVertical: 15
+    marginVertical: 10
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 10
+    marginVertical: 5
+    
   },
   halfWidth: {
     width: '45%',

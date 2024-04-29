@@ -1,36 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-  Image,
-  SafeAreaView,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, Image, Alert, SafeAreaView, StyleSheet } from 'react-native';
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
-import Confirmpass from '../Confirmpassword/passwrodConfirm';
 
-
-
-const Verify = ({navigation}: any) => {
-  const [code, setCode] = useState<string>();
-  const [loading, setLoading] = useState(false);
+const Verify = ({ navigation }: any) => {
+  const [code, setCode] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   const [emailID, setEmailID] = useState<string | null>(null);
-  const [f1, setf1] = useState('');
-  const [f2, setf2] = useState('');
-  const [f3, setf3] = useState('');
-  const [f4, setf4] = useState('');
-  const et1: React.RefObject<TextInput> = React.createRef();
-  const et2: React.RefObject<TextInput> = React.createRef();
-  const et3: React.RefObject<TextInput> = React.createRef();
-  const et4: React.RefObject<TextInput> = React.createRef();
-
-  
 
 
   useEffect(() => {
@@ -42,46 +19,46 @@ const Verify = ({navigation}: any) => {
     fetchEmail();
   }, []);
 
-  const hiddenPart =
-    emailID?.split('@')[0].slice(0, 3) + '@' + emailID?.split('@')[1];
-    const handleSubmit = async () => {
-      const completeCode = f1 + f2 + f3 + f4;  
-      if (completeCode.length < 4) {
-        Alert.alert('Error', 'Please enter the complete code!');
-        return;
-      }
-      try {
-        setLoading(true);
-        const response = await axios.post(
-          'https://jittery-tan-millipede.cyclic.app/api/v1/auth/confirmOtp',
-          {
-            email: emailID,
-            otp: completeCode,
+  const hiddenPart = emailID?.split('@')[0].slice(0, 3) + '@' + emailID?.split('@')[1];
+
+  const handleSubmit = async () => {
+    const completeCode = code;
+    if (completeCode.length < 4) {
+      Alert.alert('Error', 'Please enter the complete code!');
+      return;
+    }
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        'https://jittery-tan-millipede.cyclic.app/api/v1/auth/confirmOtp',
+        {
+          email: emailID,
+          otp: completeCode,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
           },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
+        },
+      );
+
+      if (response.status === 200) {
+        Alert.alert(
+          'Success',
+          response.data.message || 'Verification successful, please update your password!',
         );
-    
-        if (response.status === 200) {
-          Alert.alert(
-            'Success',
-            response.data.message || 'Verification successful, please update your password!',
-          );
-          
-          navigation.navigate('confirmation', { email: emailID }); 
-        } else {
-          const errorMessage = response.data.message || 'Something went wrong.';
-          Alert.alert('Error', errorMessage);
-        }
-      } catch (error: any) {
-        Alert.alert('Error', error.response?.data.message || 'Failed to verify code!');
-      } finally {
-        setLoading(false);
+        navigation.navigate('confirmation', { email: emailID });
+      } else {
+        const errorMessage = response.data.message || 'Something went wrong.';
+        Alert.alert('Error', errorMessage);
       }
-    };
+    } catch (error) {
+      Alert.alert('Error', error.response?.data.message || 'Failed to verify code!');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handlePasswordReset = async () => {
     try {
       setLoading(true);
@@ -99,7 +76,6 @@ const Verify = ({navigation}: any) => {
 
       if (response?.status === 200) {
         const responseData = response.data;
-        console.log(response);
         Alert.alert('Success', responseData.message || 'Otp send to you email');
       } else {
         const errorMessage = response.data.message || 'Something went wrong.';
@@ -115,7 +91,8 @@ const Verify = ({navigation}: any) => {
     }
   };
 
-  const handleContactSupport = () => {};
+
+  const handleContactSupport = () => { };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -135,70 +112,25 @@ const Verify = ({navigation}: any) => {
 
       <View style={styles.maincontent}>
         <Text style={styles.title}>Forgot Password</Text>
-        <Text style={styles.subtitle}>
-          Password recovery email sent to{' '}
-          <Text style={styles.hidden}>{hiddenPart}</Text>
-        </Text>
+        <View>
+  <Text style={styles.subtitle}>
+    Password recovery email sent to{' '}
+  </Text>
+  <View style={styles.hiddenContainer}>
+    <Text style={{color:"#fff",fontSize:16}}>{hiddenPart}</Text>
+  </View>
+</View>
       </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          ref={et1}
-          style={[
-            styles.input,
-            {borderBottomColor: f1.length >= 1 ? '#242424' : '#FFFFFF'},
-          ]}
-          onChangeText={text => setCode(text)}
-          value={code}
-          keyboardType="number-pad"
-          maxLength={1}
-          autoFocus={true}
-          placeholderTextColor="#FFFFFF"
-        />
-        <TextInput
-          ref={et2}
-          style={[
-            styles.input,
-            {borderBottomColor: f2.length >= 1 ? '#242424' : '#FFFFFF'},
-          ]}
-          onChangeText={text => setCode(text)}
-          value={code}
-          keyboardType="number-pad"
-          maxLength={1}
-          autoFocus={true}
-          placeholderTextColor="#FFFFFF"
-    
-        />
-        <TextInput
-          ref={et3}
-          style={[
-            styles.input,
-            {borderBottomColor: f3.length >= 1 ? '#242424' : '#FFFFFF'},
-          ]}
-          onChangeText={text => setCode(text)}
-          value={code}
-          keyboardType="number-pad"
-          maxLength={1}
-          autoFocus={true}
-          placeholderTextColor="#FFFFFF"
-          
-        />
-        <TextInput
-          ref={et4}
-          style={[
-            styles.input,
-            {borderBottomColor: f4.length >= 1 ? '#242424' : '#FFFFFF'},
-          ]}
-          onChangeText={text => setCode(text)}
-          value={code}
-          keyboardType="number-pad"
-          maxLength={1}
-          autoFocus={true}
-          placeholderTextColor="#FFFFFF"
-          
-        />
-      </View>
 
+      <OTPInputView
+        style={styles.otpInput}
+        pinCount={4}
+        autoFocusOnLoad
+        codeInputFieldStyle={styles.underlineStyleBase}
+        codeInputHighlightStyle={styles.underlineStyleHighLighted}
+        onCodeFilled={(code) => setCode(code)}
+      />
       <View style={styles.seccont}>
         <View style={styles.resend}>
           <Text style={styles.vertext}>
@@ -211,7 +143,7 @@ const Verify = ({navigation}: any) => {
         </View>
       </View>
       <View>
-        <View style={{alignItems: 'center', marginTop: 50}}>
+        <View style={{ alignItems: 'center',marginTop:100}}>
           <TouchableOpacity
             style={styles.button}
             disabled={loading}
@@ -234,8 +166,8 @@ const Verify = ({navigation}: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 40,
     backgroundColor: '#000000',
+    paddingVertical:30
   },
   backButton: {
     position: 'absolute',
@@ -244,8 +176,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   backIcon: {
-    width: 24,
-    height: 24,
+    width: 30,
+    height: 30,
   },
   input: {
     textAlign: 'center',
@@ -263,6 +195,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 10,
   },
+  hiddenContainer: {
+    flexDirection: 'row', 
+    color:"#fff",
+    alignItems:"center",
+    justifyContent:"center"
+    
+  },
+  hidden: {
+    color:"#fff"
+  },
   icon: {
     marginRight: 10,
     width: 26,
@@ -275,7 +217,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 80,
     width: 160,
   },
 
@@ -298,10 +239,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins',
     textAlign: 'center',
     lineHeight: 25,
-  },
-  hidden: {
-    fontWeight: 'bold',
-    fontFamily: 'Poppins',
+    fontWeight:"500"
   },
   title: {
     justifyContent: 'center',
@@ -311,12 +249,11 @@ const styles = StyleSheet.create({
     color: '#F4F4F6',
     fontWeight: '600',
     fontFamily: 'IbarraRealNova-Regular',
-    marginBottom: 20,
+    marginBottom: 10,
     textTransform: 'uppercase',
   },
   maincontent: {
-    marginTop: 30,
-    marginBottom: 40,
+    marginTop: 20,
     alignItems: 'center',
   },
   verifycode: {
@@ -334,9 +271,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins',
   },
   resend: {
-    marginTop: 20,
     alignItems: 'flex-start',
     fontSize: 16,
+    paddingHorizontal:20,
     fontWeight: '500',
   },
   contactsup: {
@@ -359,8 +296,35 @@ const styles = StyleSheet.create({
   },
   seccont: {
     alignItems: 'flex-start',
-    marginTop: 10,
-  }
+   
+  },
+  borderStyleBase: {
+    width: 40,
+    height: 45
+  },
+
+  borderStyleHighLighted: {
+    borderColor: "#fff",
+  },
+
+  underlineStyleBase: {
+    width: 80,
+    height: 60,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    fontSize:30
+  },
+
+  underlineStyleHighLighted: {
+    borderColor: "#fff",
+  },
+  otpInput: {
+    marginTop:30,
+    width: '90%',
+    height: 120,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
 });
 
 export default Verify;
