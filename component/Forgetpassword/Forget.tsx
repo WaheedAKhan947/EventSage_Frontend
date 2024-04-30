@@ -8,6 +8,7 @@ import {
   Alert,
   Image,
   SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -51,6 +52,7 @@ const Forget = ({navigation}: any) => {
   };
   return (
     <SafeAreaView style={{flex: 1}}>
+      <ScrollView style={styles.mainContainer}>
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -96,15 +98,22 @@ const Forget = ({navigation}: any) => {
           </TouchableOpacity>
         </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    height:'100%',
+    backgroundColor: '#000000',
+  },
   container: {
+    height:'100%',
     flex: 1,
     alignItems: 'center',
-    padding: 40,
+    paddingTop: 40,
     backgroundColor: '#000000',
   },
   backButton: {
@@ -121,7 +130,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 45,
-    width: 340,
     backgroundColor: 'transparent',
     color: '#FFFFFF',
     fontSize: 16,
@@ -129,7 +137,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    width: 370,
+    marginHorizontal: 10,
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#FFFFFF',
@@ -202,15 +210,16 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#F4F4F6',
     fontFamily: 'PlayfairDisplay-SemiBold',
-    marginTop: 60,
+    marginTop: 40,
     marginBottom: 10,
     textTransform: 'uppercase',
   },
   maincontent: {
-    marginBottom: 40,
+    marginBottom: 50,
     alignItems: 'center',
   },
   submitBtn: {
+    flex:1,
     marginTop: 40,
     justifyContent: 'flex-end',
     alignItems: 'center',
