@@ -80,6 +80,8 @@
     {
       "path": "assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf",
       "sha1": "a8d06a7536ea96a72e38112a2fcadf19504b0093"
+<<<<<<< HEAD
+=======
     },
     {
       "path": "assets/fonts/Poppins-Black.ttf",
@@ -152,6 +154,7 @@
     {
       "path": "assets/fonts/Poppins-ThinItalic.ttf",
       "sha1": "fb8fccca21550e71135f92bbaf8a2e8a12c90465"
+>>>>>>> a9610be215ba14aa1d94668f0e941a53a4f155e5
     }
   ]
 }
