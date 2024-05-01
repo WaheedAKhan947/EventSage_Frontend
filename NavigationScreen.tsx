@@ -46,7 +46,7 @@ const NavigationScreen = () => {
             tabBarIcon: ({focused}) =>(
               <View style={{alignItems:"center",justifyContent:"center"}}>
                 <Image
-                source={require("../TUTU-dev/assets/restaurant-fill.png")}
+                source={require("../front-end/assets/restaurant-fill.png")}
                 resizeMode='contain'
                 style={{
                   width:25,
@@ -62,7 +62,7 @@ const NavigationScreen = () => {
             tabBarIcon: ({focused}) =>(
               <View style={{alignItems:"center",justifyContent:"center"}}>
                 <Image
-                source={require("../TUTU-dev/assets/chathistory.png")}
+                source={require("../front-end/assets/chathistory.png")}
                 resizeMode='contain'
                 style={{
                   width:25,
@@ -78,7 +78,7 @@ const NavigationScreen = () => {
             tabBarIcon: ({focused}) =>(
               <View style={{alignItems:"center",justifyContent:"center"}}>
                 <Image
-                source={require("../TUTU-dev/assets/creditcard.png")}
+                source={require("../front-end/assets/creditcard.png")}
                 resizeMode='contain'
                 style={{
                   width:25,
@@ -93,7 +93,7 @@ const NavigationScreen = () => {
             tabBarIcon: ({focused}) =>(
               <View style={{alignItems:"center",justifyContent:"center"}}>
                 <Image
-                source={require("../TUTU-dev/assets/userprofile.png")}
+                source={require("../front-end/assets/userprofile.png")}
                 resizeMode='contain'
                 style={{
                   width:25,
