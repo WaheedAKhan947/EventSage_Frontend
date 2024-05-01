@@ -167,13 +167,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#E6E6E9',
     textAlign: 'center',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Regular',
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     color: '#fff',
-    fontWeight: "600",
-    fontFamily: 'IbarraRealNova-Regular',
+    fontFamily: 'PlayfairDisplay-SemiBold',
     textAlign: 'center',
     marginBottom: 10,
     marginTop: 45
@@ -205,7 +204,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     color: '#fff',
     fontSize: 16,
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
     width:"100%"
     
   },
@@ -235,8 +234,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'black',
     fontSize: 16,
-    fontWeight: '600',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
   },
   mainbox: {
     flexGrow: 1,

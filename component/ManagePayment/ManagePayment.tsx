@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 const ManagePayment = ({ navigation }: any) => {
+
+  const scrollViewRef = useRef(null); 
+const isFocused = useIsFocused();
+
+
+useEffect(() => {
+ 
+  if (isFocused && scrollViewRef.current) {
+    (scrollViewRef.current as ScrollView).scrollTo({ y: 0, animated: false });
+  }
+}, [isFocused]);
 
   const [paymentMethods, setPaymentMethods] = useState([
     {
@@ -28,7 +40,7 @@ const ManagePayment = ({ navigation }: any) => {
     setPaymentMethods([...paymentMethods, newMethod]);
   };
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView ref={scrollViewRef} style={styles.container}>
       <View >
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
@@ -75,14 +87,17 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 20,
     color: "#fff",
+    fontFamily:"Poppins-Medium"
   },
   holderName: {
     fontSize: 20,
     color: "#fff",
+    fontFamily:"Poppins-Medium"
   },
   dateText: {
     fontSize: 13,
     color: "#fff",
+    fontFamily:"Poppins-Regular"
   },
   mainbox: {
     maxHeight: 180,
@@ -131,7 +146,8 @@ const styles = StyleSheet.create({
     marginBottom:150
   },
   addNewText: {
-    fontSize: 13,
+    fontFamily:"Poppins-Regular",
+    fontSize: 16,
     color: "#fff",
     marginLeft: 10,
   },

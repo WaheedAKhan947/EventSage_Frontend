@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,6 +10,8 @@ import {
   ScrollView,
 } from 'react-native';
 import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
+import { useIsFocused } from '@react-navigation/native';
+
 
 const Reservations = ({navigation}: any) => {
 
@@ -42,6 +44,16 @@ const Reservations = ({navigation}: any) => {
   
 ];
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+const scrollViewRef = useRef(null); 
+const isFocused = useIsFocused();
+
+
+useEffect(() => {
+ 
+  if (isFocused && scrollViewRef.current) {
+    (scrollViewRef.current as ScrollView).scrollTo({ y: 0, animated: false });
+  }
+}, [isFocused]);
   
 
   
@@ -58,7 +70,7 @@ const Reservations = ({navigation}: any) => {
 
 return (
   <View style={styles.mainContainer}>
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView ref={scrollViewRef} contentContainerStyle={styles.container}>
       <View style={styles.headercon}>
         <TouchableOpacity
           onPress={() => setIsDropdownVisible(!isDropdownVisible)}>

@@ -86,17 +86,10 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                 </View>
               </TouchableOpacity>
             </View>
-            <View>
-              <TouchableOpacity onPress={onAccountSettings} style={styles.dropdownItem}>
-                <View style={styles.itemContent}>
-                  <Image source={require('../../assets/setting.png')} style={styles.icon} />
-                  <Text style={styles.dropdownText}>Settings</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+        
           </View>
           <View style={styles.footer}>
-            <TouchableOpacity onPress={()=>navigation.navigate('Login')} style={styles.footer}>
+            <TouchableOpacity onPress={() => (navigation as any).navigate('Login')}  style={styles.footer}>
               <View style={styles.itemContent}>
                 <Image source={require('../../assets/logout.png')} style={styles.icon} />
                 <Text style={styles.dropdownText}>Logout</Text>
@@ -139,8 +132,7 @@ const styles = StyleSheet.create({
   dropdownText: {
     color: '#fff',
     fontSize: 16,
-    fontFamily: 'Poppins',
-    fontWeight: "700",
+    fontFamily: 'Poppins-SemiBold',
   },
   main: {
     flexDirection: "row",
@@ -153,8 +145,7 @@ const styles = StyleSheet.create({
   headname: {
     marginLeft: 10,
     fontSize: 16,
-    fontFamily: 'IbarraRealNova-Regular',
-    fontWeight: "600",
+    fontFamily: 'PlayfairDisplay-SemiBold',
     color: "white"
   },
   account: {

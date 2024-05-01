@@ -516,7 +516,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#353535",
     borderRadius: 5,
     width: 100,
-    height: 45
+    height: 50,
+    
 
   },
   mainContainer: {
@@ -557,6 +558,7 @@ const styles = StyleSheet.create({
     color: '#E6E6E9',
     marginRight: 'auto',
     fontFamily: 'Poppins-Medium',
+    width:150
 
   },
 
@@ -615,8 +617,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: "relative",
-    top: 75,
-    left: 75
+    top: 80,
+    left: 70
 
   },
   modalContent: {

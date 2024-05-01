@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Alert,
   Image,
+  ScrollView
 } from 'react-native';
 
 
@@ -70,7 +71,7 @@ const SignIn = ({ navigation }: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View>
         <Image
           source={require('../../assets/tutu_white.png')}
@@ -160,7 +161,7 @@ const SignIn = ({ navigation }: any) => {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
 
   );
 };
@@ -236,7 +237,6 @@ const styles = StyleSheet.create({
   },
 
   legalLinks: {
-    marginTop: 20,
     marginTop: 10,
     width: 350,
     flexDirection: 'row',

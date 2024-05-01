@@ -63,7 +63,7 @@ const DropdownComponent = ({
         valueField="value"
         placeholder={!isFocus ? 'Select Restaurant' : ''}
         value={value}
-        iconColor="#fff"
+        iconColor="#E6E6E9"
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={item => {
