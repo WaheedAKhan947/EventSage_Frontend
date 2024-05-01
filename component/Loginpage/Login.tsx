@@ -11,6 +11,8 @@ import {
   Image,
   ScrollView
 } from 'react-native';
+import API, { ENDPOINTS } from '../../api/apiService';
+import StorageManager from '../../storage/StorageManager';
 
 
 const SignIn = ({ navigation }: any) => {
@@ -26,40 +28,19 @@ const SignIn = ({ navigation }: any) => {
   const handleSignIn = async () => {
     if (isSigningIn) return;
     setIsSigningIn(true);
-
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in all fields.');
       setIsSigningIn(false);
       return;
     }
-
     try {
-      const response = await axios.post(
-        `https://jittery-tan-millipede.cyclic.app/api/v1/auth/login`,
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      if (response.status === 200) {
-        const responseData = response.data;
-
-        const userIds = responseData.user._id;
-        const userId = userIds.toString();
-        const tokens = responseData.token;
-        const token = tokens.toString();
-        await AsyncStorage.setItem('userId', userId);
-        Alert.alert('Success', responseData.message || 'Sign-in successful!');
-        navigation.navigate('reservation');
-      } else {
-        const errorMessage = response.data.message || 'Something went wrong.';
-        Alert.alert('Error', errorMessage);
-      }
+      const payload = { email, password }
+      const response = await API.post(ENDPOINTS.USER.LOGIN, payload)
+      const userId = response?.user?._id;
+      const userIdString = userId.toString();
+      await AsyncStorage.setItem('userId', userIdString);
+      Alert.alert('Success', response.message || 'Sign-in successful!');
+      navigation.navigate('reservation');
     } catch (error: any) {
       const errorMessage = error.response
         ? error.response.data.message
@@ -79,7 +60,7 @@ const SignIn = ({ navigation }: any) => {
         />
 
         <View style={styles.maincontainer}>
-          <Text style={{ fontSize:32,color: "white",fontFamily:"PlayfairDisplay-SemiBold" }}>LOGIN</Text>
+          <Text style={{ fontSize: 32, color: "white", fontFamily: "PlayfairDisplay-SemiBold" }}>LOGIN</Text>
           <View style={{ flexDirection: "row", marginTop: 10 }}>
             <Text style={styles.legalTexted}>Don't have an account? </Text>
             <Text
@@ -129,13 +110,13 @@ const SignIn = ({ navigation }: any) => {
 
 
         <View>
-          <View style={{ alignItems: "center",marginTop:100 }}>
+          <View style={{ alignItems: "center", marginTop: 100 }}>
             <TouchableOpacity
               style={styles.button}
               onPress={handleSignIn}
               disabled={isSigningIn}>
               <Text style={styles.buttonText}>
-                {isSigningIn ? 'Login' : 'Login'}
+                {isSigningIn ? 'loading..' : 'Login'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -169,7 +150,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical:40,
+    paddingVertical: 40,
     backgroundColor: '#000000',
 
   },
@@ -187,7 +168,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-  
+
   },
   inputContainer: {
     flexDirection: 'row',
@@ -268,7 +249,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "300",
     fontFamily: 'Poppins-Light',
-  
+
   },
   legalLinked: {
     fontSize: 16,
