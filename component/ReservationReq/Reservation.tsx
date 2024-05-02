@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -12,15 +12,14 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import DatePicker from 'react-native-modern-datepicker';
-import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
+import {getToday, getFormatedDate} from 'react-native-modern-datepicker';
 import DropdownComponent from '../ResturantDropDown/DropDown';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-
-const Reservation = ({ navigation }: any) => {
+const Reservation = ({navigation}: any) => {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
@@ -38,11 +37,23 @@ const Reservation = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState('');
   const [totalPrice, setTotalPrice] = useState(100);
-  const [selectedPreferredTime, setSelectedPreferredTime] = useState<Date | null>(null);
-  const [selectedBackupTime, setSelectedBackupTime] = useState< Date | null>(null);
+  const [selectedPreferredTime, setSelectedPreferredTime] =
+    useState<Date | null>(null);
+  const [selectedBackupTime, setSelectedBackupTime] = useState<Date | null>(
+    null,
+  );
   const [showPreferredTimePicker, setShowPreferredTimePicker] = useState(false);
   const [showBackupTimePicker, setShowBackupTimePicker] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [hoveredItemIndex, setHoveredItemIndex] = useState(null);
+
+  const handleMouseEnter = index => {
+    setHoveredItemIndex(index); // Set the hovered item index
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItemIndex(null); // Reset the hovered item index
+  };
 
   const handleReservation = async () => {
     console.log('resturant', selectedOption);
@@ -201,21 +212,19 @@ const Reservation = ({ navigation }: any) => {
     setIsDropdownVisible(false);
   }
 
-
   const [modalVisible, setModalVisible] = useState(false);
   const guestsOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Example options
 
-  const handleGuestSelect = (guest:number) => {
+  const handleGuestSelect = (guest: number) => {
     setGuests(guest);
     setModalVisible(false);
   };
-
 
   const generatePreferredTimes = () => {
     const preferredTimes = [];
     for (let hour = 1; hour <= 12; hour++) {
       for (let minute = 0; minute <= 30; minute += 30) {
-        preferredTimes.push({ hour, minute });
+        preferredTimes.push({hour, minute});
       }
     }
     return preferredTimes;
@@ -224,7 +233,7 @@ const Reservation = ({ navigation }: any) => {
     const backupTimes = [];
     for (let hour = 1; hour <= 12; hour++) {
       for (let minute = 0; minute <= 30; minute += 30) {
-        backupTimes.push({ hour, minute });
+        backupTimes.push({hour, minute});
       }
     }
     return backupTimes;
@@ -232,7 +241,6 @@ const Reservation = ({ navigation }: any) => {
 
   const preferredTimes = generatePreferredTimes();
   const backupTimes = generateBackupTimes();
-
 
   return (
     <View style={styles.mainContainer}>
@@ -245,7 +253,6 @@ const Reservation = ({ navigation }: any) => {
               style={styles.headerprof}
             />
             <ProfileDropdown
-
               isVisible={isDropdownVisible}
               onLogout={handleLogout}
               onAccountSettings={handleAccountSettings}
@@ -254,15 +261,12 @@ const Reservation = ({ navigation }: any) => {
           </TouchableOpacity>
         </View>
         <View style={styles.headerContainer}>
-
-
           <TouchableOpacity>
             <Image
               source={require('../../assets/confirmed_logo.png')}
               style={styles.logo}
             />
           </TouchableOpacity>
-
         </View>
 
         <Text style={styles.title}>RESERVATION REQUEST</Text>
@@ -284,7 +288,7 @@ const Reservation = ({ navigation }: any) => {
               style={styles.dropdownText}
               value={date.toString()}
               placeholder="Date"
-              placeholderTextColor="#fff"
+              placeholderTextColor="#E6E6E9"
               editable={false}
             />
             <Image
@@ -301,7 +305,8 @@ const Reservation = ({ navigation }: any) => {
                     textDefaultColor: '#ffffff',
                     textHeaderColor: '#ffffff',
                     textSecondaryColor: '#ffffff',
-                    selectedTextColor: '#ffffff',
+                    selectedBgColor: '#E6E6E9',
+                    selectedTextColor: '#000000',
                     mainColor: '#ffffff',
                   }}
                   style={styles.datePicker}
@@ -313,17 +318,20 @@ const Reservation = ({ navigation }: any) => {
                     setOpen(false);
                   }}
                 />
-
               </View>
             </View>
           </Modal>
 
-          <TouchableOpacity style={[styles.halfWidth, styles.dropdownContainer]} onPress={() => setModalVisible(true)}>
+          <TouchableOpacity
+            style={[styles.halfWidth, styles.dropdownContainer]}
+            onPress={() => setModalVisible(true)}>
             <Image
               source={require('../../assets/users22.png')}
               style={styles.image}
             />
-            <Text style={styles.dropdownText}>{guests ? `${guests}` : 'Select Guests'}</Text>
+            <Text style={styles.dropdownText}>
+              {guests ? `${guests}` : 'Select Guests'}
+            </Text>
 
             <Image
               source={require('../../assets/selectdp.png')}
@@ -336,14 +344,26 @@ const Reservation = ({ navigation }: any) => {
             visible={modalVisible}
             animationType="slide"
             transparent={true}
-            onRequestClose={() => setModalVisible(false)}
-          >
+            onRequestClose={() => setModalVisible(false)}>
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
                 <ScrollView style={styles.scrollView}>
-                  {guestsOptions.map((guest) => (
-                    <TouchableOpacity key={guest} onPress={() => handleGuestSelect(guest)}>
-                      <Text style={[styles.modalItem, { color: 'white', borderBottomWidth: 1, borderBottomColor: '#E6E6E9', paddingVertical: 13 }]}>{guest}</Text>
+                  {guestsOptions.map(guest => (
+                    <TouchableOpacity
+                      key={guest}
+                      onPress={() => handleGuestSelect(guest)}>
+                      <Text
+                        style={[
+                          styles.modalItem,
+                          {
+                            color: 'white',
+                            borderBottomWidth: 1,
+                            borderBottomColor: '#E6E6E9',
+                            paddingVertical: 13,
+                          },
+                        ]}>
+                        {guest}
+                      </Text>
                     </TouchableOpacity>
                   ))}
                 </ScrollView>
@@ -355,15 +375,15 @@ const Reservation = ({ navigation }: any) => {
         {/* Dropdown for Preferred Time */}
         <TouchableOpacity
           style={styles.dropdownContainer}
-          onPress={showPreferredTimePickerModal}
-        >
+          onPress={showPreferredTimePickerModal}>
           <Image
             source={require('../../assets/selecttime.png')}
             style={styles.image}
           />
           <Text style={styles.dropdownText}>
-          {selectedPreferredTime ? selectedPreferredTime.toLocaleTimeString() : 'Prefer Time'}
-         
+            {selectedPreferredTime
+              ? selectedPreferredTime.toLocaleTimeString()
+              : 'Prefer Time'}
           </Text>
           <Image
             source={require('../../assets/selectdp.png')}
@@ -376,39 +396,68 @@ const Reservation = ({ navigation }: any) => {
             transparent={true}
             visible={showPreferredTimePicker}
             animationType="slide"
-            onRequestClose={() => setShowPreferredTimePicker(false)}
-          >
+            onRequestClose={() => setShowPreferredTimePicker(false)}>
             <View style={styles.modalpref}>
               <View style={styles.modalprefcont}>
                 <ScrollView>
-                  {[...Array(Math.ceil(preferredTimes.length / 3)).keys()].map((rowIndex) => (
-                    <View key={rowIndex} style={styles.modalRow}>
-                      {preferredTimes.slice(rowIndex * 3, (rowIndex + 1) * 3).map((time, index) => (
-                        <TouchableOpacity
-                          key={index}
-                          onPress={() => {
-                            const newDate = new Date();
-                            newDate.setHours(time.hour);
-                            newDate.setMinutes(time.minute);
-                            setSelectedPreferredTime(newDate);
-                            setShowPreferredTimePicker(false);
-                          }}
-                        >
-                          <Text style={styles.modalItem}>
-                            {time.hour > 12 ? time.hour - 12 : time.hour}:{time.minute === 0 ? '00' : '30'}{' '}
-                            <Text style={{ color: "#fff" }}>{time.hour >= 12 ? 'AM' : 'PM'}</Text>
-                          </Text>
-                        </TouchableOpacity>
-                      ))}
-                    </View>
-                  ))}
+                  {[...Array(Math.ceil(preferredTimes.length / 3)).keys()].map(
+                    rowIndex => (
+                      <View key={rowIndex} style={styles.modalRow}>
+                        {preferredTimes
+                          .slice(rowIndex * 3, (rowIndex + 1) * 3)
+                          .map((time, index) => (
+                            <TouchableOpacity
+                              key={index}
+                              onPress={() => {
+                                const newDate = new Date();
+                                newDate.setHours(time.hour);
+                                newDate.setMinutes(time.minute);
+                                setSelectedPreferredTime(newDate);
+                                setShowPreferredTimePicker(false);
+                              }}>
+                              <Text
+                                onPressIn={() => handleMouseEnter(index)}
+                                onPressOut={handleMouseLeave}
+                                style={[
+                                  styles.modalItem,
+                                  hoveredItemIndex === index &&
+                                    styles.modalItemHovered,
+                                  // Check if this time is selected
+                                  selectedPreferredTime &&
+                                    selectedPreferredTime.getHours() ===
+                                      time.hour &&
+                                    selectedPreferredTime.getMinutes() ===
+                                      time.minute && {
+                                      backgroundColor: '#FFFFFF', // White background
+                                      color: '#000000', // Gray text color
+                                    },
+                                ]}>
+                                {time.hour > 12 ? time.hour - 12 : time.hour}:
+                                {time.minute === 0 ? '00' : '30'}{' '}
+                                <Text
+                                  style={{
+                                    color:
+                                      selectedPreferredTime &&
+                                      selectedPreferredTime.getHours() ===
+                                        time.hour &&
+                                      selectedPreferredTime.getMinutes() ===
+                                        time.minute
+                                        ? '#000000'
+                                        : '#FFFFFF',
+                                  }}>
+                                  {time.hour >= 12 ? 'AM' : 'PM'}
+                                </Text>
+                              </Text>
+                            </TouchableOpacity>
+                          ))}
+                      </View>
+                    ),
+                  )}
                 </ScrollView>
               </View>
             </View>
           </Modal>
         )}
-
-
 
         <TouchableOpacity
           style={styles.dropdownContainer}
@@ -418,7 +467,9 @@ const Reservation = ({ navigation }: any) => {
             style={styles.image}
           />
           <Text style={styles.dropdownText}>
-          {selectedBackupTime ? selectedBackupTime.toLocaleTimeString() : 'Backup Time'}
+            {selectedBackupTime
+              ? selectedBackupTime.toLocaleTimeString()
+              : 'Backup Time'}
           </Text>
           <Image
             source={require('../../assets/selectdp.png')}
@@ -431,32 +482,63 @@ const Reservation = ({ navigation }: any) => {
             transparent={true}
             visible={showBackupTimePicker}
             animationType="slide"
-            onRequestClose={() => setShowBackupTimePicker(false)}
-          >
+            onRequestClose={() => setShowBackupTimePicker(false)}>
             <View style={styles.modalpref}>
               <View style={styles.modalprefcont}>
                 <ScrollView>
-                  {[...Array(Math.ceil(backupTimes.length / 3)).keys()].map((rowIndex) => (
-                    <View key={rowIndex} style={styles.modalRow}>
-                      {backupTimes.slice(rowIndex * 3, (rowIndex + 1) * 3).map((time, index) => (
-                        <TouchableOpacity
-                          key={index}
-                          onPress={() => {
-                            const newDate = new Date();
-                            newDate.setHours(time.hour);
-                            newDate.setMinutes(time.minute);
-                            setSelectedBackupTime(newDate);
-                            setShowBackupTimePicker(false);
-                          }}
-                        >
-                          <Text style={styles.modalItem}>
-                            {time.hour > 12 ? time.hour - 12 : time.hour}:{time.minute === 0 ? '00' : '30'}{' '}
-                            <Text style={{ color: "#fff" }}>{time.hour >= 12 ? 'AM' : 'PM'}</Text>
-                          </Text>
-                        </TouchableOpacity>
-                      ))}
-                    </View>
-                  ))}
+                  {[...Array(Math.ceil(backupTimes.length / 3)).keys()].map(
+                    rowIndex => (
+                      <View key={rowIndex} style={styles.modalRow}>
+                        {backupTimes
+                          .slice(rowIndex * 3, (rowIndex + 1) * 3)
+                          .map((time, index) => (
+                            <TouchableOpacity
+                              key={index}
+                              onPress={() => {
+                                const newDate = new Date();
+                                newDate.setHours(time.hour);
+                                newDate.setMinutes(time.minute);
+                                setSelectedBackupTime(newDate);
+                                setShowBackupTimePicker(false);
+                              }}>
+                              <Text
+                                style={[
+                                  styles.modalItem,
+                                  hoveredItemIndex === index &&
+                                    styles.modalItemHovered,
+                                  // Check if this time is selected
+                                  selectedBackupTime &&
+                                    selectedBackupTime.getHours() ===
+                                      time.hour &&
+                                    selectedBackupTime.getMinutes() ===
+                                      time.minute && {
+                                      backgroundColor: '#FFFFFF', // White background when selected
+                                      color: '#000000', // Black text color when selected
+                                    },
+                                ]}
+                                onPressIn={() => handleMouseEnter(index)}
+                                onPressOut={handleMouseLeave}>
+                                {time.hour > 12 ? time.hour - 12 : time.hour}:
+                                {time.minute === 0 ? '00' : '30'}{' '}
+                                <Text
+                                  style={{
+                                    color:
+                                      selectedBackupTime &&
+                                      selectedBackupTime.getHours() ===
+                                        time.hour &&
+                                      selectedBackupTime.getMinutes() ===
+                                        time.minute
+                                        ? '#000000'
+                                        : '#FFFFFF',
+                                  }}>
+                                  {time.hour >= 12 ? 'AM' : 'PM'}
+                                </Text>
+                              </Text>
+                            </TouchableOpacity>
+                          ))}
+                      </View>
+                    ),
+                  )}
                 </ScrollView>
               </View>
             </View>
@@ -470,59 +552,56 @@ const Reservation = ({ navigation }: any) => {
 
         {/* Modal */}
 
-        <View style={{ flex: 1, alignSelf: "center", justifyContent: "center",marginBottom:20 }}>
+        <View
+          style={{
+            flex: 1,
+            alignSelf: 'center',
+            justifyContent: 'center',
+            marginBottom: 20,
+          }}>
           <TouchableOpacity style={styles.button} onPress={handleReservation}>
-
             <Text style={styles.buttonText}>Request Reservation</Text>
-
           </TouchableOpacity>
         </View>
       </ScrollView>
-    
     </View>
-
   );
 };
 
 const styles = StyleSheet.create({
-
   modalRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
-
   },
   modalpref: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: "center",
-    position: "relative",
+    alignItems: 'center',
+    position: 'relative',
     bottom: 20,
-
   },
   modalprefcont: {
     backgroundColor: '#242424',
     borderRadius: 10,
-    color: "white",
+    color: 'white',
     padding: 10,
     width: 370,
     maxHeight: 300,
   },
   modalItem: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 18,
     paddingVertical: 10,
-    color: "#fff",
-    backgroundColor: "#353535",
+    color: '#FFFFFF',
+    // backgroundColor: '#353535',
     borderRadius: 5,
     width: 100,
     height: 50,
-    
-
   },
   mainContainer: {
     flex: 1,
-    position: 'relative'
+    position: 'relative',
   },
   container: {
     flex: 1,
@@ -538,7 +617,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderBottomColor: "#fff",
+    borderBottomColor: '#fff',
     height: 45,
     marginVertical: 10,
     fontSize: 16,
@@ -547,8 +626,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 5
-    
+    marginVertical: 5,
   },
   halfWidth: {
     width: '45%',
@@ -558,14 +636,12 @@ const styles = StyleSheet.create({
     color: '#E6E6E9',
     marginRight: 'auto',
     fontFamily: 'Poppins-Medium',
-    width:150
-
+    width: 150,
   },
 
   dropdownIcon: {
     width: 20,
     height: 20,
-
   },
   maincontent: {
     fontSize: 16,
@@ -587,11 +663,11 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 230
+    width: 230,
   },
   scrollView: {
     maxHeight: 200,
-    color: "#fff"
+    color: '#fff',
   },
 
   buttonText: {
@@ -603,30 +679,27 @@ const styles = StyleSheet.create({
     width: 155,
     height: 50,
     alignSelf: 'center',
-    marginVertical: -40
+    marginVertical: -40,
   },
   image: {
     width: 20,
     height: 20,
     marginRight: 12,
-
-
   },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    position: "relative",
+    position: 'relative',
     top: 80,
-    left: 70
-
+    left: 70,
   },
   modalContent: {
     backgroundColor: '#242424',
     padding: 5,
     width: 100,
     height: 240,
-    color: "#fff"
+    color: '#fff',
   },
   input: {
     flex: 1,
@@ -635,13 +708,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     fontFamily: 'Poppins-Medium',
-
   },
   icon: {
     marginRight: 10,
@@ -676,16 +747,14 @@ const styles = StyleSheet.create({
     fontFamily: 'PlayfairDisplay-SemiBold',
     textAlign: 'center',
     marginBottom: 10,
-    marginTop: 45
+    marginTop: 45,
   },
   headerContainer: {
-    marginLeft: "auto",
-    marginRight: 'auto'
-
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   headercon: {
-    marginRight: "auto",
-
+    marginRight: 'auto',
   },
   headerButton: {
     marginTop: 10,
@@ -697,13 +766,11 @@ const styles = StyleSheet.create({
   headerprof: {
     width: 30,
     height: 30,
-
   },
   centeredview: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
   },
 
   modalview: {
@@ -712,12 +779,16 @@ const styles = StyleSheet.create({
     height: 350,
     backgroundColor: '#2D0717',
     alignItems: 'center',
-
   },
   datePicker: {
-    backgroundColor: "#242424",
-
-
+    backgroundColor: '#242424',
+  },
+  btn: {
+    backgroundColor: '#3E3E3E',
+  },
+  modalItemHovered: {
+    backgroundColor: '#FFFFFF',
+    color: '#000000',
   },
 });
 
