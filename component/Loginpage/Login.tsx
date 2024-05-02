@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   Alert,
   Image,
-  ScrollView       
+  ScrollView,
+  Animated
 } from 'react-native';
 import API, { ENDPOINTS } from '../../api/apiService';
 import StorageManager from '../../storage/StorageManager';
@@ -20,7 +21,10 @@ const SignIn = ({ navigation }: any) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const emailFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+  const passwordFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
   const apiUrl = process.env.apiUrl;
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -34,14 +38,14 @@ const SignIn = ({ navigation }: any) => {
       return;
     }
     try {
-      const payload = { email, password }
-      const response = await API.post(ENDPOINTS.USER.LOGIN, payload)
+      const payload = { email, password };
+      const response = await API.post(ENDPOINTS.USER.LOGIN, payload);
       const userId = response?.user?._id;
       const userIdString = userId.toString();
       await StorageManager.put('userId', userIdString);
       Alert.alert('Success', response.message || 'Sign-in successful!');
       navigation.navigate('reservation');
-    } catch (error: any) {
+    } catch (error:any) {
       const errorMessage = error.response
         ? error.response.data.message
         : 'Something went wrong.';
@@ -51,6 +55,68 @@ const SignIn = ({ navigation }: any) => {
     }
   };
 
+  const handleEmailFocus = () => {
+    Animated.timing(emailFloatingLabelAnimation, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(passwordFloatingLabelAnimation, {
+      toValue: 0,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handlePasswordFocus = () => {
+    Animated.timing(emailFloatingLabelAnimation, {
+      toValue: 0,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(passwordFloatingLabelAnimation, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+
+
+  const handleBlur = () => {
+    if (!email ) { // Checking if email is empty
+      Animated.timing(emailFloatingLabelAnimation, {
+        toValue: 0,
+        duration: 150,
+        useNativeDriver: false,
+      }).start();
+    }
+  };
+  
+  
+
+  const emailFloatingLabelStyle = {
+    top: emailFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, -10],
+    }),
+    fontSize: emailFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [16, 12],
+    }),
+  };
+
+  const passwordFloatingLabelStyle = {
+    top: passwordFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, -5],
+    }),
+    fontSize: passwordFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [16, 12],
+    }),
+  
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View>
@@ -58,59 +124,66 @@ const SignIn = ({ navigation }: any) => {
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
         />
+      </View>
 
-        <View style={styles.maincontainer}>
-          <Text style={{ fontSize: 32, color: "white", fontFamily: "PlayfairDisplay-SemiBold" }}>LOGIN</Text>
-          <View style={{ flexDirection: "row", marginTop: 10 }}>
-            <Text style={styles.legalTexted}>Don't have an account? </Text>
-            <Text
-              style={styles.legalLinked}
-              onPress={() => navigation.navigate('Signup')}>
-              Sign up
-            </Text>
-          </View>
+      <View style={styles.maincontainer}>
+        <Text style={{ fontSize: 32, color: "white", fontFamily: "PlayfairDisplay-SemiBold" }}>LOGIN</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.legalTexted}>Don't have an account? </Text>
+          <Text
+            style={styles.legalLinked}
+            onPress={() => navigation.navigate('Signup')}>
+            Sign up
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.main1}>
+        <View >
+          <View style={{flexDirection:"column",gap:60}}>
+        <View style={styles.inputContainer}>
+          <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            onFocus={handleEmailFocus}
+            onBlur={handleBlur}
+          />
         </View>
 
-
-        <View style={{ marginTop: 10 }}>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              placeholderTextColor="#fff"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor="#fff"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry={!showPassword}
-            />
+        <View style={styles.inputContainer}>
+          <Animated.Text style={[styles.label, passwordFloatingLabelStyle]}>Password</Animated.Text>
+          <TextInput
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}
+            onFocus={handlePasswordFocus}
+            onBlur={handleBlur}
+          />
             <TouchableOpacity onPress={togglePasswordVisibility}>
               <Image
                 source={require('../../assets/hiddenpass.png')}
                 style={styles.icon}
               />
             </TouchableOpacity>
+          </View> 
           </View>
 
-          <View >
+           <View >
             <TouchableOpacity onPress={() => navigation.navigate('forget')}>
               <Text style={styles.linkText}>Forgot Password?</Text>
             </TouchableOpacity>
+          </View> 
           </View>
-        </View>
+          
+       
 
 
-        <View>
-          <View style={{ alignItems: "center", marginTop: 100 }}>
+        <View style={styles.btncontainer}>
+          <View style={{ alignItems: "center", }}>
             <TouchableOpacity
               style={styles.button}
               onPress={handleSignIn}
@@ -122,26 +195,20 @@ const SignIn = ({ navigation }: any) => {
           </View>
 
 
-
-          <View style={styles.legalLinks}>
-            <Text style={styles.legalText}>By signing in, I accept the </Text>
-            <Text style={styles.legalLink}>Terms of Service</Text>
-            <Text style={styles.legalText}> and </Text>
-            <Text
-              onPress={() => navigation.navigate('reservation')}
-              style={styles.legalLink}>
-              Community Guidelines
-            </Text>
-            <Text style={styles.legalText}> and have read the </Text>
-            <Text
+          <View style={{alignItems:"center",marginBottom:10}}>
+            <Text style={{color:"#F4F4F6",fontFamily:"Poppins-Regular",fontSize:11,textAlign:"center",justifyContent:"center",width:360}}>By signing in, I accept the Terms of Service and Community
+Guidelines and have red <Text
               onPress={() => navigation.navigate('privacy')}
-              style={styles.legalLink}>
+              style={styles.privacytext}>
               {' '}
               Privacy Policy
-            </Text>
+            </Text> </Text>
+
           </View>
+
         </View>
-      </View>
+        </View>
+       
     </ScrollView>
 
   );
@@ -151,10 +218,22 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 40,
-    backgroundColor: '#000000',
-
+    backgroundColor: '#000',
   },
 
+  main1: {
+    flex: 1,
+    justifyContent: 'space-between',
+    marginTop: 40,
+    height:600,
+   
+  },
+  label:{
+    position:"absolute",
+    color:"#E6E6E9",
+    fontFamily:"Poppins-Light",
+    fontSize:13,
+  },
   txt: {
     fontSize: 14,
     color: '#fff',
@@ -163,19 +242,17 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 45,
+    height: 50,
     backgroundColor: 'transparent',
     color: 'white',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
+     borderBottomWidth: 1,
     borderBottomColor: '#fff',
-    marginVertical: 20,
   },
   icon: {
     marginRight: 10,
@@ -189,9 +266,9 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 160
+    width: 160,
+   
   },
-
   buttonText: {
     color: 'black',
     fontSize: 16,
@@ -202,7 +279,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-    textDecorationLine: "underline",
+    textDecorationLine:"underline",
+    marginTop:30
   },
   logo: {
     width: 126,
@@ -214,33 +292,21 @@ const styles = StyleSheet.create({
   maincontainer: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 40,
+    gap:10
   },
+  btncontainer:{
+    flexDirection:"column",
+    gap:20,
+    marginBottom:30
 
-  legalLinks: {
-    marginTop: 10,
-    width: 350,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontFamily: "Poppins-Light"
   },
-  legalText: {
-    color: '#F4F4F6',
-    fontSize: 11,
-    fontWeight: "300",
-    justifyContent:'center',
-    alignItems:'center',
-    textAlign: 'center',
-    fontFamily: 'Poppins-Light',
-  },
-  legalLink: {
-    fontSize: 11,
-    fontWeight: "300",
-    color: '#F4F4F6',
-    textAlign: 'center',
-    fontFamily: 'Poppins-Light',
+  privacytext:{
+    color:"#F4F4F6",
+    fontFamily:"Poppins-Regular",
+    fontSize:11
+
+
   },
 
   legalTexted: {
@@ -257,6 +323,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontFamily: 'Poppins-Medium',
   },
+  
 });
 
 export default SignIn;

@@ -48,11 +48,11 @@ const Reservation = ({navigation}: any) => {
   const [hoveredItemIndex, setHoveredItemIndex] = useState(null);
 
   const handleMouseEnter = index => {
-    setHoveredItemIndex(index); // Set the hovered item index
+    setHoveredItemIndex(index); 
   };
 
   const handleMouseLeave = () => {
-    setHoveredItemIndex(null); // Reset the hovered item index
+    setHoveredItemIndex(null); 
   };
 
   const handleReservation = async () => {

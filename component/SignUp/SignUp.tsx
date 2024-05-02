@@ -1,5 +1,429 @@
-import axios from 'axios';
-import React, {useState} from 'react';
+// import axios from 'axios';
+// import React, {useState,useRef} from 'react';
+// import {
+//   StyleSheet,
+//   View,
+//   TextInput,
+//   Text,
+//   TouchableOpacity,
+//   Alert,
+//   Image,
+//   ScrollView,
+//   Animated
+// } from 'react-native';
+// import API, { ENDPOINTS } from '../../api/apiService';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import StorageManager from '../../storage/StorageManager';
+// const emailFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+// const fullnameFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+// const passwordFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+// const confirmpasswordFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+// const phonenumberFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+
+
+// const SignUp = ({navigation}: any) => {
+//   const [fullName, setFullName] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [phone, setPhone] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [confirmPassword, setConfirmPassword] = useState('');
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [isSigningUp, setIsSigningUp] = useState(false);
+//   const apiUrl = process.env.apiUrl;
+//   const togglePasswordVisibility = () => {
+//     setShowPassword(!showPassword);
+//   };
+
+//   const handleSignUp = async () => {
+//     if (isSigningUp) return;
+//     setIsSigningUp(true);
+
+//     if (!fullName || !email || !phone || !password || !confirmPassword) {
+//       Alert.alert('Error', 'Please fill in all fields.');
+//       setIsSigningUp(false);
+//       return;
+//     }
+//     if (password !== confirmPassword) {
+//       Alert.alert('Error', 'Passwords do not match.');
+//       setIsSigningUp(false);
+//       return;
+//     }
+//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     if (!emailRegex.test(email)) {
+//       Alert.alert('Error', 'Please enter a valid email address.');
+//       setIsSigningUp(false);
+//       return;
+//     }
+
+//     try {
+//       const payload = { fullName, email, phone, password, confirmPassword };
+//       const response = await API.post(ENDPOINTS.USER.SIGNUP, payload);
+    
+//       if (response?.success) {
+//         const userId = response.user._id;
+//         const userIdString = userId.toString();
+//         await StorageManager.put("userId",userIdString)
+//         Alert.alert('Success', response.message || 'Sign-up successful!');
+//         navigation.navigate('Login');
+//       } else {
+//         const errorMessage = response.message || 'Something went wrong.';
+//         Alert.alert('Error', errorMessage);
+//       }
+//     } catch (error:any) {
+//       const errorMessage =  error.response?.message
+//         || 'Something went wrong.';
+//       Alert.alert('Error', errorMessage);
+//     } finally {
+//       setIsSigningUp(false);
+//     }
+
+
+    
+ 
+//     const handleEmailFocus = () => {
+//       Animated.timing(emailFloatingLabelAnimation, {
+//         toValue: 1,
+//         duration: 150,
+//         useNativeDriver: false,
+//       }).start();
+//     };
+  
+//     const handleNameFocus = () => {
+//       Animated.timing(fullnameFloatingLabelAnimation, {
+//         toValue: 1,
+//         duration: 150,
+//         useNativeDriver: false,
+//       }).start();
+//     };
+  
+//     const handlePhoneFocus = () => {
+//       Animated.timing(phonenumberFloatingLabelAnimation, {
+//         toValue: 1,
+//         duration: 150,
+//         useNativeDriver: false,
+//       }).start();
+//     };
+  
+//     const handlePasswordFocus = () => {
+//       Animated.timing(passwordFloatingLabelAnimation, {
+//         toValue: 1,
+//         duration: 150,
+//         useNativeDriver: false,
+//       }).start();
+//     };
+  
+//     const handleConfirmPasswordFocus = () => {
+//       Animated.timing(confirmpasswordFloatingLabelAnimation, {
+//         toValue: 1,
+//         duration: 150,
+//         useNativeDriver: false,
+//       }).start();
+//     };
+
+
+
+//   const handleBlur = () => {
+//     if (!email ) { 
+//       Animated.timing(emailFloatingLabelAnimation, {
+//         toValue: 0,
+//         duration: 150,
+//         useNativeDriver: false,
+//       }).start();
+//     }
+//   };
+
+
+  
+
+ 
+
+//   const emailFloatingLabelStyle = {
+//     top: emailFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [10, -10],
+//     }),
+//     fontSize: emailFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [16, 12],
+//     }),
+//   };
+
+//   const fullnameFloatingLabelStyle = {
+//     top: fullnameFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [10, -5],
+//     }),
+//     fontSize: fullnameFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [16, 12],
+//     }),
+//   };
+
+//   const passwordFloatingLabelStyle = {
+//     top: passwordFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [10, -5],
+//     }),
+//     fontSize: passwordFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [16, 12],
+//     }),
+//   };
+
+//   const confirmpasswordFloatingLabelStyle = {
+//     top: confirmpasswordFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [10, -5],
+//     }),
+//     fontSize: confirmpasswordFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [16, 12],
+//     }),
+//   };
+
+//   const phonenumberFloatingLabelStyle = {
+//     top: phonenumberFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [10, -5],
+//     }),
+//     fontSize: phonenumberFloatingLabelAnimation.interpolate({
+//       inputRange: [0, 1],
+//       outputRange: [16, 12],
+//     }),
+//   };
+
+
+
+
+
+//   return (
+//     <ScrollView contentContainerStyle={styles.container}>
+//       <Image
+//         source={require('../../assets/tutu_white.png')}
+//         style={styles.logo}
+//       />
+//       <View style={{flex:1, flexDirection:"column",gap:10,marginTop:10}}>
+//       <Text style={styles.title}>Let's Get Started!</Text>
+//       <View style={styles.ascontainer}>
+//         <Text style={styles.subt}>Already have an account? </Text>
+//         <Text
+//           style={styles.legalLinked}
+//           onPress={() => navigation.navigate('Login')}>
+//           Sign In
+//         </Text>
+//       </View>
+//       </View>
+
+//       <View style={styles.main1}>
+//         <View >
+//           <View style={{flexDirection:"column",gap:60}}>
+//         <View style={styles.inputContainer}>
+//           <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Full Name</Animated.Text>
+//           <TextInput
+//             style={styles.input}
+//             value={fullName}
+//             onChangeText={setFullName}
+//             onFocus={handleEmailFocus}
+//             onBlur={handleBlur}
+//           />
+//         </View>
+
+//         <View style={styles.inputContainer}>
+//           <Animated.Text style={[styles.label, passwordFloatingLabelStyle]}>Email</Animated.Text>
+//           <TextInput
+//             style={styles.input}
+//             value={email}
+//             onChangeText={setEmail}
+//             onFocus={handlePasswordFocus}
+//             onBlur={handleBlur}
+//           />
+            
+//           </View> 
+
+//           <View style={styles.inputContainer}>
+//           <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Phone number</Animated.Text>
+//           <TextInput
+//             style={styles.input}
+//             value={phone}
+//             onChangeText={setPhone}
+//             onFocus={handlePhoneFocus}
+//             onBlur={handleBlur}
+//           />
+//         </View>
+
+//         <View style={styles.inputContainer}>
+//           <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Password</Animated.Text>
+//           <TextInput
+//             style={styles.input}
+//             value={password}
+//             onChangeText={setPassword}
+//             keyboardType="email-address"
+//             onFocus={handleNameFocus}
+//             onBlur={handleBlur}
+//           />
+//         </View>
+
+//         <View style={styles.inputContainer}>
+//           <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
+//           <TextInput
+//             style={styles.input}
+//             value={confirmPassword}
+//             onChangeText={setConfirmPassword}
+//             keyboardType="email-address"
+//             onFocus={handlePasswordFocus}
+//             onBlur={handleBlur}
+//           />
+//         </View>
+
+//           </View>
+
+//            <View >
+//             <TouchableOpacity onPress={() => navigation.navigate('forget')}>
+//               <Text >Forgot Password?</Text>
+//             </TouchableOpacity>
+//           </View> 
+//           </View>
+      
+      
+//       </View>
+//     </ScrollView>
+//   );
+// };
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flexGrow: 1,
+//     alignItems:"center",
+//     paddingVertical: 40,
+//     paddingHorizontal: 20,
+//     backgroundColor: '#000000',
+//   },
+//   title: {
+//     fontSize: 32,
+//     color: '#fff',
+//     fontFamily: 'PlayfairDisplay-SemiBold',
+//     textAlign:"center"
+//   },
+//   subtitle: {
+//     fontSize: 16,
+//     width: 269,
+//     color: 'white',
+//     marginBottom: 10,
+//     textAlign: 'center',
+//     fontWeight: 'normal',
+//     fontFamily: 'Poppins-Light',
+//   },
+//   main1: {
+//     flex: 1,
+//     justifyContent: 'space-between',
+//     marginTop: 40,
+//     height:600,
+   
+//   },
+//   label:{
+//     position:"absolute",
+//     color:"#E6E6E9",
+//     fontFamily:"Poppins-Light",
+//     fontSize:13,
+//   },
+//   txt: {
+//     fontSize: 14,
+//     color: '#fff',
+//     marginTop: 5,
+//     textAlign: 'center',
+//   },
+//   input: {
+//     flex: 1,
+//     height: 45,
+//     backgroundColor: 'transparent',
+//     color: '#fff',
+//     fontSize: 16,
+//     fontFamily: 'Poppins-Medium'
+//   },
+//   inputContainer: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     borderBottomWidth: 1,
+//     borderBottomColor: 'white',
+//     marginVertical:10,
+//   },
+//   icon: {
+//     marginRight: 10,
+//     width: 20,
+//     height: 20,
+//   },
+//   button: {
+//     backgroundColor: '#E6E6E9',
+//     paddingVertical: 16,
+//     paddingHorizontal: 16,
+//     borderRadius: 100,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     width: 160
+//   },
+  
+//   buttonText: {
+//     color: 'black',
+//     fontSize: 16,
+//     fontWeight: '600',
+//     fontFamily: 'Poppins-Medium',
+//   },
+
+//   logo: {
+//     width: 126,
+//     height: 122,
+//     alignSelf: 'center',
+//   },
+//   ascontainer: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     justifyContent:"center"
+//   },
+//   legalLinks: {
+//     width: 350,
+//     flexDirection: 'row',
+//     flexWrap: 'wrap',
+//     marginTop: 10,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     fontFamily: 'Poppins-Light',
+//   },
+//   legalText: {
+//     fontFamily: 'Poppins-Light',
+//     color: '#F4F4F6',
+//     fontSize: 11,
+//     textAlign: 'center',
+//   },
+//   legalLink: {
+//     fontFamily: 'Poppins-Light',
+//     fontSize: 11,
+//     color: '#fff',
+//     textAlign: 'center',
+//   },
+
+//   legalTexted: {
+//     fontFamily: 'Poppins-Light',
+//     fontWeight:"300",
+//     color: '#F4F4F6',
+//     fontSize: 16,
+//   },
+//   legalLinked: {
+//     fontFamily: 'Poppins-Medium',
+//     fontSize: 16,
+//     color: '#F4F4F6',
+//     textDecorationLine: 'underline',
+//   },
+//   subt:{
+//     fontFamily: 'Poppins-Light',
+//     fontSize: 16,
+//     color: "#fff"
+
+//   }
+// })
+
+// export default SignUp;
+import React, { useState, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,13 +433,13 @@ import {
   Alert,
   Image,
   ScrollView,
+  Animated
 } from 'react-native';
 import API, { ENDPOINTS } from '../../api/apiService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StorageManager from '../../storage/StorageManager';
 
-
-const SignUp = ({navigation}: any) => {
+const SignUp = ({ navigation }: any) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -23,7 +447,13 @@ const SignUp = ({navigation}: any) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
-  const apiUrl = process.env.apiUrl;
+
+  const emailFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+  const fullnameFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+  const passwordFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+  const confirmpasswordFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+  const phonenumberFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -56,7 +486,7 @@ const SignUp = ({navigation}: any) => {
       if (response?.success) {
         const userId = response.user._id;
         const userIdString = userId.toString();
-        await StorageManager.put("userId",userIdString)
+        await StorageManager.put("userId", userIdString);
         Alert.alert('Success', response.message || 'Sign-up successful!');
         navigation.navigate('Login');
       } else {
@@ -64,128 +494,251 @@ const SignUp = ({navigation}: any) => {
         Alert.alert('Error', errorMessage);
       }
     } catch (error:any) {
-      const errorMessage =  error.response?.message
-        || 'Something went wrong.';
+      const errorMessage =  error.response?.message || 'Something went wrong.';
       Alert.alert('Error', errorMessage);
     } finally {
       setIsSigningUp(false);
     }
-
   };
 
+  const handleEmailFocus = () => {
+    Animated.timing(emailFloatingLabelAnimation, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handleNameFocus = () => {
+    Animated.timing(fullnameFloatingLabelAnimation, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handlePhoneFocus = () => {
+    Animated.timing(phonenumberFloatingLabelAnimation, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handlePasswordFocus = () => {
+    Animated.timing(passwordFloatingLabelAnimation, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handleConfirmPasswordFocus = () => {
+    Animated.timing(confirmpasswordFloatingLabelAnimation, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handleBlur = () => {
+    // Check for each input field and animate the label accordingly
+    if (!fullName) {
+      Animated.timing(fullnameFloatingLabelAnimation, {
+        toValue: 0,
+        duration: 150,
+        useNativeDriver: false,
+      }).start();
+    }
+    if (!email) {
+      Animated.timing(emailFloatingLabelAnimation, {
+        toValue: 0,
+        duration: 150,
+        useNativeDriver: false,
+      }).start();
+    }
+    if (!phone) {
+      Animated.timing(phonenumberFloatingLabelAnimation, {
+        toValue: 0,
+        duration: 150,
+        useNativeDriver: false,
+      }).start();
+    }
+    if (!password) {
+      Animated.timing(passwordFloatingLabelAnimation, {
+        toValue: 0,
+        duration: 150,
+        useNativeDriver: false,
+      }).start();
+    }
+    if (!confirmPassword) {
+      Animated.timing(confirmpasswordFloatingLabelAnimation, {
+        toValue: 0,
+        duration: 150,
+        useNativeDriver: false,
+      }).start();
+    }
+  };
+  
+  // Styles for floating labels
+  const emailFloatingLabelStyle = {
+    top: emailFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, -10],
+    }),
+    fontSize: emailFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [16, 12],
+    }),
+  };
+
+  const fullnameFloatingLabelStyle = {
+    top: fullnameFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, -5],
+    }),
+    fontSize: fullnameFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [16, 12],
+    }),
+  };
+
+  const passwordFloatingLabelStyle = {
+    top: passwordFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, -5],
+    }),
+    fontSize: passwordFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [16, 12],
+    }),
+  };
+
+  const confirmpasswordFloatingLabelStyle = {
+    top: confirmpasswordFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, -5],
+    }),
+    fontSize: confirmpasswordFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [16, 12],
+    }),
+  };
+
+  const phonenumberFloatingLabelStyle = {
+    top: phonenumberFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, -5],
+    }),
+    fontSize: phonenumberFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [16, 12],
+    }),
+  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Image
-        source={require('../../assets/tutu_white.png')}
-        style={styles.logo}
-      />
-      <View style={{flex:1, flexDirection:"column",gap:10,marginTop:10}}>
-      <Text style={styles.title}>Let's Get Started!</Text>
-      <View style={styles.ascontainer}>
-        <Text style={styles.subt}>Already have an account? </Text>
-        <Text
-          style={styles.legalLinked}
-          onPress={() => navigation.navigate('Login')}>
-          Sign In
-        </Text>
-      </View>
-      </View>
-      
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          placeholderTextColor="#fff"
-          value={fullName}
-          onChangeText={setFullName}
+     <View>
+        <Image
+          source={require('../../assets/tutu_white.png')}
+          style={styles.logo}
         />
       </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#fff"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        
-        <TextInput
-          style={styles.input}
-          placeholder="Phone"
-          placeholderTextColor="#fff"
-          value={phone}
-          onChangeText={setPhone}
-          keyboardType="phone-pad"
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="#fff"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={!showPassword}
-        />
-        <TouchableOpacity onPress={togglePasswordVisibility}>
-         
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.inputContainer}>
-        
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm Password"
-          placeholderTextColor="#fff"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry={!showPassword}
-        />
-        <TouchableOpacity onPress={togglePasswordVisibility}>
-          
-        </TouchableOpacity>
-      </View>
-     
-<View>
-<View style={{ alignItems: "center",marginTop:20}}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleSignUp}
-        disabled={isSigningUp}>
-          <Text style={styles.buttonText}>
-            {isSigningUp ? 'Signing Up' : 'Sign Up'}
+      <View style={styles.maincontainer}>
+        <Text style={{ fontSize: 32, color: "white", fontFamily: "PlayfairDisplay-SemiBold" }}>LETS GET STARTED!</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.legalTexted}>Already have an account? </Text>
+          <Text
+            style={styles.legalLinked}
+            onPress={() => navigation.navigate('Login')}>
+            Sign in
           </Text>
-      </TouchableOpacity>
-      </View>
-
-     
-
-      <View style={styles.legalLinks}>
-        <Text style={styles.legalText}>By signing in, I accept the </Text>
-        <Text style={styles.legalLink}>Terms of Service</Text>
-        <Text style={styles.legalText}> and </Text>
-        <Text
-          onPress={() => navigation.navigate('dropdown')}
-          style={{fontSize:11, fontFamily: 'Poppins-Light',color: '#F4F4F6'}}>
-          Community Guidelines
-        </Text>
-        <Text style={{fontSize:11, fontFamily: 'Poppins-Light',color: '#F4F4F6'}}> and have read the </Text>
-        <Text
-          onPress={() => navigation.navigate('privacy')}
-          style={{fontSize:11, fontFamily: 'Poppins-Light',color: '#F4F4F6'}}>
-          {' '}
-          Privacy Policy
-        </Text>
         </View>
       </View>
+      <View style={styles.main1}>
+        <View style={{ flexDirection: "column",gap:30  }}>
+          <View style={styles.inputContainer}>
+            <Animated.Text style={[styles.label, fullnameFloatingLabelStyle]}>Full Name</Animated.Text>
+            <TextInput
+              style={styles.input}
+              value={fullName}
+              onChangeText={setFullName}
+              onFocus={handleNameFocus}
+              onBlur={handleBlur}
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+              onFocus={handleEmailFocus}
+              onBlur={handleBlur}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Animated.Text style={[styles.label,phonenumberFloatingLabelStyle ]}>Phone Number</Animated.Text>
+            <TextInput
+              style={styles.input}
+              value={phone}
+              onChangeText={setPhone}
+              onFocus={handlePhoneFocus}
+              onBlur={handleBlur}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Animated.Text style={[styles.label,passwordFloatingLabelStyle ]}>Password</Animated.Text>
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={setPassword}
+              onFocus={handlePasswordFocus}
+              onBlur={handleBlur}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Animated.Text style={[styles.label,passwordFloatingLabelStyle ]}>Confirm Password</Animated.Text>
+            <TextInput
+              style={styles.input}
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              onFocus={handleConfirmPasswordFocus}
+              onBlur={handleBlur}
+            />
+          </View>
+
+        </View>
+
+      </View>
+
+      <View style={styles.btncontainer}>
+          <View style={{ alignItems: "center", marginTop:40}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleSignUp}
+              disabled={isSigningUp}>
+              <Text style={styles.buttonText}>
+                {isSigningUp ? 'loading..' : 'Sign Up'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+
+          <View style={{alignItems:"center",marginBottom:10}}>
+            <Text style={{color:"#F4F4F6",fontFamily:"Poppins-Regular",fontSize:11,textAlign:"center",justifyContent:"center",width:360}}>By signing in, I accept the Terms of Service and Community
+Guidelines and have red <Text
+              onPress={() => navigation.navigate('privacy')}
+              style={styles.privacytext}>
+              {' '}
+              Privacy Policy
+            </Text> </Text>
+
+          </View>
+
+        </View>
+
     </ScrollView>
   );
 };
@@ -193,31 +746,22 @@ const SignUp = ({navigation}: any) => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    alignItems:"center",
     paddingVertical: 40,
     paddingHorizontal: 20,
     backgroundColor: '#000000',
   },
-  title: {
-    fontSize: 32,
-    color: '#fff',
-    fontFamily: 'PlayfairDisplay-SemiBold',
-    textAlign:"center"
+  main1: {
+    flex: 1,
+    justifyContent: 'space-between',
+    marginTop:30
+  
+    
   },
-  subtitle: {
-    fontSize: 16,
-    width: 269,
-    color: 'white',
-    marginBottom: 10,
-    textAlign: 'center',
-    fontWeight: 'normal',
-    fontFamily: 'Poppins-Light',
-  },
-  txt: {
-    fontSize: 14,
-    color: '#fff',
-    marginTop: 5,
-    textAlign: 'center',
+  label: {
+    position: "absolute",
+    color: "#E6E6E9",
+    fontFamily: "Poppins-Light",
+    fontSize: 13,
   },
   input: {
     flex: 1,
@@ -232,12 +776,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: 'white',
-    marginVertical:10,
-  },
-  icon: {
-    marginRight: 10,
-    width: 20,
-    height: 20,
+    marginVertical:10
+   
+    
   },
   button: {
     backgroundColor: '#E6E6E9',
@@ -246,66 +787,54 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 160
+    width: 160,
+    marginTop: 20,
   },
-  
   buttonText: {
     color: 'black',
     fontSize: 16,
     fontWeight: '600',
     fontFamily: 'Poppins-Medium',
   },
-
   logo: {
     width: 126,
     height: 122,
     alignSelf: 'center',
   },
-  ascontainer: {
-    flexDirection: 'row',
+  maincontainer: {
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent:"center"
-  },
-  legalLinks: {
-    width: 350,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontFamily: 'Poppins-Light',
-  },
-  legalText: {
-    fontFamily: 'Poppins-Light',
-    color: '#F4F4F6',
-    fontSize: 11,
-    textAlign: 'center',
-  },
-  legalLink: {
-    fontFamily: 'Poppins-Light',
-    fontSize: 11,
-    color: '#fff',
-    textAlign: 'center',
+    marginTop: 20,
+    gap:10
   },
 
   legalTexted: {
-    fontFamily: 'Poppins-Light',
-    fontWeight:"300",
     color: '#F4F4F6',
+    textAlign:'center',
     fontSize: 16,
+    fontWeight: "300",
+    fontFamily: 'Poppins-Light',
+
   },
   legalLinked: {
-    fontFamily: 'Poppins-Medium',
     fontSize: 16,
-    color: '#F4F4F6',
+    color: 'white',
     textDecorationLine: 'underline',
+    fontFamily: 'Poppins-Medium',
   },
-  subt:{
-    fontFamily: 'Poppins-Light',
-    fontSize: 16,
-    color: "#fff"
+  btncontainer:{
+    flexDirection:"column",
+  gap:10
 
-  }
+  },
+  privacytext:{
+    color:"#F4F4F6",
+    fontFamily:"Poppins-Regular",
+    fontSize:11
+
+
+  },
+
 });
 
 export default SignUp;
