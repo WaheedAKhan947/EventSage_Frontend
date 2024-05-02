@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Alert,
   Image,
-  ScrollView
+  ScrollView       
 } from 'react-native';
 import API, { ENDPOINTS } from '../../api/apiService';
 import StorageManager from '../../storage/StorageManager';
@@ -38,7 +38,7 @@ const SignIn = ({ navigation }: any) => {
       const response = await API.post(ENDPOINTS.USER.LOGIN, payload)
       const userId = response?.user?._id;
       const userIdString = userId.toString();
-      await AsyncStorage.setItem('userId', userIdString);
+      await StorageManager.put('userId', userIdString);
       Alert.alert('Success', response.message || 'Sign-in successful!');
       navigation.navigate('reservation');
     } catch (error: any) {

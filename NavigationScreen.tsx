@@ -15,6 +15,7 @@ import PaymentMehtod from './component/paymentMethod/PaymentMehtod';
 import ManagePayment from './component/ManagePayment/ManagePayment';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, View } from 'react-native';
+import ReservationRequest from './component/ReservationRequest/ReservationRequest';
 
 export const GlobalContext = createContext({});
 const NavigationScreen = () => {
@@ -46,7 +47,7 @@ const NavigationScreen = () => {
             tabBarIcon: ({focused}) =>(
               <View style={{alignItems:"center",justifyContent:"center"}}>
                 <Image
-                source={require("../TUTU-dev/assets/restaurant-fill.png")}
+                source={require("../front-end/assets/restaurant-fill.png")}
                 resizeMode='contain'
                 style={{
                   width:25,
@@ -62,12 +63,12 @@ const NavigationScreen = () => {
             tabBarIcon: ({focused}) =>(
               <View style={{alignItems:"center",justifyContent:"center"}}>
                 <Image
-                source={require("../TUTU-dev/assets/chathistory.png")}
+                source={require("../front-end/assets/chathistory.png")}
                 resizeMode='contain'
                 style={{
                   width:25,
                   height:25,
-                  tintColor: focused ? "#fff" : "#E6E6E9"
+                  tintColor: focused ? "#fff" : "#E6E6E9",
                 }}
                 />
               </View>
@@ -78,7 +79,7 @@ const NavigationScreen = () => {
             tabBarIcon: ({focused}) =>(
               <View style={{alignItems:"center",justifyContent:"center"}}>
                 <Image
-                source={require("../TUTU-dev/assets/creditcard.png")}
+                source={require("../front-end/assets/creditcard.png")}
                 resizeMode='contain'
                 style={{
                   width:25,
@@ -93,7 +94,7 @@ const NavigationScreen = () => {
             tabBarIcon: ({focused}) =>(
               <View style={{alignItems:"center",justifyContent:"center"}}>
                 <Image
-                source={require("../TUTU-dev/assets/userprofile.png")}
+                source={require("../front-end/assets/userprofile.png")}
                 resizeMode='contain'
                 style={{
                   width:25,
@@ -115,14 +116,14 @@ const NavigationScreen = () => {
 <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
   <Stack.Screen name="Login" component={Login} /> 
   <Stack.Screen name="Signup" component={SignUp} />
-  <Stack.Screen name="reservation" component={Reservation} />
+  <Stack.Screen name="reservation" component={ReservationStack} />
   <Stack.Screen name="privacy" component={Privacy} />
   <Stack.Screen name="forget" component={Forget} />
   <Stack.Screen name="verification" component={Verify} />
   <Stack.Screen name="confirmation" component={Confirmpass} />
   <Stack.Screen name="profile" component={Profile} />
   <Stack.Screen name="reservationhistory" component={Reservations} />
-  <Stack.Screen name="reservationrequests" component={ReservationStack} />
+  <Stack.Screen name="reservationrequests" component={ReservationRequest} />
   <Stack.Screen name="paymentmethod" component={PaymentMehtod} />    
   <Stack.Screen name="managepayment" component={ManagePayment} />    
    

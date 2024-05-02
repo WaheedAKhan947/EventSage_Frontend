@@ -1,5 +1,6 @@
 const USER = {
   LOGIN: 'auth/login',
+  SIGNUP: 'auth/signup'
 
   
 };

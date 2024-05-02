@@ -10,6 +10,9 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import API, { ENDPOINTS } from '../../api/apiService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import StorageManager from '../../storage/StorageManager';
 
 
 const SignUp = ({navigation}: any) => {
@@ -47,40 +50,27 @@ const SignUp = ({navigation}: any) => {
     }
 
     try {
-      const response = await axios.post(
-        'https://jittery-tan-millipede.cyclic.app/api/v1/auth/signup',
-        JSON.stringify({
-          fullName,
-          email,
-          phone,
-          password,
-        }),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-
-      if (response.status === 200) {
-        const responseData = response.data;
+      const payload = { fullName, email, phone, password, confirmPassword };
+      const response = await API.post(ENDPOINTS.USER.SIGNUP, payload);
     
-        Alert.alert('Success', responseData.message || 'Sign-up successful!');
+      if (response?.success) {
+        const userId = response.user._id;
+        const userIdString = userId.toString();
+        await StorageManager.put("userId",userIdString)
+        Alert.alert('Success', response.message || 'Sign-up successful!');
         navigation.navigate('Login');
       } else {
-        const errorMessage =
-          response.data.message ||
-          'Email or phoneNo already exist or Something went wrong.';
+        const errorMessage = response.message || 'Something went wrong.';
         Alert.alert('Error', errorMessage);
       }
-    } catch (error: any) {
-      const errorMessage = error.response
-        ? error.response.data.message
-        : 'Something went wrong.';
+    } catch (error:any) {
+      const errorMessage =  error.response?.message
+        || 'Something went wrong.';
       Alert.alert('Error', errorMessage);
     } finally {
       setIsSigningUp(false);
     }
+
   };
 
   return (
