@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
   Alert,
   Image,
   SafeAreaView,
@@ -12,6 +13,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+const {height: windowHeight} = Dimensions.get('window');
 const Forget = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [isSigningUp, setIsSigningUp] = useState(false);
@@ -53,51 +55,53 @@ const Forget = ({navigation}: any) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView style={styles.mainContainer}>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}>
+        <View style={styles.container}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}>
+            <Image
+              source={require('../../assets/wback.png')}
+              style={styles.backIcon}
+            />
+          </TouchableOpacity>
           <Image
-            source={require('../../assets/wback.png')}
-            style={styles.backIcon}
+            source={require('../../assets/tutu_white.png')}
+            style={styles.logo}
           />
-        </TouchableOpacity>
-        <Image
-          source={require('../../assets/tutu_white.png')}
-          style={styles.logo}
-        />
 
-        <View style={styles.maincontent}>
-          <Text style={styles.title}>Forget Password</Text>
-          <Text style={styles.subtitle}>Enter your registered email below</Text>
-        </View>
+          <View style={styles.maincontent}>
+            <Text style={styles.title}>Forget Password</Text>
+            <Text style={styles.subtitle}>
+              Enter your registered email below
+            </Text>
+          </View>
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#FFFFFF"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-          />
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="#FFFFFF"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+            />
+          </View>
+          <View style={styles.submitBtn}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                handlePasswordReset();
+              }}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.toLogin}
+              onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.legalTexted}>Remember the password? </Text>
+              <Text style={styles.legalLinked}>Sign In</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.submitBtn}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handlePasswordReset();
-            }}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.toLogin}
-            onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.legalTexted}>Remember the password? </Text>
-            <Text style={styles.legalLinked}>Sign In</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -106,11 +110,11 @@ const Forget = ({navigation}: any) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    height:'100%',
+    height: '100%',
     backgroundColor: '#000000',
   },
   container: {
-    height:'100%',
+    height: '100%',
     flex: 1,
     alignItems: 'center',
     paddingTop: 40,
@@ -219,8 +223,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitBtn: {
-    flex:1,
-    marginTop: 40,
+    flex: 1,
+    height: windowHeight * 0.232,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

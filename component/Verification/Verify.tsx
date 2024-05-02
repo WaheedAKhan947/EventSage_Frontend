@@ -4,14 +4,17 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Dimensions,
   Alert,
   SafeAreaView,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
+const {height: windowHeight} = Dimensions.get('window');
 const Verify = ({navigation}: any) => {
   const [code, setCode] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -61,8 +64,11 @@ const Verify = ({navigation}: any) => {
         const errorMessage = response.data.message || 'Something went wrong.';
         Alert.alert('Error', errorMessage);
       }
-    }  catch (error:any) {
-      Alert.alert('Error', error.response?.data.message || 'Failed to verify code!');
+    } catch (error: any) {
+      Alert.alert(
+        'Error',
+        error.response?.data.message || 'Failed to verify code!',
+      );
     } finally {
       setLoading(false);
     }
@@ -102,76 +108,96 @@ const Verify = ({navigation}: any) => {
   const handleContactSupport = () => {};
 
   return (
-    <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.backButton}>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView style={styles.mainContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}>
+          <Image
+            source={require('../../assets/wback.png')}
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
+
         <Image
-          source={require('../../assets/wback.png')}
-          style={styles.backIcon}
+          source={require('../../assets/tutu_white.png')}
+          style={styles.logo}
         />
-      </TouchableOpacity>
 
-      <Image
-        source={require('../../assets/tutu_white.png')}
-        style={styles.logo}
-      />
-
-      <View style={styles.maincontent}>
-        <Text style={styles.title}>Forgot Password</Text>
-        <View>
-          <Text style={styles.subtitle}>Password recovery email sent to </Text>
-          <View style={styles.hiddenContainer}>
-            <Text style={{color: '#fff', fontSize: 16}}>{hiddenPart}</Text>
+        <View style={styles.maincontent}>
+          <Text style={styles.title}>Forgot Password</Text>
+          <View>
+            <Text style={styles.subtitle}>
+              Password recovery email sent to{' '}
+            </Text>
+            <View style={styles.hiddenContainer}>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 16,
+                  fontFamily: 'Poppins-Medium',
+                }}>
+                {hiddenPart}
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
 
-      <OTPInputView
-        style={styles.otpInput}
-        pinCount={4}
-        autoFocusOnLoad
-        codeInputFieldStyle={styles.underlineStyleBase}
-        codeInputHighlightStyle={styles.underlineStyleHighLighted}
-        onCodeFilled={code => setCode(code)}
-      />
-      <View style={styles.seccont}>
-        <View style={styles.resend}>
-          <Text style={styles.vertext}>
-            <TouchableOpacity onPress={handlePasswordReset} disabled={loading}>
-              <Text style={[styles.resendLink, styles.vertext]}>
-                Resend Code
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          <OTPInputView
+            style={styles.otpInput}
+            pinCount={4}
+            autoFocusOnLoad
+            codeInputFieldStyle={styles.underlineStyleBase}
+            codeInputHighlightStyle={styles.underlineStyleHighLighted}
+            onCodeFilled={code => setCode(code)}
+          />
+        </ScrollView>
+        <View style={styles.seccont}>
+          <View style={styles.resend}>
+            <Text style={styles.vertext}>
+              <TouchableOpacity
+                onPress={handlePasswordReset}
+                disabled={loading}>
+                <Text style={[styles.resendLink, styles.vertext]}>
+                  Resend Code
+                </Text>
+              </TouchableOpacity>
+            </Text>
+          </View>
+        </View>
+        <View style={styles.submitBtn}>
+          <View>
+            <TouchableOpacity
+              style={styles.button}
+              disabled={loading}
+              onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Continue</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.contactsup}>
+            <TouchableOpacity onPress={handleContactSupport}>
+              <Text style={styles.contactupText}>
+                Still not working? <Text>Contact Support</Text>
               </Text>
             </TouchableOpacity>
-          </Text>
+          </View>
         </View>
-      </View>
-      <View>
-        <View style={{alignItems: 'center', marginTop: 100}}>
-          <TouchableOpacity
-            style={styles.button}
-            disabled={loading}
-            onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Continue</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.contactsup}>
-          <TouchableOpacity onPress={handleContactSupport}>
-            <Text style={styles.contactupText}>
-              Still not working? <Text>Contact Support</Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    height: '100%',
+    backgroundColor: '#000000',
+  },
   container: {
     flex: 1,
     backgroundColor: '#000000',
-    paddingVertical: 30,
+    paddingVertical: 10,
   },
   backButton: {
     position: 'absolute',
@@ -201,7 +227,7 @@ const styles = StyleSheet.create({
   },
   hiddenContainer: {
     fontFamily: 'Poppins-Medium',
-    fontSize:16,
+    fontSize: 16,
     lineHeight: 25,
     color: '#fff',
     alignItems: 'center',
@@ -210,33 +236,27 @@ const styles = StyleSheet.create({
   hidden: {
     color: '#fff',
   },
-  icon: {
-    marginRight: 10,
-    width: 26,
-    height: 24,
-  },
   button: {
     backgroundColor: '#E6E6E9',
     paddingVertical: 16,
     paddingHorizontal: 16,
     borderRadius: 100,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     width: 160,
   },
 
   buttonText: {
-    color: 'black',
+    color: '#000000',
     fontSize: 16,
-    fontWeight: '600',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
   },
   logo: {
     width: 126,
     height: 122,
     alignSelf: 'center',
-    marginTop: 25,
-    marginBottom: 20,
+    marginTop: 30,
+    // marginBottom: 20,
   },
   subtitle: {
     fontSize: 16,
@@ -246,14 +266,15 @@ const styles = StyleSheet.create({
     lineHeight: 25,
   },
   title: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 345,
+    textAlign: 'center',
+    // marginTop: 25,
+    // flex:1,
+    // justifyContent:'center',
+    // alignItems:'center',
     fontSize: 32,
     color: '#F4F4F6',
-    fontWeight: '600',
-    fontFamily: 'PlayfairDisplay-Bold',
-    marginBottom: 10,
+    fontFamily: 'PlayfairDisplay-SemiBold',
+    marginBottom: 15,
     textTransform: 'uppercase',
   },
   maincontent: {
@@ -269,11 +290,7 @@ const styles = StyleSheet.create({
     fontFamily: 'IbarraRealNova-Regular',
     fontSize: 16,
   },
-  foottext: {
-    flexDirection: 'row',
-    color: '#E581AB',
-    fontFamily: 'Poppins',
-  },
+
   resend: {
     alignItems: 'flex-start',
     fontSize: 16,
@@ -281,14 +298,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   contactsup: {
-    marginTop: 20,
+    marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
   },
   contactupText: {
     color: '#F4F4F6',
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Light',
     fontSize: 11,
     fontWeight: '300',
   },
@@ -300,6 +317,7 @@ const styles = StyleSheet.create({
   },
   seccont: {
     alignItems: 'flex-start',
+    marginTop: 25,
   },
   borderStyleBase: {
     width: 40,
@@ -311,7 +329,7 @@ const styles = StyleSheet.create({
   },
 
   underlineStyleBase: {
-    width: 80,
+    width: 70,
     height: 60,
     borderWidth: 0,
     borderBottomWidth: 1,
@@ -322,11 +340,19 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   otpInput: {
-    marginTop: 30,
     width: '90%',
-    height: 120,
-    justifyContent: 'center',
     alignSelf: 'center',
+  },
+  scrollViewContent: {
+    marginTop: 12,
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  submitBtn: {
+    flex: 1,
+    height: windowHeight * 0.315,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 });
 
