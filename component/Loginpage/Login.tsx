@@ -61,19 +61,9 @@ const SignIn = ({ navigation }: any) => {
       duration: 150,
       useNativeDriver: false,
     }).start();
-    Animated.timing(passwordFloatingLabelAnimation, {
-      toValue: 0,
-      duration: 150,
-      useNativeDriver: false,
-    }).start();
   };
 
   const handlePasswordFocus = () => {
-    Animated.timing(emailFloatingLabelAnimation, {
-      toValue: 0,
-      duration: 150,
-      useNativeDriver: false,
-    }).start();
     Animated.timing(passwordFloatingLabelAnimation, {
       toValue: 1,
       duration: 150,
@@ -81,10 +71,16 @@ const SignIn = ({ navigation }: any) => {
     }).start();
   };
 
-
   const handleBlur = () => {
-    if (!email ) { // Checking if email is empty
+    if (!email) { 
       Animated.timing(emailFloatingLabelAnimation, {
+        toValue: 0,
+        duration: 150,
+        useNativeDriver: false,
+      }).start();
+    }
+    if (!password) { 
+      Animated.timing(passwordFloatingLabelAnimation, {
         toValue: 0,
         duration: 150,
         useNativeDriver: false,
@@ -92,8 +88,6 @@ const SignIn = ({ navigation }: any) => {
     }
   };
   
-  
-
   const emailFloatingLabelStyle = {
     top: emailFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
@@ -114,7 +108,6 @@ const SignIn = ({ navigation }: any) => {
       inputRange: [0, 1],
       outputRange: [16, 12],
     }),
-  
   };
 
   return (
