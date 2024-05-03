@@ -118,7 +118,6 @@ const SignUp = ({ navigation }: any) => {
   };
 
   const handleBlur = () => {
-    // Check for each input field and animate the label accordingly
     if (!fullName) {
       Animated.timing(fullnameFloatingLabelAnimation, {
         toValue: 0,
@@ -156,7 +155,7 @@ const SignUp = ({ navigation }: any) => {
     }
   };
   
-  // Styles for floating labels
+
   const emailFloatingLabelStyle = {
     top: emailFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
@@ -171,7 +170,7 @@ const SignUp = ({ navigation }: any) => {
   const fullnameFloatingLabelStyle = {
     top: fullnameFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [10, -5],
+      outputRange: [10, -10],
     }),
     fontSize: fullnameFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
@@ -182,7 +181,7 @@ const SignUp = ({ navigation }: any) => {
   const passwordFloatingLabelStyle = {
     top: passwordFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [10, -5],
+      outputRange: [10, -10],
     }),
     fontSize: passwordFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
@@ -193,7 +192,7 @@ const SignUp = ({ navigation }: any) => {
   const confirmpasswordFloatingLabelStyle = {
     top: confirmpasswordFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [10, -5],
+      outputRange: [10, -10],
     }),
     fontSize: confirmpasswordFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
@@ -204,7 +203,7 @@ const SignUp = ({ navigation }: any) => {
   const phonenumberFloatingLabelStyle = {
     top: phonenumberFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [10, -5],
+      outputRange: [10, -10],
     }),
     fontSize: phonenumberFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
@@ -213,7 +212,7 @@ const SignUp = ({ navigation }: any) => {
   }
   return (
     <ScrollView contentContainerStyle={styles.container}>
-     <View>
+     <View style={{flex:1}}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
@@ -232,7 +231,7 @@ const SignUp = ({ navigation }: any) => {
         </View>
       </View>
       <View style={styles.main1}>
-        <View style={{ flexDirection: "column",gap:30  }}>
+        <View style={{ flexDirection: "column", gap:20}}>
           <View style={styles.inputContainer}>
             <Animated.Text style={[styles.label, fullnameFloatingLabelStyle]}>Full Name</Animated.Text>
             <TextInput
@@ -302,7 +301,7 @@ const SignUp = ({ navigation }: any) => {
       </View>
 
       <View style={styles.btncontainer}>
-          <View style={{ alignItems: "center", marginTop:40}}>
+          <View style={{ alignItems: "center",}}>
             <TouchableOpacity
               style={styles.button}
               onPress={handleSignUp}
@@ -334,16 +333,12 @@ Guidelines and have red <Text
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    paddingVertical: 40,
+    paddingTop: 20,
     paddingHorizontal: 20,
     backgroundColor: '#000000',
   },
   main1: {
-    flex: 1,
-    justifyContent: 'space-between',
-    marginTop:30
-  
-    
+    flex: 2, 
   },
   label: {
     position: "absolute",
@@ -364,7 +359,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: 'white',
-    marginVertical:10
+  
    
     
   },
@@ -390,10 +385,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   maincontainer: {
+    flex:1,
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 20,
-    gap:10
+    gap:5,
+    
   },
 
   legalTexted: {
@@ -416,9 +412,10 @@ const styles = StyleSheet.create({
     height: 20,
   },
   btncontainer:{
-    flexDirection:"column",
-  gap:10
-
+    flex: 1,
+    flexDirection: "column",
+    gap: 10,
+    justifyContent: "flex-end"
   },
   privacytext:{
     color:"#F4F4F6",

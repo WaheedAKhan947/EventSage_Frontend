@@ -89,22 +89,20 @@ const Forget = ({navigation}: any) => {
   
   
   return (
-      <ScrollView style={styles.mainContainer}>
-      <View style={styles.container}>
-        <View>
+      <ScrollView contentContainerStyle={styles.container}>
+      <View style={{flex:1}}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
         />
         </View>
 
-        <View style={{marginTop:20}}>
+        <View style={{flex:2}}>
           <Text style={styles.title}>Forget Password</Text>
           <Text style={styles.subtitle}>Enter your registered email below</Text>
         </View>
         
         <View style={styles.main1}>
-        <View >
         <View style={styles.inputContainer}>
           <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
           <TextInput
@@ -117,7 +115,8 @@ const Forget = ({navigation}: any) => {
           />
         </View>
         </View>
-        <View style={{alignItems:"center"}} >
+
+        <View style={{alignItems:"center",flex:2,flexDirection: "column", gap: 20,justifyContent: "flex-end"}} >
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
@@ -126,15 +125,13 @@ const Forget = ({navigation}: any) => {
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
           <TouchableOpacity
-          style={{flexDirection:"row",marginTop:10}}
+          style={{flexDirection:"row",}}
             onPress={() => navigation.navigate('Login')}>
             <Text style={styles.legalTexted}>Remember the password? </Text>
             <Text style={styles.legalLinked}>Sign In</Text>
           </TouchableOpacity>
         </View>
      
-      </View>
-     </View>
       </ScrollView>
    
   );
@@ -142,19 +139,13 @@ const Forget = ({navigation}: any) => {
 
 const styles = StyleSheet.create({
   main1:{
-    flexDirection:"column",
-    justifyContent:"space-between",
-    height:400,
-   marginTop:60
+    flex:2,  
   },
-  mainContainer: {
-    flex: 1,
-    backgroundColor: '#000000',
-  },
+
   container: {
     flex: 1,
     paddingHorizontal:20,
-    paddingVertical:40,
+    paddingTop:20,
     backgroundColor: '#000000',
   },
   backButton: {
@@ -169,7 +160,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    flex: 1,
+    flex:1,
     height: 45,
     backgroundColor: 'transparent',
     color: '#FFFFFF',
@@ -190,13 +181,13 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#E6E6E9',
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-    margin: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
     width: 160,
+    height:60
   },
   buttonText: {
     color: '#000000',
@@ -211,7 +202,7 @@ const styles = StyleSheet.create({
   ascontainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 30,
+    
   },
 
   legalTexted: {
@@ -230,14 +221,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  headerButton: {
-    marginTop: 10,
-    marginHorizontal: -20,
-  },
-  headerIcon: {
-    width: 24,
-    height: 24,
-  },
+ 
+
   subtitle: {
     fontSize: 16,
     color: '#F4F4F6',
@@ -247,15 +232,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     textAlign: 'center',
-    fontWeight: '600',
     color: '#F4F4F6',
     fontFamily: 'PlayfairDisplay-SemiBold',
-    marginTop: 40,
-    marginBottom: 10,
     textTransform: 'uppercase',
   },
   maincontent: {
-    // marginBottom: 50,
     alignItems: 'center',
   },
   
