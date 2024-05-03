@@ -69,8 +69,6 @@
 		<string>PlayfairDisplay-Regular.ttf</string>
 		<string>PlayfairDisplay-SemiBold.ttf</string>
 		<string>PlayfairDisplay-SemiBoldItalic.ttf</string>
-<<<<<<< HEAD
-=======
 		<string>Poppins-Black.ttf</string>
 		<string>Poppins-BlackItalic.ttf</string>
 		<string>Poppins-Bold.ttf</string>
@@ -89,7 +87,6 @@
 		<string>Poppins-SemiBoldItalic.ttf</string>
 		<string>Poppins-Thin.ttf</string>
 		<string>Poppins-ThinItalic.ttf</string>
->>>>>>> a9610be215ba14aa1d94668f0e941a53a4f155e5
 	</array>
 </dict>
 </plist>
