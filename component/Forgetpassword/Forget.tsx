@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
   Alert,
   Image,
   SafeAreaView,
