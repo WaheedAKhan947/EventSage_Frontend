@@ -103,7 +103,7 @@ const Verify = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      <View style={{flex:4,borderWidth:1,borderColor:"red"}}>
+      <View style={{flex:3,justifyContent:"center"}}>
       <View>
       <Image
         source={require('../../assets/tutu_white.png')}
@@ -125,7 +125,7 @@ const Verify = ({navigation}: any) => {
         </View>
       </View>
 
-      <View style={{ flex:3,borderWidth:1,borderColor:"red"}}>
+      <View style={{ flex:3,}}>
       <OTPInputView
         style={styles.otpInput}
         pinCount={4}
@@ -146,7 +146,7 @@ const Verify = ({navigation}: any) => {
         </View>
         </View>
       
-      <View style={{flex:2,justifyContent:"flex-end",borderWidth:1,borderColor:"red"}}>
+      <View style={{flex:2,justifyContent:"flex-end"}}>
         <View style={{alignItems: 'center',}}>
           <TouchableOpacity
             style={styles.button}
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000000',
-    paddingTop:20
+    
   },
   backButton: {
     position: 'absolute',
@@ -253,11 +253,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   maincontent: {
-    flex:2,
+    flex:3,
     alignItems:"center",
     gap:5,
-    borderWidth:1,borderColor:"red",
-   
   },
   verifycode: {
     flexDirection: 'row',

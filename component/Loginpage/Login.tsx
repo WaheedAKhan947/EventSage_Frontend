@@ -111,7 +111,7 @@ const SignIn = ({ navigation }: any) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={{ flex: 2,justifyContent:"center"}}>
+      <View style={{ flex: 2,justifyContent:"center",}}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: 20,
     backgroundColor: '#000',
-    paddingTop:5
+    
   },
 
   main1: {
@@ -233,10 +233,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomWidth: 1,
     borderBottomColor: '#fff',
+    alignItems:"flex-end"
   },
   icon: {
     width: 20,
     height: 20,
+    marginBottom:5
   },
   button: {
     backgroundColor: '#E6E6E9',
@@ -281,8 +283,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     gap: 10,
-    // borderWidth:1,
-    // borderColor:"#fff",
     justifyContent: "flex-end"
 
   },
@@ -290,7 +290,6 @@ const styles = StyleSheet.create({
     color: "#F4F4F6",
     fontFamily: "Poppins-Regular",
     fontSize: 11
-
 
   },
 
