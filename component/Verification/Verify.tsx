@@ -1,12 +1,14 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   Image,
+  Dimensions,
   Alert,
   SafeAreaView,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -54,15 +56,18 @@ const Verify = ({navigation}: any) => {
         Alert.alert(
           'Success',
           response.data.message ||
-            'Verification successful, please update your password!',
+          'Verification successful, please update your password!',
         );
-        navigation.navigate('confirmation', {email: emailID});
+        navigation.navigate('confirmation', { email: emailID });
       } else {
         const errorMessage = response.data.message || 'Something went wrong.';
         Alert.alert('Error', errorMessage);
       }
-    }  catch (error:any) {
-      Alert.alert('Error', error.response?.data.message || 'Failed to verify code!');
+    } catch (error: any) {
+      Alert.alert(
+        'Error',
+        error.response?.data.message || 'Failed to verify code!',
+      );
     } finally {
       setLoading(false);
     }
@@ -99,11 +104,11 @@ const Verify = ({navigation}: any) => {
     }
   };
 
-  const handleContactSupport = () => {};
+  const handleContactSupport = () => { };
 
   return (
     <View style={styles.container}>
-      <View style={{flex:4,borderWidth:1,borderColor:"red"}}>
+      <View style={{flex:3,justifyContent:"center"}}>
       <View>
       <Image
         source={require('../../assets/tutu_white.png')}
@@ -125,7 +130,7 @@ const Verify = ({navigation}: any) => {
         </View>
       </View>
 
-      <View style={{ flex:3,borderWidth:1,borderColor:"red"}}>
+      <View style={{ flex:3,}}>
       <OTPInputView
         style={styles.otpInput}
         pinCount={4}
@@ -146,7 +151,7 @@ const Verify = ({navigation}: any) => {
         </View>
         </View>
       
-      <View style={{flex:2,justifyContent:"flex-end",borderWidth:1,borderColor:"red"}}>
+      <View style={{flex:2,justifyContent:"flex-end"}}>
         <View style={{alignItems: 'center',}}>
           <TouchableOpacity
             style={styles.button}
@@ -168,10 +173,15 @@ const Verify = ({navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    height: '100%',
+    backgroundColor: '#000000',
+  },
   container: {
     flex: 1,
     backgroundColor: '#000000',
-    paddingTop:20
+    
   },
   backButton: {
     position: 'absolute',
@@ -201,7 +211,7 @@ const styles = StyleSheet.create({
   },
   hiddenContainer: {
     fontFamily: 'Poppins-Medium',
-    fontSize:16,
+    fontSize: 16,
     lineHeight: 25,
     color: '#fff',
     alignItems: 'center',
@@ -210,33 +220,27 @@ const styles = StyleSheet.create({
   hidden: {
     color: '#fff',
   },
-  icon: {
-    marginRight: 10,
-    width: 26,
-    height: 24,
-  },
   button: {
     backgroundColor: '#E6E6E9',
     paddingVertical: 16,
     paddingHorizontal: 16,
     borderRadius: 100,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     width: 160,
   },
 
   buttonText: {
-    color: 'black',
+    color: '#000000',
     fontSize: 16,
-    fontWeight: '600',
-    fontFamily: 'poppins',
+    fontFamily: 'Poppins-Medium',
   },
   logo: {
     width: 126,
     height: 122,
     alignSelf: 'center',
-    marginTop: 25,
-    marginBottom: 20,
+    marginTop: 30,
+    // marginBottom: 20,
   },
   subtitle: {
     fontSize: 16,
@@ -253,11 +257,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   maincontent: {
-    flex:2,
+    flex:3,
     alignItems:"center",
     gap:5,
-    borderWidth:1,borderColor:"red",
-   
   },
   verifycode: {
     flexDirection: 'row',
@@ -268,11 +270,7 @@ const styles = StyleSheet.create({
     fontFamily: 'IbarraRealNova-Regular',
     fontSize: 16,
   },
-  foottext: {
-    flexDirection: 'row',
-    color: '#E581AB',
-    fontFamily: 'Poppins',
-  },
+
   resend: {
     alignItems: 'flex-start',
     fontSize: 16,
@@ -282,14 +280,14 @@ const styles = StyleSheet.create({
     marginTop:20
   },
   contactsup: {
-    marginTop: 20,
+    marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
   },
   contactupText: {
     color: '#F4F4F6',
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Light',
     fontSize: 11,
     fontWeight: '300',
   },
@@ -301,6 +299,7 @@ const styles = StyleSheet.create({
   },
   seccont: {
     alignItems: 'flex-start',
+    marginTop: 25,
   },
   borderStyleBase: {
     width: 40,
@@ -312,7 +311,7 @@ const styles = StyleSheet.create({
   },
 
   underlineStyleBase: {
-    width: 80,
+    width: 70,
     height: 60,
     borderWidth: 0,
     borderBottomWidth: 1,

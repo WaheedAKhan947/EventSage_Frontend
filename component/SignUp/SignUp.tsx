@@ -58,7 +58,7 @@ const SignUp = ({ navigation }: any) => {
     try {
       const payload = { fullName, email, phone, password, confirmPassword };
       const response = await API.post(ENDPOINTS.USER.SIGNUP, payload);
-    
+
       if (response?.success) {
         const userId = response.user._id;
         const userIdString = userId.toString();
@@ -69,8 +69,8 @@ const SignUp = ({ navigation }: any) => {
         const errorMessage = response.message || 'Something went wrong.';
         Alert.alert('Error', errorMessage);
       }
-    } catch (error:any) {
-      const errorMessage =  error.response?.message || 'Something went wrong.';
+    } catch (error: any) {
+      const errorMessage = error.response?.message || 'Something went wrong.';
       Alert.alert('Error', errorMessage);
     } finally {
       setIsSigningUp(false);
@@ -154,7 +154,7 @@ const SignUp = ({ navigation }: any) => {
       }).start();
     }
   };
-  
+
 
   const emailFloatingLabelStyle = {
     top: emailFloatingLabelAnimation.interpolate({
@@ -212,7 +212,7 @@ const SignUp = ({ navigation }: any) => {
   }
   return (
     <ScrollView contentContainerStyle={styles.container}>
-     <View style={{flex:3,justifyContent:"center"}}>
+      <View style={{ flex: 2, justifyContent: "center", paddingTop:5 }}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
@@ -231,7 +231,7 @@ const SignUp = ({ navigation }: any) => {
         </View>
       </View>
       <View style={styles.main1}>
-        <View style={{ flexDirection: "column", gap:20}}>
+        <View style={{ flexDirection: "column", gap: 25 }}>
           <View style={styles.inputContainer}>
             <Animated.Text style={[styles.label, fullnameFloatingLabelStyle]}>Full Name</Animated.Text>
             <TextInput
@@ -254,7 +254,7 @@ const SignUp = ({ navigation }: any) => {
             />
           </View>
           <View style={styles.inputContainer}>
-            <Animated.Text style={[styles.label,phonenumberFloatingLabelStyle ]}>Phone Number</Animated.Text>
+            <Animated.Text style={[styles.label, phonenumberFloatingLabelStyle]}>Phone Number</Animated.Text>
             <TextInput
               style={styles.input}
               value={phone}
@@ -264,13 +264,14 @@ const SignUp = ({ navigation }: any) => {
             />
           </View>
           <View style={styles.inputContainer}>
-            <Animated.Text style={[styles.label,passwordFloatingLabelStyle ]}>Password</Animated.Text>
+            <Animated.Text style={[styles.label, passwordFloatingLabelStyle]}>Password</Animated.Text>
             <TextInput
               style={styles.input}
               value={password}
               onChangeText={setPassword}
               onFocus={handlePasswordFocus}
               onBlur={handleBlur}
+              secureTextEntry={!showPassword}
             />
             <TouchableOpacity onPress={togglePasswordVisibility}>
               <Image
@@ -280,13 +281,14 @@ const SignUp = ({ navigation }: any) => {
             </TouchableOpacity>
           </View>
           <View style={styles.inputContainer}>
-            <Animated.Text style={[styles.label,confirmpasswordFloatingLabelStyle ]}>Confirm Password</Animated.Text>
+            <Animated.Text style={[styles.label, confirmpasswordFloatingLabelStyle]}>Confirm Password</Animated.Text>
             <TextInput
               style={styles.input}
               value={confirmPassword}
               onChangeText={setConfirmPassword}
               onFocus={handleConfirmPasswordFocus}
               onBlur={handleBlur}
+              secureTextEntry={!showPassword}
             />
             <TouchableOpacity onPress={togglePasswordVisibility}>
               <Image
@@ -301,30 +303,30 @@ const SignUp = ({ navigation }: any) => {
       </View>
 
       <View style={styles.btncontainer}>
-          <View style={{ alignItems: "center",}}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleSignUp}
-              disabled={isSigningUp}>
-              <Text style={styles.buttonText}>
-                {isSigningUp ? 'loading..' : 'Sign Up'}
-              </Text>
-            </TouchableOpacity>
-          </View>
+        <View style={{ alignItems: "center", }}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleSignUp}
+            disabled={isSigningUp}>
+            <Text style={styles.buttonText}>
+              {isSigningUp ? 'loading..' : 'Sign Up'}
+            </Text>
+          </TouchableOpacity>
+        </View>
 
 
-          <View style={{alignItems:"center"}}>
-            <Text style={{color:"#F4F4F6",fontFamily:"Poppins-Regular",fontSize:11,textAlign:"center",justifyContent:"center",width:360}}>By signing in, I accept the Terms of Service and Community
-Guidelines and have red <Text
+        <View style={{ alignItems: "center" }}>
+          <Text style={{ color: "#F4F4F6", fontFamily: "Poppins-Regular", fontSize: 11, textAlign: "center", justifyContent: "center", width: 360 }}>By signing in, I accept the Terms of Service and Community
+            Guidelines and have red <Text
               onPress={() => navigation.navigate('privacy')}
               style={styles.privacytext}>
               {' '}
               Privacy Policy
             </Text> </Text>
 
-          </View>
-
         </View>
+
+      </View>
 
     </ScrollView>
   );
@@ -335,11 +337,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: 20,
     backgroundColor: '#000000',
-    paddingTop:5
+   
   },
   main1: {
-    flex:1,
-  
+    flex: 2,
+
   },
   label: {
     position: "absolute",
@@ -349,7 +351,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
+    height: 45,
     backgroundColor: 'transparent',
     color: '#fff',
     fontSize: 16,
@@ -357,12 +359,12 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     borderBottomWidth: 1,
     borderBottomColor: 'white',
-  
-   
-    
+
+
+
   },
   button: {
     backgroundColor: '#E6E6E9',
@@ -372,7 +374,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 160,
-   
+
   },
   buttonText: {
     color: 'black',
@@ -386,20 +388,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   maincontainer: {
-    
+    flex:1,
     flexDirection: 'column',
     alignItems: 'center',
-  
-    
   },
 
   legalTexted: {
     color: '#F4F4F6',
-    textAlign:'center',
+    textAlign: 'center',
     fontSize: 16,
     fontWeight: "300",
     fontFamily: 'Poppins-Light',
-
   },
   legalLinked: {
     fontSize: 16,
@@ -408,22 +407,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   icon: {
+    marginBottom:5,
     width: 20,
     height: 20,
   },
-  btncontainer:{
-    
+  btncontainer: {
     flexDirection: "column",
     gap: 5,
     justifyContent: "flex-end",
-
   },
-  privacytext:{
-    color:"#F4F4F6",
-    fontFamily:"Poppins-Regular",
-    fontSize:11
-
-
+  privacytext: {
+    color: "#F4F4F6",
+    fontFamily: "Poppins-Regular",
+    fontSize: 11
   },
 
 });

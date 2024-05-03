@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
   Alert,
   Image,
   SafeAreaView,
@@ -90,14 +91,14 @@ const Forget = ({ navigation }: any) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={{ flex: 3 }}>
+      <View style={{ flex: 2,justifyContent:"center" }}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
         />
       </View>
 
-      <View style={{ flex: 2 }}>
+      <View style={{ flex: 1, }}>
         <Text style={styles.title}>Forget Password</Text>
         <Text style={styles.subtitle}>Enter your registered email below</Text>
       </View>
@@ -126,7 +127,7 @@ const Forget = ({ navigation }: any) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ flexDirection: "row", }}
-          onPress={() => navigation.navigate('verification')}>
+          onPress={() => navigation.navigate('Login')}>
           <Text style={styles.legalTexted}>Remember the password? </Text>
           <Text style={styles.legalLinked}>Sign In</Text>
         </TouchableOpacity>
@@ -139,8 +140,7 @@ const Forget = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   main1: {
-    flex: 2,
-    
+    flex: 2,    
     
     
   },
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 20,
     backgroundColor: '#000000',
+   
   },
   backButton: {
     position: 'absolute',
@@ -201,6 +201,7 @@ const styles = StyleSheet.create({
     width: 126,
     height: 122,
     alignSelf: 'center',
+  
   },
   ascontainer: {
     flexDirection: 'row',
