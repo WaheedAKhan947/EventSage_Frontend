@@ -601,7 +601,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    position: 'relative',
+   
   },
   container: {
     flex: 1,

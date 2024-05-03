@@ -186,7 +186,7 @@ const SignIn = ({ navigation }: any) => {
         <View style={{ alignItems: "center" }}>
           <Text style={{ color: "#F4F4F6", fontFamily: "Poppins-Regular", fontSize: 11, textAlign: "center", justifyContent: "center", width: 360 }}>By signing in, I accept the Terms of Service and Community
             Guidelines and have red <Text
-              onPress={() => navigation.navigate('privacy')}
+              onPress={() => navigation.navigate('reservation')}
               style={styles.privacytext}>
               {' '}
               Privacy Policy

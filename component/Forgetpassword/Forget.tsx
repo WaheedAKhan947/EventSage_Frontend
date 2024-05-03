@@ -126,7 +126,7 @@ const Forget = ({ navigation }: any) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ flexDirection: "row", }}
-          onPress={() => navigation.navigate('confirmation')}>
+          onPress={() => navigation.navigate('Login')}>
           <Text style={styles.legalTexted}>Remember the password? </Text>
           <Text style={styles.legalLinked}>Sign In</Text>
         </TouchableOpacity>
