@@ -102,23 +102,21 @@ const Verify = ({navigation}: any) => {
   const handleContactSupport = () => {};
 
   return (
-    <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.backButton}>
-        <Image
-          source={require('../../assets/wback.png')}
-          style={styles.backIcon}
-        />
-      </TouchableOpacity>
-
+    <View style={styles.container}>
+      <View style={{flex:4,borderWidth:1,borderColor:"red"}}>
+      <View>
       <Image
         source={require('../../assets/tutu_white.png')}
         style={styles.logo}
       />
+      </View>
+      </View>
 
+      
       <View style={styles.maincontent}>
+        <View>
         <Text style={styles.title}>Forgot Password</Text>
+        </View>
         <View>
           <Text style={styles.subtitle}>Password recovery email sent to </Text>
           <View style={styles.hiddenContainer}>
@@ -127,6 +125,7 @@ const Verify = ({navigation}: any) => {
         </View>
       </View>
 
+      <View style={{ flex:3,borderWidth:1,borderColor:"red"}}>
       <OTPInputView
         style={styles.otpInput}
         pinCount={4}
@@ -135,7 +134,7 @@ const Verify = ({navigation}: any) => {
         codeInputHighlightStyle={styles.underlineStyleHighLighted}
         onCodeFilled={code => setCode(code)}
       />
-      <View style={styles.seccont}>
+     
         <View style={styles.resend}>
           <Text style={styles.vertext}>
             <TouchableOpacity onPress={handlePasswordReset} disabled={loading}>
@@ -145,9 +144,10 @@ const Verify = ({navigation}: any) => {
             </TouchableOpacity>
           </Text>
         </View>
-      </View>
-      <View>
-        <View style={{alignItems: 'center', marginTop: 100}}>
+        </View>
+      
+      <View style={{flex:2,justifyContent:"flex-end",borderWidth:1,borderColor:"red"}}>
+        <View style={{alignItems: 'center',}}>
           <TouchableOpacity
             style={styles.button}
             disabled={loading}
@@ -163,7 +163,7 @@ const Verify = ({navigation}: any) => {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000000',
-    paddingVertical: 30,
+    paddingTop:20
   },
   backButton: {
     position: 'absolute',
@@ -246,19 +246,18 @@ const styles = StyleSheet.create({
     lineHeight: 25,
   },
   title: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 345,
+   textAlign:"center",
     fontSize: 32,
     color: '#F4F4F6',
-    fontWeight: '600',
     fontFamily: 'PlayfairDisplay-Bold',
-    marginBottom: 10,
     textTransform: 'uppercase',
   },
   maincontent: {
-    marginTop: 20,
-    alignItems: 'center',
+    flex:2,
+    alignItems:"center",
+    gap:5,
+    borderWidth:1,borderColor:"red",
+   
   },
   verifycode: {
     flexDirection: 'row',
@@ -279,6 +278,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 20,
     fontWeight: '500',
+    color:"#fff",
+    marginTop:20
   },
   contactsup: {
     marginTop: 20,
@@ -322,11 +323,11 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   otpInput: {
-    marginTop: 30,
     width: '90%',
-    height: 120,
+    height: 60,
     justifyContent: 'center',
     alignSelf: 'center',
+   
   },
 });
 
