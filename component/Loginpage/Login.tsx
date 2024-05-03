@@ -23,7 +23,6 @@ const SignIn = ({ navigation }: any) => {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const emailFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
   const passwordFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
-  const apiUrl = process.env.apiUrl;
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -45,7 +44,7 @@ const SignIn = ({ navigation }: any) => {
       await StorageManager.put('userId', userIdString);
       Alert.alert('Success', response.message || 'Sign-in successful!');
       navigation.navigate('reservation');
-    } catch (error:any) {
+    } catch (error: any) {
       const errorMessage = error.response
         ? error.response.data.message
         : 'Something went wrong.';
@@ -72,14 +71,14 @@ const SignIn = ({ navigation }: any) => {
   };
 
   const handleBlur = () => {
-    if (!email) { 
+    if (!email) {
       Animated.timing(emailFloatingLabelAnimation, {
         toValue: 0,
         duration: 150,
         useNativeDriver: false,
       }).start();
     }
-    if (!password) { 
+    if (!password) {
       Animated.timing(passwordFloatingLabelAnimation, {
         toValue: 0,
         duration: 150,
@@ -87,7 +86,7 @@ const SignIn = ({ navigation }: any) => {
       }).start();
     }
   };
-  
+
   const emailFloatingLabelStyle = {
     top: emailFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
@@ -102,7 +101,7 @@ const SignIn = ({ navigation }: any) => {
   const passwordFloatingLabelStyle = {
     top: passwordFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [10, -5],
+      outputRange: [10, -10],
     }),
     fontSize: passwordFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
@@ -111,8 +110,8 @@ const SignIn = ({ navigation }: any) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={{ flex: 1 }}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
@@ -132,135 +131,123 @@ const SignIn = ({ navigation }: any) => {
       </View>
 
       <View style={styles.main1}>
-        <View >
-          <View style={{flexDirection:"column",gap:60}}>
-        <View style={styles.inputContainer}>
-          <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            onFocus={handleEmailFocus}
-            onBlur={handleBlur}
-          />
-        </View>
+        <View style={{ flexDirection: "column", gap: 35 }}>
+          <View style={styles.inputContainer}>
+            <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              onFocus={handleEmailFocus}
+              onBlur={handleBlur}
+            />
+          </View>
 
-        <View style={styles.inputContainer}>
-          <Animated.Text style={[styles.label, passwordFloatingLabelStyle]}>Password</Animated.Text>
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!showPassword}
-            onFocus={handlePasswordFocus}
-            onBlur={handleBlur}
-          />
+          <View style={styles.inputContainer}>
+            <Animated.Text style={[styles.label, passwordFloatingLabelStyle]}>Password</Animated.Text>
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+              onFocus={handlePasswordFocus}
+              onBlur={handleBlur}
+            />
             <TouchableOpacity onPress={togglePasswordVisibility}>
               <Image
                 source={require('../../assets/hiddenpass.png')}
                 style={styles.icon}
               />
             </TouchableOpacity>
-          </View> 
           </View>
+        </View>
 
-           <View >
-            <TouchableOpacity onPress={() => navigation.navigate('forget')}>
-              <Text style={styles.linkText}>Forgot Password?</Text>
-            </TouchableOpacity>
-          </View> 
-          </View>
-          
-       
+        <View style={{ marginTop: 20 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('forget')}>
+            <Text style={styles.linkText}>Forgot Password?</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
-
-        <View style={styles.btncontainer}>
-          <View style={{ alignItems: "center", }}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleSignIn}
-              disabled={isSigningIn}>
-              <Text style={styles.buttonText}>
-                {isSigningIn ? 'loading..' : 'Login'}
-              </Text>
-            </TouchableOpacity>
-          </View>
+      <View style={styles.btncontainer}>
+        <View style={{ alignItems: "center", }}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleSignIn}
+            disabled={isSigningIn}>
+            <Text style={styles.buttonText}>
+              {isSigningIn ? 'loading..' : 'Login'}
+            </Text>
+          </TouchableOpacity>
+        </View>
 
 
-          <View style={{alignItems:"center",marginBottom:10}}>
-            <Text style={{color:"#F4F4F6",fontFamily:"Poppins-Regular",fontSize:11,textAlign:"center",justifyContent:"center",width:360}}>By signing in, I accept the Terms of Service and Community
-Guidelines and have red <Text
+        <View style={{ alignItems: "center" }}>
+          <Text style={{ color: "#F4F4F6", fontFamily: "Poppins-Regular", fontSize: 11, textAlign: "center", justifyContent: "center", width: 360 }}>By signing in, I accept the Terms of Service and Community
+            Guidelines and have red <Text
               onPress={() => navigation.navigate('privacy')}
               style={styles.privacytext}>
               {' '}
               Privacy Policy
             </Text> </Text>
 
-          </View>
+        </View>
 
-        </View>
-        </View>
-       
+      </View>
+
+
     </ScrollView>
 
   );
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     paddingHorizontal: 20,
-    paddingVertical: 40,
+    paddingTop: 20,
     backgroundColor: '#000',
   },
 
   main1: {
-    flex: 1,
-    justifyContent: 'space-between',
-    marginTop: 40,
-    height:600,
-   
+    flex: 2,
   },
-  label:{
-    position:"absolute",
-    color:"#E6E6E9",
-    fontFamily:"Poppins-Light",
-    fontSize:13,
+  label: {
+    position: "absolute",
+    color: "#E6E6E9",
+    fontFamily: "Poppins-Light",
+    fontSize: 13,
   },
-  txt: {
-    fontSize: 14,
-    color: '#fff',
-    marginTop: 30,
-    textAlign: 'center',
-  },
+
   input: {
-    flex: 1,
-    height: 50,
+    flex:1,
+    height: 45,
     backgroundColor: 'transparent',
     color: 'white',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
+    
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-     borderBottomWidth: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
     borderBottomColor: '#fff',
   },
   icon: {
-    marginRight: 10,
     width: 20,
     height: 20,
   },
   button: {
     backgroundColor: '#E6E6E9',
-    paddingVertical: 16,
-    paddingHorizontal: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
     width: 160,
-   
+    height: 60
+
   },
   buttonText: {
     color: 'black',
@@ -272,39 +259,44 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-    textDecorationLine:"underline",
-    marginTop:30
+    textDecorationLine: "underline",
+
   },
   logo: {
     width: 126,
     height: 122,
     alignSelf: 'center',
-    marginBottom: 20,
+
   },
 
   maincontainer: {
+    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 40,
-    gap:10
-  },
-  btncontainer:{
-    flexDirection:"column",
-    gap:20,
-    marginBottom:30
+    gap: 5,
+
 
   },
-  privacytext:{
-    color:"#F4F4F6",
-    fontFamily:"Poppins-Regular",
-    fontSize:11
+  btncontainer: {
+    flex: 1,
+    flexDirection: "column",
+    gap: 10,
+    // borderWidth:1,
+    // borderColor:"#fff",
+    justifyContent: "flex-end"
+
+  },
+  privacytext: {
+    color: "#F4F4F6",
+    fontFamily: "Poppins-Regular",
+    fontSize: 11
 
 
   },
 
   legalTexted: {
     color: '#F4F4F6',
-    textAlign:'center',
+    textAlign: 'center',
     fontSize: 16,
     fontWeight: "300",
     fontFamily: 'Poppins-Light',
@@ -316,7 +308,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontFamily: 'Poppins-Medium',
   },
-  
+
 });
 
 export default SignIn;

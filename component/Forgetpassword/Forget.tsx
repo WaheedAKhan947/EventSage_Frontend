@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useRef} from 'react';
 import {
   View,
   Text,
@@ -9,12 +9,16 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  Animated
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const Forget = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [isSigningUp, setIsSigningUp] = useState(false);
+  const emailFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
   const handlePasswordReset = async () => {
     try {
       const response = await axios.post(
@@ -49,40 +53,70 @@ const Forget = ({navigation}: any) => {
     } finally {
       setIsSigningUp(false);
     }
-  };
+  }
+
+    const handleEmailFocus = () => {
+      Animated.timing(emailFloatingLabelAnimation, {
+        toValue: 1,
+        duration: 150,
+        useNativeDriver: false,
+      }).start();
+    };
+  
+
+  
+    const handleBlur = () => {
+      if (!email) { 
+        Animated.timing(emailFloatingLabelAnimation, {
+          toValue: 0,
+          duration: 150,
+          useNativeDriver: false,
+        }).start();
+      }
+    
+    };
+    
+    const emailFloatingLabelStyle = {
+      top: emailFloatingLabelAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [10, -10],
+      }),
+      fontSize: emailFloatingLabelAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [16, 12],
+      }),
+    };
+  
+  
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ScrollView style={styles.mainContainer}>
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}>
-          <Image
-            source={require('../../assets/wback.png')}
-            style={styles.backIcon}
-          />
-        </TouchableOpacity>
+      <ScrollView contentContainerStyle={styles.container}>
+      <View style={{flex:1}}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
         />
+        </View>
 
-        <View style={styles.maincontent}>
+        <View style={{flex:2}}>
           <Text style={styles.title}>Forget Password</Text>
           <Text style={styles.subtitle}>Enter your registered email below</Text>
         </View>
-
+        
+        <View style={styles.main1}>
         <View style={styles.inputContainer}>
+          <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
           <TextInput
             style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#FFFFFF"
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
+            onFocus={handleEmailFocus}
+            onBlur={handleBlur}
           />
         </View>
-        <View style={styles.submitBtn}>
+        </View>
+
+        <View style={{alignItems:"center",flex:2,flexDirection: "column", gap: 20,justifyContent: "flex-end"}} >
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
@@ -91,29 +125,27 @@ const Forget = ({navigation}: any) => {
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.toLogin}
+          style={{flexDirection:"row",}}
             onPress={() => navigation.navigate('Login')}>
             <Text style={styles.legalTexted}>Remember the password? </Text>
             <Text style={styles.legalLinked}>Sign In</Text>
           </TouchableOpacity>
         </View>
-      </View>
+     
       </ScrollView>
-    </SafeAreaView>
+   
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    height:'100%',
-    backgroundColor: '#000000',
+  main1:{
+    flex:2,  
   },
+
   container: {
-    height:'100%',
     flex: 1,
-    alignItems: 'center',
-    paddingTop: 40,
+    paddingHorizontal:20,
+    paddingTop:20,
     backgroundColor: '#000000',
   },
   backButton: {
@@ -128,7 +160,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    flex: 1,
+    flex:1,
     height: 45,
     backgroundColor: 'transparent',
     color: '#FFFFFF',
@@ -137,11 +169,10 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    marginHorizontal: 10,
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#FFFFFF',
-    marginBottom: 30,
+    
   },
   icon: {
     marginRight: 10,
@@ -150,13 +181,13 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#E6E6E9',
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-    margin: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
     width: 160,
+    height:60
   },
   buttonText: {
     color: '#000000',
@@ -167,12 +198,11 @@ const styles = StyleSheet.create({
     width: 126,
     height: 122,
     alignSelf: 'center',
-    marginTop: 40,
   },
   ascontainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 30,
+    
   },
 
   legalTexted: {
@@ -191,42 +221,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  headerButton: {
-    marginTop: 10,
-    marginHorizontal: -20,
-  },
-  headerIcon: {
-    width: 24,
-    height: 24,
-  },
+ 
+
   subtitle: {
     fontSize: 16,
     color: '#F4F4F6',
     fontFamily: 'Poppins-Light',
+    textAlign:"center"
   },
   title: {
     fontSize: 32,
     textAlign: 'center',
-    fontWeight: '600',
     color: '#F4F4F6',
     fontFamily: 'PlayfairDisplay-SemiBold',
-    marginTop: 40,
-    marginBottom: 10,
     textTransform: 'uppercase',
   },
   maincontent: {
-    marginBottom: 50,
     alignItems: 'center',
   },
-  submitBtn: {
-    flex:1,
-    marginTop: 40,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  toLogin: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  
+  
+   label:{
+    position:"absolute",
+    color:"#E6E6E9",
+    fontFamily:"Poppins-Light",
+    fontSize:13,
   },
 });
 
