@@ -273,9 +273,15 @@ const SignUp = ({ navigation }: any) => {
               onFocus={handlePasswordFocus}
               onBlur={handleBlur}
             />
+            <TouchableOpacity onPress={togglePasswordVisibility}>
+              <Image
+                source={require('../../assets/hiddenpass.png')}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.inputContainer}>
-            <Animated.Text style={[styles.label,passwordFloatingLabelStyle ]}>Confirm Password</Animated.Text>
+            <Animated.Text style={[styles.label,confirmpasswordFloatingLabelStyle ]}>Confirm Password</Animated.Text>
             <TextInput
               style={styles.input}
               value={confirmPassword}
@@ -283,6 +289,12 @@ const SignUp = ({ navigation }: any) => {
               onFocus={handleConfirmPasswordFocus}
               onBlur={handleBlur}
             />
+            <TouchableOpacity onPress={togglePasswordVisibility}>
+              <Image
+                source={require('../../assets/hiddenpass.png')}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
           </View>
 
         </View>
@@ -397,6 +409,11 @@ const styles = StyleSheet.create({
     color: 'white',
     textDecorationLine: 'underline',
     fontFamily: 'Poppins-Medium',
+  },
+  icon: {
+    marginRight: 10,
+    width: 20,
+    height: 20,
   },
   btncontainer:{
     flexDirection:"column",

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useRef} from 'react';
 import {
   View,
   Text,
@@ -9,12 +9,16 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  Animated
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const Forget = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [isSigningUp, setIsSigningUp] = useState(false);
+  const emailFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
   const handlePasswordReset = async () => {
     try {
       const response = await axios.post(
@@ -49,40 +53,71 @@ const Forget = ({navigation}: any) => {
     } finally {
       setIsSigningUp(false);
     }
-  };
+  }
+
+    const handleEmailFocus = () => {
+      Animated.timing(emailFloatingLabelAnimation, {
+        toValue: 1,
+        duration: 150,
+        useNativeDriver: false,
+      }).start();
+    };
+  
+
+  
+    const handleBlur = () => {
+      if (!email) { 
+        Animated.timing(emailFloatingLabelAnimation, {
+          toValue: 0,
+          duration: 150,
+          useNativeDriver: false,
+        }).start();
+      }
+    
+    };
+    
+    const emailFloatingLabelStyle = {
+      top: emailFloatingLabelAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [10, -10],
+      }),
+      fontSize: emailFloatingLabelAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [16, 12],
+      }),
+    };
+  
+  
   return (
-    <SafeAreaView style={{flex: 1}}>
       <ScrollView style={styles.mainContainer}>
       <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}>
-          <Image
-            source={require('../../assets/wback.png')}
-            style={styles.backIcon}
-          />
-        </TouchableOpacity>
+        <View>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
         />
+        </View>
 
-        <View style={styles.maincontent}>
+        <View style={{marginTop:20}}>
           <Text style={styles.title}>Forget Password</Text>
           <Text style={styles.subtitle}>Enter your registered email below</Text>
         </View>
-
+        
+        <View style={styles.main1}>
+        <View >
         <View style={styles.inputContainer}>
+          <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
           <TextInput
             style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#FFFFFF"
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
+            onFocus={handleEmailFocus}
+            onBlur={handleBlur}
           />
         </View>
-        <View style={styles.submitBtn}>
+        </View>
+        <View style={{alignItems:"center"}} >
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
@@ -91,29 +126,35 @@ const Forget = ({navigation}: any) => {
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.toLogin}
+          style={{flexDirection:"row",marginTop:10}}
             onPress={() => navigation.navigate('Login')}>
             <Text style={styles.legalTexted}>Remember the password? </Text>
             <Text style={styles.legalLinked}>Sign In</Text>
           </TouchableOpacity>
         </View>
+     
       </View>
+     </View>
       </ScrollView>
-    </SafeAreaView>
+   
   );
 };
 
 const styles = StyleSheet.create({
+  main1:{
+    flexDirection:"column",
+    justifyContent:"space-between",
+    height:400,
+   marginTop:60
+  },
   mainContainer: {
     flex: 1,
-    height:'100%',
     backgroundColor: '#000000',
   },
   container: {
-    height:'100%',
     flex: 1,
-    alignItems: 'center',
-    paddingTop: 40,
+    paddingHorizontal:20,
+    paddingVertical:40,
     backgroundColor: '#000000',
   },
   backButton: {
@@ -137,11 +178,10 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    marginHorizontal: 10,
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#FFFFFF',
-    marginBottom: 30,
+    
   },
   icon: {
     marginRight: 10,
@@ -167,7 +207,6 @@ const styles = StyleSheet.create({
     width: 126,
     height: 122,
     alignSelf: 'center',
-    marginTop: 40,
   },
   ascontainer: {
     flexDirection: 'row',
@@ -203,6 +242,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#F4F4F6',
     fontFamily: 'Poppins-Light',
+    textAlign:"center"
   },
   title: {
     fontSize: 32,
@@ -215,18 +255,16 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   maincontent: {
-    marginBottom: 50,
+    // marginBottom: 50,
     alignItems: 'center',
   },
-  submitBtn: {
-    flex:1,
-    marginTop: 40,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  toLogin: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  
+  
+   label:{
+    position:"absolute",
+    color:"#E6E6E9",
+    fontFamily:"Poppins-Light",
+    fontSize:13,
   },
 });
 
