@@ -212,7 +212,7 @@ const SignUp = ({ navigation }: any) => {
   }
   return (
     <ScrollView contentContainerStyle={styles.container}>
-     <View style={{flex:1}}>
+     <View style={{flex:3,justifyContent:"center"}}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
@@ -313,7 +313,7 @@ const SignUp = ({ navigation }: any) => {
           </View>
 
 
-          <View style={{alignItems:"center",marginBottom:10}}>
+          <View style={{alignItems:"center"}}>
             <Text style={{color:"#F4F4F6",fontFamily:"Poppins-Regular",fontSize:11,textAlign:"center",justifyContent:"center",width:360}}>By signing in, I accept the Terms of Service and Community
 Guidelines and have red <Text
               onPress={() => navigation.navigate('privacy')}
@@ -333,12 +333,13 @@ Guidelines and have red <Text
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    paddingTop: 20,
     paddingHorizontal: 20,
     backgroundColor: '#000000',
+    paddingTop:5
   },
   main1: {
-    flex: 2, 
+    flex:1,
+  
   },
   label: {
     position: "absolute",
@@ -348,7 +349,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 45,
+    height: 40,
     backgroundColor: 'transparent',
     color: '#fff',
     fontSize: 16,
@@ -371,7 +372,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 160,
-    marginTop: 20,
+   
   },
   buttonText: {
     color: 'black',
@@ -385,10 +386,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   maincontainer: {
-    flex:1,
+    
     flexDirection: 'column',
     alignItems: 'center',
-    gap:5,
+  
     
   },
 
@@ -407,15 +408,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   icon: {
-    marginRight: 10,
     width: 20,
     height: 20,
   },
   btncontainer:{
-    flex: 1,
+    
     flexDirection: "column",
-    gap: 10,
-    justifyContent: "flex-end"
+    gap: 5,
+    justifyContent: "flex-end",
+
   },
   privacytext:{
     color:"#F4F4F6",

@@ -1,4 +1,4 @@
-import React, {useState,useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -15,7 +15,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const Forget = ({navigation}: any) => {
+const Forget = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [isSigningUp, setIsSigningUp] = useState(false);
   const emailFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
@@ -55,54 +55,54 @@ const Forget = ({navigation}: any) => {
     }
   }
 
-    const handleEmailFocus = () => {
+  const handleEmailFocus = () => {
+    Animated.timing(emailFloatingLabelAnimation, {
+      toValue: 1,
+      duration: 150,
+      useNativeDriver: false,
+    }).start();
+  };
+
+
+
+  const handleBlur = () => {
+    if (!email) {
       Animated.timing(emailFloatingLabelAnimation, {
-        toValue: 1,
+        toValue: 0,
         duration: 150,
         useNativeDriver: false,
       }).start();
-    };
-  
+    }
 
-  
-    const handleBlur = () => {
-      if (!email) { 
-        Animated.timing(emailFloatingLabelAnimation, {
-          toValue: 0,
-          duration: 150,
-          useNativeDriver: false,
-        }).start();
-      }
-    
-    };
-    
-    const emailFloatingLabelStyle = {
-      top: emailFloatingLabelAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [10, -10],
-      }),
-      fontSize: emailFloatingLabelAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [16, 12],
-      }),
-    };
-  
-  
+  };
+
+  const emailFloatingLabelStyle = {
+    top: emailFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, -10],
+    }),
+    fontSize: emailFloatingLabelAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [16, 12],
+    }),
+  };
+
+
   return (
-      <ScrollView contentContainerStyle={styles.container}>
-      <View style={{flex:1}}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={{ flex: 3 }}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
         />
-        </View>
+      </View>
 
-        <View style={{flex:2}}>
-          <Text style={styles.title}>Forget Password</Text>
-          <Text style={styles.subtitle}>Enter your registered email below</Text>
-        </View>
-        
-        <View style={styles.main1}>
+      <View style={{ flex: 2 }}>
+        <Text style={styles.title}>Forget Password</Text>
+        <Text style={styles.subtitle}>Enter your registered email below</Text>
+      </View>
+
+      <View style={styles.main1}>
         <View style={styles.inputContainer}>
           <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
           <TextInput
@@ -114,38 +114,41 @@ const Forget = ({navigation}: any) => {
             onBlur={handleBlur}
           />
         </View>
-        </View>
+      </View>
 
-        <View style={{alignItems:"center",flex:2,flexDirection: "column", gap: 20,justifyContent: "flex-end"}} >
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              handlePasswordReset();
-            }}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-          style={{flexDirection:"row",}}
-            onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.legalTexted}>Remember the password? </Text>
-            <Text style={styles.legalLinked}>Sign In</Text>
-          </TouchableOpacity>
-        </View>
-     
-      </ScrollView>
-   
+      <View style={{ alignItems: "center", flex: 2, flexDirection: "column", gap: 20, justifyContent: "flex-end" }} >
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            handlePasswordReset();
+          }}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ flexDirection: "row", }}
+          onPress={() => navigation.navigate('verification')}>
+          <Text style={styles.legalTexted}>Remember the password? </Text>
+          <Text style={styles.legalLinked}>Sign In</Text>
+        </TouchableOpacity>
+      </View>
+
+    </ScrollView>
+
   );
 };
 
 const styles = StyleSheet.create({
-  main1:{
-    flex:2,  
+  main1: {
+    flex: 2,
+    
+    
+    
   },
 
   container: {
     flex: 1,
-    paddingHorizontal:20,
-    paddingTop:20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
     backgroundColor: '#000000',
   },
   backButton: {
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    flex:1,
+    flex: 1,
     height: 45,
     backgroundColor: 'transparent',
     color: '#FFFFFF',
@@ -172,7 +175,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#FFFFFF',
-    
+
   },
   icon: {
     marginRight: 10,
@@ -187,7 +190,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 160,
-    height:60
+    height: 60
   },
   buttonText: {
     color: '#000000',
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
   ascontainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    
+
   },
 
   legalTexted: {
@@ -221,13 +224,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
- 
+
 
   subtitle: {
     fontSize: 16,
     color: '#F4F4F6',
     fontFamily: 'Poppins-Light',
-    textAlign:"center"
+    textAlign: "center"
   },
   title: {
     fontSize: 32,
@@ -239,13 +242,13 @@ const styles = StyleSheet.create({
   maincontent: {
     alignItems: 'center',
   },
-  
-  
-   label:{
-    position:"absolute",
-    color:"#E6E6E9",
-    fontFamily:"Poppins-Light",
-    fontSize:13,
+
+
+  label: {
+    position: "absolute",
+    color: "#E6E6E9",
+    fontFamily: "Poppins-Light",
+    fontSize: 13,
   },
 });
 
