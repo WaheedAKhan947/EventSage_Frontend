@@ -42,8 +42,12 @@ const SignIn = ({ navigation }: any) => {
       const userId = response?.user?._id;
       const userIdString = userId.toString();
       await StorageManager.put('userId', userIdString);
+      await StorageManager.put('token', response?.token);
       Alert.alert('Success', response.message || 'Sign-in successful!');
-      navigation.navigate('reservation');
+      // if(response){
+        navigation.navigate('reservation');
+      // }
+      // navigation.navigate('paymentmethod');
     } catch (error: any) {
       const errorMessage = error.response
         ? error.response.data.message

@@ -1,33 +1,46 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  TextInput,
-} from 'react-native';
-import React, {useState} from 'react';
-import CountryPicker from 'react-native-country-picker-modal';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, ScrollView, Alert } from 'react-native';
+import CountryPicker from '../CountryPickerDropdown/Countrypicker'; // Make sure to import the correct CountryPicker component
+import StorageManager from '../../storage/StorageManager';
+import { ENDPOINTS } from '../../api/apiRoutes';
+import API from '../../api/apiService';
 
-const PaymentMehtod = ({navigation}: any) => {
-
- 
-  const [fullName, setFullName] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState<any>(null);
-
+const PaymentMethod = ({ navigation }: any) => {
+  const [selectedCountry, setSelectedCountry] = useState<String>('');
   const [zipCode, setZipCode] = useState('');
   const [exp, setExp] = useState('');
   const [cvv, setCVV] = useState('');
   const [cardNumber, setCardNumber] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [cardInfo, setCardInfo] = useState<any>(null);
+
+  const handlePayment = async () => {
+    try {
+      if (!selectedCountry || !cardNumber || !exp || !cvv || !zipCode) {
+        Alert.alert('Error', 'Please fill in all required fields.');
+        return;
+      }
+      const paymentData = {
+        regionOrCountry: selectedCountry,
+        cardNumber,
+        expiryDate: exp,
+        cvv,
+        zipCode,
+      };
+      let userId =  await StorageManager.get('userId');
+     let response= await API.post(`${ENDPOINTS.USER.CARDINFO}/${userId}`, paymentData)
+      Alert.alert('Success',response?.message)
+      navigation.navigate('reservation');
+    } catch (error) {
+      Alert.alert('Error', 'Failed to process payment. Please try again later.');
+    }
+  };
+
+  
   const handleCardNumberChange = (text: string) => {
     const numericValue = text.replace(/[^0-9]/g, '');
     setCardNumber(numericValue);
   };
-  
-  
-
-  
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -38,28 +51,32 @@ const PaymentMehtod = ({navigation}: any) => {
     setIsDropdownOpen(false);
   };
 
+
+
+
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.headerButton}>
-        <Image
-          source={require('../../assets/wback.png')}
-          style={styles.headerIcon}
-        />
-      </TouchableOpacity>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={{flex:1,justifyContent:"center"}}>
+       
+      <View>
       <TouchableOpacity>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
         />
       </TouchableOpacity>
-      <Text style={styles.title}>PAYMENT INFORMATION</Text>
+      </View>
+      </View>
 
+      <View style={{flex:1,flexDirection:"column",gap:10}}>
+      <Text style={styles.title}>PAYMENT INFORMATION</Text>
       <Text style={styles.maincontent}>
         Lets add a payment method.
       </Text>
+      </View>
 
+      <View style={{flex:2,flexDirection:"column",gap:30}}>
       <View style={styles.inputContainer}>
         <Image source={require('../../assets/wcard.png')} style={styles.icon} />
         <TextInput
@@ -108,33 +125,8 @@ const PaymentMehtod = ({navigation}: any) => {
           />
         </View>
       </View>
-      <View style={[styles.fullWidth, styles.dropdownContainer]}>
-      <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }} onPress={toggleDropdown}>
-        <Image
-          source={require('../../assets/wcountry.png')}
-          style={styles.image}
-        />
-        <Text style={{ color: '#fff',fontFamily:"Poppins-Medium",fontSize:16 }}>
-          {selectedCountry ? selectedCountry.name : 'Country or region'} 
-        </Text>
-      </TouchableOpacity>
-
-      {isDropdownOpen && (
-        <CountryPicker
-          withCountryNameButton
-          withAlphaFilter
-          withCallingCode
-          onSelect={handleSelectCountry}
-          countryCode={selectedCountry?.cca2}
-        />
-      )}
-
-      <TouchableOpacity onPress={toggleDropdown}>
-        <Image
-          source={require('../../assets/selectdp.png')}
-          style={styles.dropdownIcon}
-        />
-      </TouchableOpacity>
+      <View >
+      <CountryPicker onValueChange={setSelectedCountry} />
     </View>
       <View style={[styles.fullWidth, styles.dropdownContainer]}>
         <Image source={require('../../assets/wzip.png')} style={styles.image} />
@@ -149,30 +141,32 @@ const PaymentMehtod = ({navigation}: any) => {
         />
         
       </View>
+      </View>
 
-      <View style={{ flex: 1, alignSelf: "center", justifyContent: "flex-end", marginBottom:30 }}>
-          <TouchableOpacity style={styles.button} onPress={PaymentMehtod}>
+      <View style={{ flex: 1, alignItems:"center", justifyContent: "flex-end", marginBottom:30 }}>
+          <View>
+          <TouchableOpacity style={styles.button} onPress={handlePayment}>
 
             <Text style={styles.buttonText}>Save card & continue</Text>
 
           </TouchableOpacity>
+          </View>
         </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  countryPickerContainer: {
-    
-    color:"#fff"
-  },
+ 
   container: {
-    flexGrow: 1,
+ flexGrow:1,
     paddingHorizontal: 20,
-    paddingVertical: 20,
     backgroundColor: '#000',
     fontSize: 16,
     
+  },
+  countryPickerContainer: {
+    color:"#fff"
   },
   dropdownContainer: {
     flexDirection: 'row',
@@ -180,12 +174,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E9',
-    marginBottom: 15,
     height: 50,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    
   },
   halfWidth: {
     width: '45%',
@@ -272,7 +266,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E9',
-    marginVertical:20,
+    
     
   },
   icon: {
@@ -284,7 +278,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 8,
+  
   },
   text: {
     color: '#fff',
@@ -308,16 +302,16 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: 'PlayfairDisplay-SemiBold',
     textAlign: 'center',
-    marginBottom:10
+ 
    
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: -20,
+    
   },
   headerButton: {
-    marginTop: 10,
+   
   },
   headerIcon: {
     width: 30,
@@ -327,12 +321,7 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
   },
-  centeredview: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
-  },
+ 
 
   modalview: {
     color: 'white',
@@ -347,4 +336,4 @@ const styles = StyleSheet.create({
   datePicker: {},
 });
 
-export default PaymentMehtod;
+export default PaymentMethod;
