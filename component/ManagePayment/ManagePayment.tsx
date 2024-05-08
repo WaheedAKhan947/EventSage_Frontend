@@ -60,13 +60,13 @@ const ManagePayment = ({navigation}: any) => {
     navigation.navigate('paymentmethod');
   };
   return (
-    <ScrollView ref={scrollViewRef} style={styles.container}>
-      <View style={{paddingTop:40}} >
+    <View  style={styles.container}>
+      <View style={{paddingVertical:40,marginTop:20}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={require('../../assets/wback.png')} />
         </TouchableOpacity>
         </View>
-        <View >
+        <View style={{paddingVertical:20}}>
           <Text
             style={{
               color: '#fff',
@@ -79,7 +79,7 @@ const ManagePayment = ({navigation}: any) => {
           </Text>
         </View>
 
-<View>
+        <ScrollView contentContainerStyle={styles.reservationsContainer}>
         {paymentMethods.map(method => (
           <View key={method.id} style={styles.mainbox}>
             <View style={styles.box1}>
@@ -101,14 +101,14 @@ const ManagePayment = ({navigation}: any) => {
             </View>
           </View>
         ))}
-        </View>
+        </ScrollView>
 
         <TouchableOpacity style={styles.addNew} onPress={addPaymentMethod}>
           <Image source={require('../../assets/addnew.png')} />
           <Text style={styles.addNewText}>Add New</Text>
         </TouchableOpacity>
       
-    </ScrollView>
+    </View>
   );
 };
 
@@ -135,6 +135,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
   },
+  reservationsContainer: {
+    flex:1,
+   
+  },
   box1: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -151,7 +155,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
    paddingTop:10
   },
   main: {

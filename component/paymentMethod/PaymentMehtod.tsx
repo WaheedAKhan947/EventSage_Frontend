@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E9',
     height: 50,
+    
   },
   row: {
     flexDirection: 'row',

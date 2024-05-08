@@ -306,8 +306,8 @@ const styles = StyleSheet.create({
     maxHeight: 300,
     borderRadius: 10,
     top: 40,
-    zIndex: 999, 
     paddingHorizontal: 20,
+    zIndex:999,
   },
   dropdownItem: {
     paddingVertical: 20,

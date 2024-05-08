@@ -94,7 +94,7 @@ const Reservations = ({ navigation }: any) => {
       </View>
 
 
-      <View>
+      <View style={{paddingTop:40}}>
         <Text style={styles.title}>RESERVATION HISTORY</Text>
         </View>
 
@@ -136,7 +136,7 @@ const Reservations = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   reservationsContainer: {
-    flexGrow:1,
+    
     gap:10,
     
   },
@@ -220,7 +220,7 @@ headerContainer: {
 },
 headercon: {
   justifyContent:"center",
-  paddingVertical:40
+  paddingVertical:30
 },
 headerButton: {
   marginTop: 10,
@@ -233,7 +233,7 @@ headerprof: {
   width: 30,
   height: 30,
   position:"relative",
-  top:10
+  top:30
 
 },
 

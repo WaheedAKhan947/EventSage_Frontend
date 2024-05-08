@@ -65,7 +65,8 @@ const Profile = ({navigation}: any) => {
   return (
     <View style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.headercon}>
+      <View style={styles.headercon}>
+        <View>
           <TouchableOpacity
             onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
             <Image
@@ -80,7 +81,7 @@ const Profile = ({navigation}: any) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.headerContainer}>
+        <View >
           <TouchableOpacity>
             <Image
               source={require('../../assets/confirmed_logo.png')}
@@ -88,11 +89,14 @@ const Profile = ({navigation}: any) => {
             />
           </TouchableOpacity>
         </View>
-
+      </View>
+      
+      <View>
         <Text style={styles.title}>MY PROFILE</Text>
         <Text style={styles.subtitle}>
           Track your personal information here
         </Text>
+        </View>
         <View style={styles.mainbox}>
           <View style={styles.box1}>
             <View style={styles.maincontent}>
@@ -132,9 +136,10 @@ const Profile = ({navigation}: any) => {
               </View>
             </View>
           </View>
+          </View>
           <View style={styles.box2}>
             <View
-              style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+              style={{alignSelf: 'center', justifyContent: 'center'}}>
               <TouchableOpacity
                 style={styles.button}
                 onPress={handleUpdateProfile}>
@@ -142,7 +147,7 @@ const Profile = ({navigation}: any) => {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        
       </ScrollView>
     </View>
   );
@@ -154,8 +159,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexGrow: 1,
-    paddingHorizontal: 15,
-    paddingVertical: 30,
+    paddingHorizontal: 10,
     backgroundColor: '#000000',
     fontSize: 16,
   },
@@ -163,8 +167,9 @@ const styles = StyleSheet.create({
   logo: {
     width: 155,
     height: 50,
-    alignSelf: 'center',
-    marginVertical: -40,
+    alignSelf:"center"
+ 
+   
   },
 
   icon: {
@@ -203,7 +208,8 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
   },
   headercon: {
-    marginRight: 'auto',
+    flex:1,
+    justifyContent:"center"
   },
   headerButton: {
     marginTop: 10,
@@ -215,6 +221,8 @@ const styles = StyleSheet.create({
   headerprof: {
     width: 30,
     height: 30,
+    position:"relative",
+    top:30
   },
 
   input: {
@@ -252,12 +260,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   mainbox: {
-    flexGrow: 1,
+    flexGrow: 2,
     justifyContent: 'space-between',
-    marginBottom: 60,
   },
   box1: {},
-  box2: {},
+  box2: {
+    flex:1,
+    marginBottom:20
+  },
 });
 
 export default Profile;
