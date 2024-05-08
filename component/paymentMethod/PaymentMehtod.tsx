@@ -28,6 +28,7 @@ const PaymentMethod = ({ navigation }: any) => {
         zipCode,
       };
       let userId =  await StorageManager.get('userId');
+      let token =  await StorageManager.get('token');
      let response= await API.post(`${ENDPOINTS.USER.CARDINFO}/${userId}`, paymentData)
       Alert.alert('Success',response?.message)
       navigation.navigate('reservation');

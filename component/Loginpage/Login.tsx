@@ -38,7 +38,7 @@ const SignIn = ({ navigation }: any) => {
     }
     try {
       const payload = { email, password };
-      const response = await API.post(ENDPOINTS.USER.LOGIN, payload);
+      const response = await API.post(ENDPOINTS.USER.LOGIN, payload,false);
       const userId = response?.user?._id;
       // const userIdString = userId.toString();
       console.log("response login:",response)
@@ -170,7 +170,7 @@ const SignIn = ({ navigation }: any) => {
 
         <View style={{ marginTop: 20 }}>
           <TouchableOpacity onPress={() => navigation.navigate('forget')}>
-            <Text style={styles.linkText}>Forgot Password?</Text>
+            <Text style={styles.linkText}>Forgot password?</Text>
           </TouchableOpacity>
         </View>
       </View>
