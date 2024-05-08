@@ -94,7 +94,7 @@ const Reservations = ({ navigation }: any) => {
       </View>
 
 
-      <View style={{paddingTop:40}}>
+      <View style={{paddingVertical:20}}>
         <Text style={styles.title}>RESERVATION HISTORY</Text>
         </View>
 
@@ -137,8 +137,6 @@ const Reservations = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   reservationsContainer: {
     
-    gap:10,
-    
   },
 
   mainbox:{
@@ -148,6 +146,7 @@ const styles = StyleSheet.create({
     height:160,
     padding:15,
     borderRadius:5,
+    marginTop:10
     
   },
   box1:{
@@ -175,7 +174,6 @@ container: {
   backgroundColor: '#000000',
   fontSize: 16,
   fontFamily: 'IbarraRealNova-Regular',
-  gap:10,
   paddingTop:20
 },
 

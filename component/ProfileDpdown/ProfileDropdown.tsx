@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30
   },
   dropdownItem: {
-    paddingVertical: 30,
+    paddingVertical: 25,
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E9',
   

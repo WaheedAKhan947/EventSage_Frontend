@@ -64,14 +64,12 @@ const PaymentMethod = ({navigation}: any) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={{flex: 1, justifyContent: 'center'}}>
+      <View style={{flex:1, justifyContent: 'center'}}>
         <View>
-          <TouchableOpacity>
             <Image
               source={require('../../assets/tutu_white.png')}
               style={styles.logo}
             />
-          </TouchableOpacity>
         </View>
       </View>
 
@@ -157,7 +155,7 @@ const PaymentMethod = ({navigation}: any) => {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'flex-end',
-          marginBottom: 30,
+          marginBottom: 40,
         }}>
         <View>
           <TouchableOpacity style={styles.button} onPress={handlePayment}>
@@ -175,6 +173,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#000',
     fontSize: 16,
+    paddingTop:30
   },
   countryPickerContainer: {
     color: '#fff',
@@ -240,10 +239,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   logo: {
-    width: 140,
-    height: 140,
+    width: 126,
+    height: 122,
     alignSelf: 'center',
-    marginBottom: 30,
+   
   },
   image: {
     width: 20,

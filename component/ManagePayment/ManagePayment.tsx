@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   reservationsContainer: {
-    flex:1,
    
   },
   box1: {

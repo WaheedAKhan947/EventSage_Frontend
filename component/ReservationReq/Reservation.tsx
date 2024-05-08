@@ -233,13 +233,12 @@ const Reservation = ({ navigation }: any) => {
             />
           </TouchableOpacity>
         </View>
-        <View >
-          <TouchableOpacity>
+        <View style={styles.headerContainer}>
             <Image
               source={require('../../assets/confirmed_logo.png')}
               style={styles.logo}
             />
-          </TouchableOpacity>
+    
         </View>
       </View>
 
@@ -608,6 +607,11 @@ const styles = StyleSheet.create({
   pagecontent: {
      flex: 1,
      justifyContent:"center"
+  },
+  headerContainer: {
+    marginLeft: "auto",
+    marginRight: 'auto'
+  
   },
 
   dropdownContainer: {

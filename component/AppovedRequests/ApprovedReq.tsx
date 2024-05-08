@@ -36,12 +36,9 @@ const ApprovedReq = ({navigation}: any) => {
   ]
   return (
     <ScrollView style={styles.container}>
-      <View style={{flex:1,paddingTop:20}}>
+     <View style={{paddingVertical:40,marginTop:20}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image
-            source={require('../../assets/wback.png')}
-            style={styles.headerIcon}
-          />
+          <Image source={require('../../assets/wback.png')} />
         </TouchableOpacity>
         </View>
 

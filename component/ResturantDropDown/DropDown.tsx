@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   dropdownContent: {
-    position: 'absolute',
+    
     backgroundColor: '#242424',
     width: "100%",
     maxHeight: 300,
