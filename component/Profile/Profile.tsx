@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,13 +10,38 @@ import {
   ScrollView,
 } from 'react-native';
 import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
+import StorageManager from '../../storage/StorageManager';
+import {ENDPOINTS} from '../../api/apiService';
 
-const Profile = ({ navigation }: any) => {
+const Profile = ({navigation}: any) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [UserData, setStoredUserData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+  });
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const storedUserDataString = await StorageManager.get('userData');
+        console.log('sotred daya isdjkfhsdfhu:', storedUserDataString);
+        // Check if data exists
+        if (!storedUserDataString) {
+          throw new Error('User data not found in async storage');
+        }
+
+        const parsedUserData = storedUserDataString;
+        setStoredUserData(parsedUserData);
+        console.log(UserData);
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Error', error.message || 'Failed to fetch user data.');
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleUpdateProfile = () => {
     Alert.alert(
@@ -36,10 +61,12 @@ const Profile = ({ navigation }: any) => {
   function handleClose(): void {
     setIsDropdownVisible(false);
   }
+
   return (
     <View style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.headercon}>
+      <View style={styles.headercon}>
+        <View>
           <TouchableOpacity
             onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
             <Image
@@ -47,7 +74,6 @@ const Profile = ({ navigation }: any) => {
               style={styles.headerprof}
             />
             <ProfileDropdown
-
               isVisible={isDropdownVisible}
               onLogout={handleLogout}
               onAccountSettings={handleAccountSettings}
@@ -55,95 +81,95 @@ const Profile = ({ navigation }: any) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.headerContainer}>
-
-
+        <View >
           <TouchableOpacity>
             <Image
               source={require('../../assets/confirmed_logo.png')}
               style={styles.logo}
             />
           </TouchableOpacity>
-
         </View>
-
+      </View>
+      
+      <View>
         <Text style={styles.title}>MY PROFILE</Text>
-        <Text style={styles.subtitle}>Track your personal information here</Text>
+        <Text style={styles.subtitle}>
+          Track your personal information here
+        </Text>
+        </View>
         <View style={styles.mainbox}>
           <View style={styles.box1}>
-          <View style={styles.maincontent}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          placeholderTextColor="#fff"
-          value={name}
-          onChangeText={setName}
-        
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#fff"
-          value={email}
-          onChangeText={setEmail}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Phone Number"
-          placeholderTextColor="#fff"
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          keyboardType="numeric" 
-        />
-      </View>
-    </View>
+            <View style={styles.maincontent}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Full Name"
+                  placeholderTextColor="#fff"
+                  value={UserData.fullName}
+                  onChangeText={text =>
+                    setStoredUserData({...UserData, fullName: text})
+                  }
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Email"
+                  placeholderTextColor="#fff"
+                  value={UserData.email}
+                  onChangeText={text =>
+                    setStoredUserData({...UserData, email: String})
+                  }
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Phone Number"
+                  placeholderTextColor="#fff"
+                  value={UserData.phone} // Ensure this matches the key in UserData state
+                  onChangeText={text =>
+                    setStoredUserData({...UserData, phone: number})
+                  }
+                  keyboardType="numeric"
+                />
+              </View>
+            </View>
+          </View>
           </View>
           <View style={styles.box2}>
-            <View style={{ flex: 1, alignSelf: "center", justifyContent: "center" }}>
-              <TouchableOpacity style={styles.button} onPress={handleUpdateProfile}>
-
+            <View
+              style={{alignSelf: 'center', justifyContent: 'center'}}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleUpdateProfile}>
                 <Text style={styles.buttonText}>Update Changes</Text>
-
               </TouchableOpacity>
             </View>
           </View>
-        </View>
-
-
+        
       </ScrollView>
-
     </View>
-
   );
 };
 
 const styles = StyleSheet.create({
-
   mainContainer: {
     flexGrow: 1,
-    
-
   },
   container: {
     flexGrow: 1,
-    paddingHorizontal: 15,
-    paddingVertical: 30,
+    paddingHorizontal: 10,
     backgroundColor: '#000000',
     fontSize: 16,
-    
-
   },
 
   logo: {
     width: 155,
     height: 50,
-    alignSelf: 'center',
-    marginVertical: -40
+    alignSelf:"center"
+ 
+   
   },
 
   icon: {
@@ -175,16 +201,15 @@ const styles = StyleSheet.create({
     fontFamily: 'PlayfairDisplay-SemiBold',
     textAlign: 'center',
     marginBottom: 10,
-    marginTop: 45
+    marginTop: 45,
   },
   headerContainer: {
-    marginLeft: "auto",
-    marginRight: 'auto'
-
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   headercon: {
-    marginRight: "auto",
-
+    flex:1,
+    justifyContent:"center"
   },
   headerButton: {
     marginTop: 10,
@@ -196,7 +221,8 @@ const styles = StyleSheet.create({
   headerprof: {
     width: 30,
     height: 30,
-
+    position:"relative",
+    top:30
   },
 
   input: {
@@ -205,8 +231,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-    width:"100%"
-    
+    width: '100%',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -214,9 +239,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E9',
     marginBottom: 30,
-    color:"#fff"
-  
-  
+    color: '#fff',
   },
   maincontent: {
     marginTop: 40,
@@ -228,7 +251,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 230
+    width: 230,
   },
 
   buttonText: {
@@ -237,16 +260,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   mainbox: {
-    flexGrow: 1,
-    justifyContent:"space-between",
-    marginBottom:60
-   
-
+    flexGrow: 2,
+    justifyContent: 'space-between',
   },
   box1: {},
-  box2: {},
-
-
+  box2: {
+    flex:1,
+    marginBottom:20
+  },
 });
 
 export default Profile;

@@ -16,7 +16,8 @@ import ManagePayment from './component/ManagePayment/ManagePayment';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, View,Text } from 'react-native';
 import ReservationRequest from './component/ReservationRequest/ReservationRequest';
-import Approved from './component/Approved/Approved';
+import ApprovedReq from './component/AppovedRequests/ApprovedReq';
+import DeniedReq from './component/DeniedRequests/DeniedReq';
 
 export const GlobalContext = createContext({});
 const NavigationScreen = () => {
@@ -55,7 +56,6 @@ const NavigationScreen = () => {
                     style={{
                       position: 'absolute',
                       top: 30,
-                      right: 6,
                       backgroundColor: '#FFFFFF',
                       borderRadius: 5,
                       width: 8,
@@ -70,8 +70,8 @@ const NavigationScreen = () => {
           }}
         />
         <Tab.Screen
-          name="reservatiohistory"
-          component={Reservations}
+          name="approvedrequest"
+          component={ApprovedReq}
           options={{
             tabBarIcon: ({focused}) => (
               <View style={{alignItems: 'center', justifyContent: 'center'}}>
@@ -81,7 +81,6 @@ const NavigationScreen = () => {
                     style={{
                       position: 'absolute',
                       top: 30,
-                      right: 6,
                       backgroundColor: '#FFFFFF',
                       borderRadius: 5,
                       width: 8,
@@ -96,8 +95,8 @@ const NavigationScreen = () => {
           }}
         />
         <Tab.Screen
-          name="managepayment"
-          component={ManagePayment}
+          name="deniedrequest"
+          component={DeniedReq}
           options={{
             tabBarIcon: ({focused}) => (
               <View style={{alignItems: 'center', justifyContent: 'center'}}>
@@ -107,7 +106,6 @@ const NavigationScreen = () => {
                     style={{
                       position: 'absolute',
                       top: 30,
-                      right: 6,
                       backgroundColor: '#FFFFFF',
                       borderRadius: 5,
                       width: 8,
@@ -295,6 +293,8 @@ const NavigationScreen = () => {
           />
           <Stack.Screen name="paymentmethod" component={PaymentMehtod} />
           <Stack.Screen name="managepayment" component={ManagePayment} />
+          <Stack.Screen name="approvedrequest" component={ApprovedReq} />
+          <Stack.Screen name="deniedrequest" component={DeniedReq} />
           
         </Stack.Navigator>
       </NavigationContainer>

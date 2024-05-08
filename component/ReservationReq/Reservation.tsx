@@ -249,7 +249,7 @@ const Reservation = ({ navigation }: any) => {
       </View>
 
       <View style={{ flex: 2, flexDirection: "column" }}>
-        <View style={{ gap: 35 }}>
+        <View style={{ gap: 30 }}>
           <DropdownComponent onValueChange={setSelectedOption} />
 
 
@@ -540,7 +540,7 @@ const Reservation = ({ navigation }: any) => {
           flex: 1,
           alignItems: "center",
           justifyContent: "center",
-          marginBottom: 30,
+          marginBottom: 35,
 
         }}>
         <TouchableOpacity style={styles.button} onPress={handleReservation}>
@@ -556,8 +556,8 @@ const styles = StyleSheet.create({
   modalRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 5
-
+    margin:5,
+    
   },
   modalpref: {
     flex: 1,
@@ -572,7 +572,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     position: 'relative',
-    top: 30
+    top: 34
 
 
 
@@ -581,21 +581,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#242424',
     borderRadius: 10,
     color: 'white',
-    padding: 25,
+   padding:10,
     width: "95%",
-    maxHeight: 300,
+    maxHeight: 260,
 
   },
   modalItem: {
     textAlign: 'center',
     fontSize: 16,
-    paddingVertical: 10,
     color: '#FFFFFF',
-    borderRadius: 5,
-    width: 120,
-    height: 50,
+    borderRadius: 10,
+    width: 110,
+    height: 40,
     backgroundColor: "#3E3E3E",
     fontFamily: "Poppins-Regular",
+    alignItems:"center"
+    
 
   },
   mainContainer: {
@@ -686,14 +687,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    top: 95,
-    left: 70
+    top: 160,
+    left: 65
   },
   modalContent: {
     backgroundColor: '#242424',
     alignItems: "center",
-    width: 120,
-    height: 300,
+    width: 110,
+    height: 250,
     color: '#fff',
 
 
@@ -760,7 +761,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     position:"relative",
-    top:10
+    top:30
     
   },
   centeredview: {
