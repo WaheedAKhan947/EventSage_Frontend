@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useRef, useState } from 'react';
+import React, {useRef, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,13 +10,12 @@ import {
   Alert,
   Image,
   ScrollView,
-  Animated
+  Animated,
 } from 'react-native';
-import API, { ENDPOINTS } from '../../api/apiService';
+import API, {ENDPOINTS} from '../../api/apiService';
 import StorageManager from '../../storage/StorageManager';
 
-
-const SignIn = ({ navigation }: any) => {
+const SignIn = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -37,16 +36,17 @@ const SignIn = ({ navigation }: any) => {
       return;
     }
     try {
-      const payload = { email, password };
-      const response = await API.post(ENDPOINTS.USER.LOGIN, payload,false);
+      const payload = {email, password};
+      const response = await API.post(ENDPOINTS.USER.LOGIN, payload);
       const userId = response?.user?._id;
       // const userIdString = userId.toString();
       console.log("response login:",response)
       await StorageManager.put('userId', userId);
       await StorageManager.put('token', response?.token);
+      await StorageManager.put('userData', response.user);
       Alert.alert('Success', response.message || 'Sign-in successful!');
       // if(response){
-        navigation.navigate('reservation');
+      navigation.navigate('reservation');
       // }
       // navigation.navigate('paymentmethod');
     } catch (error: any) {
@@ -116,7 +116,7 @@ const SignIn = ({ navigation }: any) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={{ flex: 2,justifyContent:"center",}}>
+      <View style={{flex: 2, justifyContent: 'center'}}>
         <Image
           source={require('../../assets/tutu_white.png')}
           style={styles.logo}
@@ -124,8 +124,15 @@ const SignIn = ({ navigation }: any) => {
       </View>
 
       <View style={styles.maincontainer}>
-        <Text style={{ fontSize: 32, color: "white", fontFamily: "PlayfairDisplay-SemiBold" }}>LOGIN</Text>
-        <View style={{ flexDirection: "row" }}>
+        <Text
+          style={{
+            fontSize: 32,
+            color: 'white',
+            fontFamily: 'PlayfairDisplay-SemiBold',
+          }}>
+          LOGIN
+        </Text>
+        <View style={{flexDirection: 'row'}}>
           <Text style={styles.legalTexted}>Don't have an account? </Text>
           <Text
             style={styles.legalLinked}
@@ -136,9 +143,11 @@ const SignIn = ({ navigation }: any) => {
       </View>
 
       <View style={styles.main1}>
-        <View style={{ flexDirection: "column", gap: 35 }}>
+        <View style={{flexDirection: 'column', gap: 35}}>
           <View style={styles.inputContainer}>
-            <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>Email</Animated.Text>
+            <Animated.Text style={[styles.label, emailFloatingLabelStyle]}>
+              Email
+            </Animated.Text>
             <TextInput
               style={styles.input}
               value={email}
@@ -150,7 +159,9 @@ const SignIn = ({ navigation }: any) => {
           </View>
 
           <View style={styles.inputContainer}>
-            <Animated.Text style={[styles.label, passwordFloatingLabelStyle]}>Password</Animated.Text>
+            <Animated.Text style={[styles.label, passwordFloatingLabelStyle]}>
+              Password
+            </Animated.Text>
             <TextInput
               style={styles.input}
               value={password}
@@ -168,7 +179,7 @@ const SignIn = ({ navigation }: any) => {
           </View>
         </View>
 
-        <View style={{ marginTop: 20 }}>
+        <View style={{marginTop: 20}}>
           <TouchableOpacity onPress={() => navigation.navigate('forget')}>
             <Text style={styles.linkText}>Forgot password?</Text>
           </TouchableOpacity>
@@ -176,7 +187,7 @@ const SignIn = ({ navigation }: any) => {
       </View>
 
       <View style={styles.btncontainer}>
-        <View style={{ alignItems: "center", }}>
+        <View style={{alignItems: 'center'}}>
           <TouchableOpacity
             style={styles.button}
             onPress={handleSignIn}
@@ -187,23 +198,29 @@ const SignIn = ({ navigation }: any) => {
           </TouchableOpacity>
         </View>
 
-
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ color: "#F4F4F6", fontFamily: "Poppins-Regular", fontSize: 11, textAlign: "center", justifyContent: "center", width: 360 }}>By signing in, I accept the Terms of Service and Community
-            Guidelines and have red <Text
+        <View style={{alignItems: 'center'}}>
+          <Text
+            style={{
+              color: '#F4F4F6',
+              fontFamily: 'Poppins-Regular',
+              fontSize: 11,
+              textAlign: 'center',
+              justifyContent: 'center',
+              width: 360,
+              marginBottom:10
+            }}>
+            By signing in, I accept the Terms of Service and Community
+            Guidelines and have red{' '}
+            <Text
               onPress={() => navigation.navigate('reservation')}
               style={styles.privacytext}>
               {' '}
               Privacy Policy
-            </Text> </Text>
-
+            </Text>{' '}
+          </Text>
         </View>
-
       </View>
-
-
     </ScrollView>
-
   );
 };
 const styles = StyleSheet.create({
@@ -211,39 +228,37 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: 20,
     backgroundColor: '#000',
-    
   },
 
   main1: {
     flex: 2,
   },
   label: {
-    position: "absolute",
-    color: "#E6E6E9",
-    fontFamily: "Poppins-Light",
+    position: 'absolute',
+    color: '#E6E6E9',
+    fontFamily: 'Poppins-Light',
     fontSize: 13,
   },
 
   input: {
-    flex:1,
+    flex: 1,
     height: 45,
     backgroundColor: 'transparent',
     color: 'white',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-    
   },
   inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: '#fff',
-    alignItems:"flex-end"
+    alignItems: 'flex-end',
   },
   icon: {
     width: 20,
     height: 20,
-    marginBottom:5
+    marginBottom: 5,
   },
   button: {
     backgroundColor: '#E6E6E9',
@@ -253,8 +268,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 160,
-    height: 60
-
+    height: 60,
   },
   buttonText: {
     color: 'black',
@@ -266,14 +280,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-    textDecorationLine: "underline",
-
+    textDecorationLine: 'underline',
   },
   logo: {
     width: 126,
     height: 122,
     alignSelf: 'center',
-
   },
 
   maincontainer: {
@@ -281,30 +293,25 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     gap: 5,
-
-
   },
   btncontainer: {
     flex: 1,
-    flexDirection: "column",
-    gap: 10,
-    justifyContent: "flex-end"
-
+    flexDirection: 'column',
+    gap: 20,
+    justifyContent: 'flex-end',
   },
   privacytext: {
-    color: "#F4F4F6",
-    fontFamily: "Poppins-Regular",
-    fontSize: 11
-
+    color: '#F4F4F6',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 11,
   },
 
   legalTexted: {
     color: '#F4F4F6',
     textAlign: 'center',
     fontSize: 16,
-    fontWeight: "300",
+    fontWeight: '300',
     fontFamily: 'Poppins-Light',
-
   },
   legalLinked: {
     fontSize: 16,
@@ -312,7 +319,6 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontFamily: 'Poppins-Medium',
   },
-
 });
 
 export default SignIn;

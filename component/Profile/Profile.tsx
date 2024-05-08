@@ -25,14 +25,15 @@ const Profile = ({navigation}: any) => {
     const fetchUserData = async () => {
       try {
         const storedUserDataString = await StorageManager.get('userData');
-
+        console.log('sotred daya isdjkfhsdfhu:', storedUserDataString);
         // Check if data exists
         if (!storedUserDataString) {
           throw new Error('User data not found in async storage');
         }
 
-        const parsedUserData = JSON.parse(storedUserDataString);
+        const parsedUserData = storedUserDataString;
         setStoredUserData(parsedUserData);
+        console.log(UserData);
       } catch (error) {
         console.error(error);
         Alert.alert('Error', error.message || 'Failed to fetch user data.');
@@ -62,8 +63,8 @@ const Profile = ({navigation}: any) => {
   }
 
   return (
+    <View style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={{flex:1,justifyContent:"center"}}>
         <View style={styles.headercon}>
           <TouchableOpacity
             onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
@@ -86,7 +87,6 @@ const Profile = ({navigation}: any) => {
               style={styles.logo}
             />
           </TouchableOpacity>
-        </View>
         </View>
 
         <Text style={styles.title}>MY PROFILE</Text>
@@ -144,18 +144,20 @@ const Profile = ({navigation}: any) => {
           </View>
         </View>
       </ScrollView>
-
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  
+  mainContainer: {
+    flexGrow: 1,
+  },
   container: {
     flexGrow: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 30,
     backgroundColor: '#000000',
     fontSize: 16,
-    paddingTop:10
   },
 
   logo: {
@@ -197,8 +199,8 @@ const styles = StyleSheet.create({
     marginTop: 45,
   },
   headerContainer: {
-    // marginLeft: 'auto',
-    // marginRight: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   headercon: {
     marginRight: 'auto',
@@ -213,8 +215,6 @@ const styles = StyleSheet.create({
   headerprof: {
     width: 30,
     height: 30,
-    position:"relative",
-    bottom:20
   },
 
   input: {

@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, ScrollView, Alert } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import CountryPicker from '../CountryPickerDropdown/Countrypicker'; // Make sure to import the correct CountryPicker component
 import StorageManager from '../../storage/StorageManager';
-import { ENDPOINTS } from '../../api/apiRoutes';
+import {ENDPOINTS} from '../../api/apiRoutes';
 import API from '../../api/apiService';
 
-const PaymentMethod = ({ navigation }: any) => {
+const PaymentMethod = ({navigation}: any) => {
   const [selectedCountry, setSelectedCountry] = useState<String>('');
   const [zipCode, setZipCode] = useState('');
   const [exp, setExp] = useState('');
@@ -17,9 +26,9 @@ const PaymentMethod = ({ navigation }: any) => {
   const handlePayment = async () => {
     try {
       if (!selectedCountry || !cardNumber || !exp || !cvv || !zipCode) {
-        Alert.alert('Error', 'Please fill in all required fields.');
-        return;
+        throw new Error('Please fill in all required fields.');
       }
+
       const paymentData = {
         regionOrCountry: selectedCountry,
         cardNumber,
@@ -28,16 +37,17 @@ const PaymentMethod = ({ navigation }: any) => {
         zipCode,
       };
       let userId =  await StorageManager.get('userId');
-      let token =  await StorageManager.get('token');
      let response= await API.post(`${ENDPOINTS.USER.CARDINFO}/${userId}`, paymentData)
       Alert.alert('Success',response?.message)
       navigation.navigate('reservation');
     } catch (error) {
-      Alert.alert('Error', 'Failed to process payment. Please try again later.');
+      Alert.alert(
+        'Error',
+        error.message || 'Failed to process payment. Please try again later.',
+      );
     }
   };
 
-  
   const handleCardNumberChange = (text: string) => {
     const numericValue = text.replace(/[^0-9]/g, '');
     setCardNumber(numericValue);
@@ -52,122 +62,122 @@ const PaymentMethod = ({ navigation }: any) => {
     setIsDropdownOpen(false);
   };
 
-
-
-
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={{flex:1,justifyContent:"center"}}>
-       
-      <View>
-      <TouchableOpacity>
-        <Image
-          source={require('../../assets/tutu_white.png')}
-          style={styles.logo}
-        />
-      </TouchableOpacity>
-      </View>
-      </View>
-
-      <View style={{flex:1,flexDirection:"column",gap:10}}>
-      <Text style={styles.title}>PAYMENT INFORMATION</Text>
-      <Text style={styles.maincontent}>
-        Lets add a payment method.
-      </Text>
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <View>
+          <TouchableOpacity>
+            <Image
+              source={require('../../assets/tutu_white.png')}
+              style={styles.logo}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
-      <View style={{flex:2,flexDirection:"column",gap:30}}>
-      <View style={styles.inputContainer}>
-        <Image source={require('../../assets/wcard.png')} style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Card Number"
-          placeholderTextColor="#fff"
-          value={cardNumber}
-          onChangeText={handleCardNumberChange}
-          keyboardType="numeric"
-          maxLength={16}
-        />
+      <View style={{flex: 1, flexDirection: 'column', gap: 10}}>
+        <Text style={styles.title}>PAYMENT INFORMATION</Text>
+        <Text style={styles.maincontent}>Lets add a payment method.</Text>
       </View>
 
-      <View style={styles.row}>
-        <View style={[styles.halfWidth, styles.dropdownContainer]}>
+      <View style={{flex: 2, flexDirection: 'column', gap: 30}}>
+        <View style={styles.inputContainer}>
           <Image
-            source={require('../../assets/wcalendar.png')}
-            style={styles.image}
+            source={require('../../assets/wcard.png')}
+            style={styles.icon}
           />
           <TextInput
             style={styles.input}
-            placeholder="Exp: MM/YY"
+            placeholder="Card Number"
             placeholderTextColor="#fff"
-            value={exp}
-            onChangeText={setExp}
+            value={cardNumber}
+            onChangeText={handleCardNumberChange}
+            keyboardType="numeric"
+            maxLength={16}
           />
         </View>
 
-        <View style={[styles.halfWidth, styles.dropdownContainer]}>
+        <View style={styles.row}>
+          <View style={[styles.halfWidth, styles.dropdownContainer]}>
+            <Image
+              source={require('../../assets/wcalendar.png')}
+              style={styles.image}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Exp: MM/YY"
+              placeholderTextColor="#fff"
+              value={exp}
+              onChangeText={setExp}
+            />
+          </View>
+
+          <View style={[styles.halfWidth, styles.dropdownContainer]}>
+            <Image
+              source={require('../../assets/wcvv.png')}
+              style={styles.image}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="CVV"
+              placeholderTextColor="#fff"
+              keyboardType="numeric"
+              maxLength={3}
+              value={cvv}
+              onChangeText={text => {
+                if (/^\d*$/.test(text)) {
+                  setCVV(text);
+                }
+              }}
+            />
+          </View>
+        </View>
+        <View>
+          <CountryPicker onValueChange={setSelectedCountry} />
+        </View>
+        <View style={[styles.fullWidth, styles.dropdownContainer]}>
           <Image
-            source={require('../../assets/wcvv.png')}
+            source={require('../../assets/wzip.png')}
             style={styles.image}
           />
           <TextInput
             style={styles.input}
-            placeholder="CVV"
+            placeholder="Zip Code"
             placeholderTextColor="#fff"
             keyboardType="numeric"
             maxLength={3}
-            value={cvv}
-            onChangeText={text => {
-              if (/^\d*$/.test(text)) {
-                setCVV(text);
-              }
-            }}
+            value={zipCode}
+            onChangeText={setZipCode}
           />
         </View>
       </View>
-      <View >
-      <CountryPicker onValueChange={setSelectedCountry} />
-    </View>
-      <View style={[styles.fullWidth, styles.dropdownContainer]}>
-        <Image source={require('../../assets/wzip.png')} style={styles.image} />
-        <TextInput
-          style={styles.input}
-          placeholder="Zip Code"
-          placeholderTextColor="#fff"
-          keyboardType="numeric"
-          maxLength={3}
-          value={zipCode}
-          onChangeText={setZipCode}
-        />
-        
-      </View>
-      </View>
 
-      <View style={{ flex: 1, alignItems:"center", justifyContent: "flex-end", marginBottom:30 }}>
-          <View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          marginBottom: 30,
+        }}>
+        <View>
           <TouchableOpacity style={styles.button} onPress={handlePayment}>
-
             <Text style={styles.buttonText}>Save card & continue</Text>
-
           </TouchableOpacity>
-          </View>
         </View>
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
- 
   container: {
- flexGrow:1,
+    flexGrow: 1,
     paddingHorizontal: 20,
     backgroundColor: '#000',
     fontSize: 16,
-    
   },
   countryPickerContainer: {
-    color:"#fff"
+    color: '#fff',
   },
   dropdownContainer: {
     flexDirection: 'row',
@@ -180,7 +190,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    
   },
   halfWidth: {
     width: '45%',
@@ -205,7 +214,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Poppins',
   },
- 
+
   buttonDone: {
     width: '70%',
     marginTop: 10,
@@ -215,7 +224,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
-  
   button: {
     backgroundColor: '#E6E6E9',
     paddingVertical: 16,
@@ -223,10 +231,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 230
+    width: 230,
   },
-
-
   buttonText: {
     color: 'black',
     fontSize: 16,
@@ -236,7 +242,7 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     alignSelf: 'center',
-    marginBottom:30
+    marginBottom: 30,
   },
   image: {
     width: 20,
@@ -267,8 +273,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E9',
-    
-    
   },
   icon: {
     marginRight: 12,
@@ -279,7 +283,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  
   },
   text: {
     color: '#fff',
@@ -303,17 +306,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: 'PlayfairDisplay-SemiBold',
     textAlign: 'center',
- 
-   
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    
   },
-  headerButton: {
-   
-  },
+  headerButton: {},
   headerIcon: {
     width: 30,
     height: 30,
@@ -322,8 +320,6 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
   },
- 
-
   modalview: {
     color: 'white',
     width: 271,
