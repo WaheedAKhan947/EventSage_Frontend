@@ -15,7 +15,7 @@ const ManagePayment = ({navigation}: any) => {
   const scrollViewRef = useRef(null);
   const isFocused = useIsFocused();
   const [name, setName] = useState(null); // State to store card info
-  const [createAt, setCreatedAt] = useState(null);
+  // const [createAt, setCreatedAt] = useState(null);
 
   useEffect(() => {
     if (isFocused) {
@@ -32,7 +32,6 @@ const ManagePayment = ({navigation}: any) => {
       console.log('User Data:', userData);
       setPaymentMethods(userData.cardInfo);
       setName(userData.fullName);
-      con;
     } catch (error) {
       console.log('error', error);
     }
@@ -46,7 +45,7 @@ const ManagePayment = ({navigation}: any) => {
       holderName: '',
       addedDate: '',
       cardNumber: '',
-      date:'',
+      date: '',
       expiryDate: '',
     },
   ]);
