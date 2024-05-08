@@ -14,8 +14,9 @@ import Reservations from './component/ReservationsHistory/ReservationsHistory';
 import PaymentMehtod from './component/paymentMethod/PaymentMehtod';
 import ManagePayment from './component/ManagePayment/ManagePayment';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, View } from 'react-native';
+import { Image, View,Text } from 'react-native';
 import ReservationRequest from './component/ReservationRequest/ReservationRequest';
+import Approved from './component/Approved/Approved';
 
 export const GlobalContext = createContext({});
 const NavigationScreen = () => {
@@ -26,6 +27,104 @@ const NavigationScreen = () => {
   const Tab = createBottomTabNavigator();
 
   const Stack = createNativeStackNavigator();
+
+  function ReservationApproval(){
+    return(
+      <Tab.Navigator initialRouteName='reservationrequests'
+      screenOptions={{
+        headerShown: false,
+        activeTintColor: '#FFFFFF',
+        inactiveTintColor: '#CCCCCC',
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          position: 'absolute',
+          elevation: 0,
+          backgroundColor: '#353535',
+          height: 75,
+        },
+      }}>
+        <Tab.Screen
+          name="reservationrequests"
+          component={ReservationRequest}
+          options={{
+            tabBarIcon: ({focused}) => (
+              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={{color:"#fff"}}>Pending</Text>
+                {focused && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 30,
+                      right: 6,
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: 5,
+                      width: 8,
+                      height: 8,
+                  
+          }}
+        />
+    )
+  }
+  </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="reservatiohistory"
+          component={Reservations}
+          options={{
+            tabBarIcon: ({focused}) => (
+              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={{color:"#fff"}}>Approved</Text>
+                {focused && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 30,
+                      right: 6,
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: 5,
+                      width: 8,
+                      height: 8,
+                  
+          }}
+        />
+    )
+  }
+  </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="managepayment"
+          component={ManagePayment}
+          options={{
+            tabBarIcon: ({focused}) => (
+              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={{color:"#fff"}}>Denied</Text>
+                {focused && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 30,
+                      right: 6,
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: 5,
+                      width: 8,
+                      height: 8,
+                  
+          }}
+        />
+    )
+  }
+  </View>
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    );
+  }
+
 
   function ReservationStack() {
     return (
@@ -192,10 +291,11 @@ const NavigationScreen = () => {
           <Stack.Screen name="reservationhistory" component={Reservations} />
           <Stack.Screen
             name="reservationrequests"
-            component={ReservationRequest}
+            component={ReservationApproval}
           />
           <Stack.Screen name="paymentmethod" component={PaymentMehtod} />
           <Stack.Screen name="managepayment" component={ManagePayment} />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalContext.Provider>

@@ -3,9 +3,11 @@ import {Button, Image, StyleSheet, Text, TouchableOpacity, View,ScrollView,Modal
 import ApproveModal from '../ApproveModal/ApproveModal';
 import BottomTabNavigator from '../AdminBottomNavigator/BottomTabNavigator';
 import { NavigationContainer } from '@react-navigation/native';
+import BottomNavigator from '../AdminBottomNavigate/BottomNavigator';
 
 const ReservationRequest = ({navigation}: any) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -32,20 +34,11 @@ const ReservationRequest = ({navigation}: any) => {
       backupTime: '3:00 PM',
       guests: '2',
     },
-    {
-      id: '1',
-      name: 'Eric Sullivan',
-      restaurant: "Tony's Pizza Napoletana",
-      price: '$50,00',
-      preferredTime: '2:30 PM',
-      backupTime: '3:00 PM',
-      guests: '2',
-    },
   
   ]
   return (
     <ScrollView style={styles.container}>
-      <View>
+      <View style={{flex:1,paddingTop:20}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
             source={require('../../assets/wback.png')}
@@ -54,7 +47,7 @@ const ReservationRequest = ({navigation}: any) => {
         </TouchableOpacity>
         </View>
 
-        <View style={{marginTop:20}}>
+        <View style={{flex:1}}>
           <Text style={styles.maintext}>RESERVATION</Text>
           <Text style={styles.maintext}>REQUESTS</Text>
         </View>
@@ -62,6 +55,7 @@ const ReservationRequest = ({navigation}: any) => {
         <View>
           <Text style={{color:"#fff",marginTop:20}}>11 Feb, 2024</Text>
         </View>
+
 
         {data.map((item, index) => (
         <View key={index} style={styles.mainbox}>
@@ -176,10 +170,11 @@ const styles = StyleSheet.create({
     justifyContent:"space-between"
   },
   container: {
-    flexGrow:1,
+    flex:1,
     backgroundColor: '#000',
-    paddingHorizontal:10,
-    paddingVertical:25
+    paddingHorizontal:20,
+    paddingTop:10
+  
 
   },
   headerIcon:{

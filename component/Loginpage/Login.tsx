@@ -40,8 +40,9 @@ const SignIn = ({ navigation }: any) => {
       const payload = { email, password };
       const response = await API.post(ENDPOINTS.USER.LOGIN, payload);
       const userId = response?.user?._id;
-      const userIdString = userId.toString();
-      await StorageManager.put('userId', userIdString);
+      // const userIdString = userId.toString();
+      console.log("response login:",response)
+      await StorageManager.put('userId', userId);
       await StorageManager.put('token', response?.token);
       Alert.alert('Success', response.message || 'Sign-in successful!');
       // if(response){

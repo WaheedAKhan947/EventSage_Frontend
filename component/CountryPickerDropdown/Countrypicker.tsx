@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, FlatList } from 'react-native';
+import CountriesList from '../../assets/Data/countries.json'
 
 const CountryPicker = ({ onValueChange }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const countries = [
-    { value: 'USA', label: 'United States' },
-    { value: 'UK', label: 'United Kingdom' },
-    { value: 'CAN', label: 'Canada' },
-    { value: 'AUS', label: 'Australia' },
-    { value: 'IND', label: 'India' },
-    
-  ];
+  type Countries = {
+    name: string;
+    code: string;
+  };
+  
+  let countriesList:Countries[]= CountriesList
+
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -22,6 +22,15 @@ const CountryPicker = ({ onValueChange }) => {
     onValueChange(countryValue);
     setShowDropdown(false);
   };
+
+  const renderItem = ({ item, index }: { item: Countries; index: number }) => (
+    <TouchableOpacity
+      key={index}
+      style={styles.dropdownItem}
+      onPress={() => selectCountry(item.code)}>
+      <Text style={styles.dropdownItemText}>{item.name}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
@@ -41,14 +50,23 @@ const CountryPicker = ({ onValueChange }) => {
       </TouchableOpacity>
       {showDropdown && (
         <ScrollView style={styles.dropdownContent}>
-          {countries.map((country, index) => (
+          {/* {countriesList?.map((country, index) => (
             <TouchableOpacity
               key={index}
               style={styles.dropdownItem}
-              onPress={() => selectCountry(country.value)}>
-              <Text style={styles.dropdownItemText}>{country.label}</Text>
+              onPress={() => selectCountry(country.code)}>
+              <Text style={styles.dropdownItemText}>{country.name}</Text>
             </TouchableOpacity>
-          ))}
+          ))} */}
+{showDropdown && (
+        <FlatList
+          data={countriesList}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      )}
+
+
         </ScrollView>
       )}
     </View>

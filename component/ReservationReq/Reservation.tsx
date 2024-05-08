@@ -601,11 +601,12 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     paddingHorizontal: 10,
-    paddingTop: 10,
     backgroundColor: '#000000',
+    paddingTop:10
   },
   pagecontent: {
-    flex: 1,
+     flex: 1,
+     justifyContent:"center"
   },
 
   dropdownContainer: {
@@ -673,7 +674,7 @@ const styles = StyleSheet.create({
     width: 155,
     height: 50,
     alignSelf: 'center',
-    marginVertical: -40,
+    
   },
   image: {
     width: 20,
@@ -711,7 +712,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   icon: {
-    marginRight: 10,
+    
     width: 26,
     height: 24,
   },
@@ -742,22 +743,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: 'PlayfairDisplay-SemiBold',
     textAlign: 'center',
-    marginBottom: 10,
-    marginTop: 45,
+   
   },
-  headerContainer: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
+
   headercon: {
     flex: 1,
-    justifyContent: "center"
-
-
+    justifyContent: "center",
+  
   },
-  headerButton: {
-    marginTop: 10,
-  },
+ 
   headerIcon: {
     width: 24,
     height: 24,
@@ -765,8 +759,9 @@ const styles = StyleSheet.create({
   headerprof: {
     width: 30,
     height: 30,
-    position: "relative",
-    bottom: 20
+    position:"relative",
+    top:10
+    
   },
   centeredview: {
     flex: 1,

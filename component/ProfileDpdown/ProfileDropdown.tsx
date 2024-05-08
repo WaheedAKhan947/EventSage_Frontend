@@ -86,6 +86,14 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                 </View>
               </TouchableOpacity>
             </View>
+            <View>
+              <TouchableOpacity onPress={() => (navigation as any).navigate('reservationrequests')} style={styles.dropdownItem}>
+                <View style={styles.itemContent}>
+                  <Image source={require('../../assets/pay.png')} style={styles.icon} />
+                  <Text style={styles.dropdownText}>Reservation Requests</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
         
           </View>
           <View style={styles.footer}>

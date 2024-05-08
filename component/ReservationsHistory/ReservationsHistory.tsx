@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -11,52 +11,47 @@ import {
 } from 'react-native';
 import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
 import { useIsFocused } from '@react-navigation/native';
+import StorageManager from '../../storage/StorageManager';
+import { ENDPOINTS } from '../../api/apiRoutes';
+import API from '../../api/apiService';
 
-
-const Reservations = ({navigation}: any) => {
-
-  const data = [
-  {
-    restaurant: "Tony's Pizza Napoletana",
-    date: "12 Feb, 2024 6:30 PM",
-    total: "50.00",
-    guests: 2,
-  },
-  {
-    restaurant: "Tony's Pizza Napoletana",
-    date: "12 Feb, 2024 6:30 PM",
-    total: "50.00",
-    guests: 2,
-  },
-  {
-    restaurant: "Tony's Pizza Napoletana",
-    date: "12 Feb, 2024 6:30 PM",
-    total: "50.00",
-    guests: 2,
-  },
-  {
-    restaurant: "Tony's Pizza Napoletana",
-    date: "12 Feb, 2024 6:30 PM",
-    total: "50.00",
-    guests: 2,
-  },
-  
-  
-];
+const Reservations = ({ navigation }: any) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-const scrollViewRef = useRef(null); 
-const isFocused = useIsFocused();
+  const scrollViewRef = useRef(null);
+  const isFocused = useIsFocused();
+  const [reservations, setReservations] = useState([]);
 
-
-useEffect(() => {
- 
-  if (isFocused && scrollViewRef.current) {
-    (scrollViewRef.current as ScrollView).scrollTo({ y: 0, animated: false });
-  }
-}, [isFocused]);
-  
 
   
+  const fetchData = async () => {
+    const userId =await StorageManager.get('userId');
+    try {
+      const response = await API.get(
+        `${ENDPOINTS.USER.GETRESERVATION}/${userId}`
+      );
+      console.log("response in get api :", response);
+      if (response.success) {
+        setReservations(response?.reservations);
+      } else {
+        const errorMessage = response.message || 'Something went wrong.';
+        Alert.alert('Error', errorMessage);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      Alert.alert('Error', 'Something went wrong. Please try again later.');
+    }
+  };
+
+  useEffect(() => {
+    fetchData(); 
+  }, []); 
+
+  useEffect(() => {
+    if (isFocused && scrollViewRef.current) {
+      (scrollViewRef.current as ScrollView).scrollTo({ y: 0, animated: false });
+    }
+  }, [isFocused]);
+
   function handleLogout(): void {
     setIsDropdownVisible(false);
   }
@@ -64,14 +59,15 @@ useEffect(() => {
   function handleAccountSettings(): void {
     setIsDropdownVisible(false);
   }
+
   function handleClose(): void {
     setIsDropdownVisible(false);
   }
 
-return (
-  <View style={styles.mainContainer}>
-    <ScrollView ref={scrollViewRef} contentContainerStyle={styles.container}>
+  return (
+    <View style={styles.container}>
       <View style={styles.headercon}>
+        <View>
         <TouchableOpacity
           onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
           <Image
@@ -86,54 +82,64 @@ return (
             onClose={handleClose}
           />
         </TouchableOpacity>
-      </View>
+        </View>
+     
       <View style={styles.headerContainer}>
 
-
-        <TouchableOpacity>
           <Image
             source={require('../../assets/confirmed_logo.png')}
             style={styles.logo}
           />
-        </TouchableOpacity>
       </View>
+      </View>
+
+
       <View>
         <Text style={styles.title}>RESERVATION HISTORY</Text>
         </View>
 
        
-      {data.map((item, index) => (
-        <View style={styles.mainbox} key={index}>
-          <View style={styles.box1}>
-            <Text style={{ fontSize: 13,fontFamily:"Poppins-Light", color: "#E6E6E9" }}>Restaurent</Text>
-            <Text style={{ fontSize: 18,fontFamily:"Poppins-Light",color: "#fff" }}>{item.restaurant}</Text>
+        <ScrollView contentContainerStyle={styles.reservationsContainer}>
+  {Array.isArray(reservations) && reservations.length > 0 && (
+    reservations?.map((item, index) => (
+      <View style={styles.mainbox} key={index}>
+        <View style={styles.box1}>
+          <Text style={{ fontSize: 13, fontFamily: "Poppins-Light", color: "#E6E6E9" }}>Restaurant</Text>
+          <Text style={{ fontSize: 18, fontFamily: "Poppins-Light", color: "#fff" }}>{item.restaurant}</Text>
+        </View>
+        <View style={styles.box2}>
+          <View style={styles.b1}>
+            <Text style={{ fontSize: 13, fontFamily: "Poppins-Light", color: "#E6E6E9" }}>Date</Text>
+            <Text style={{ fontSize: 14, fontFamily: "Poppins-Medium", color: "#fff" }}>{item.date}</Text>
           </View>
-          <View style={styles.box2}>
-            <View style={styles.b1}>
-              <Text style={{ fontSize: 13,fontFamily:"Poppins-Light", color: "#E6E6E9" }}>Date</Text>
-              <Text style={{ fontSize: 14,fontFamily:"Poppins-Medium", color: "#fff" }}>{item.date}</Text>
-            </View>
-            <View style={styles.b2}>
-              <Text style={{ fontSize: 13, color: "#E6E6E9" }}>Total</Text>
-              <Text style={{ fontSize: 14, color: "#fff" }}>{item.total}</Text>
-            </View>
-            <View style={styles.b3}>
-              <Text style={{ fontSize: 13, color: "#E6E6E9" }}>Guests</Text>
-              <Text style={{ fontSize: 14, color: "#fff" }}>{item.guests}</Text>
-            </View>
+          <View style={styles.b2}>
+            <Text style={{ fontSize: 13, color: "#E6E6E9" }}>Total</Text>
+            <Text style={{ fontSize: 14, color: "#fff" }}>{item.totalPayments}</Text>
+          </View>
+          <View style={styles.b3}>
+            <Text style={{ fontSize: 13, color: "#E6E6E9" }}>Guests</Text>
+            <Text style={{ fontSize: 14, color: "#fff" }}>{item.guests}</Text>
           </View>
         </View>
-      ))}
-    
+      </View>
+    ))
+  )}
+</ScrollView>
+ 
 
-    </ScrollView>
+    </View>
 
-  </View>
+ 
 
 );
 };
 
 const styles = StyleSheet.create({
+  reservationsContainer: {
+    flexGrow:1,
+    gap:10,
+    
+  },
 
   mainbox:{
   
@@ -163,28 +169,22 @@ const styles = StyleSheet.create({
   b2:{},
   b3:{},
 
-mainContainer: {
-  flex: 1,
-  position: 'relative',
-
-
-
-},
 container: {
   flexGrow: 1,
-  paddingHorizontal: 15,
-  paddingVertical: 30,
+  paddingHorizontal: 10,
   backgroundColor: '#000000',
   fontSize: 16,
   fontFamily: 'IbarraRealNova-Regular',
   gap:10,
+  paddingTop:20
 },
 
 logo: {
   width: 155,
   height: 50,
   alignSelf: 'center',
-  marginVertical: -40
+  
+  
 },
 
 icon: {
@@ -210,8 +210,8 @@ title: {
   color: '#fff',
   fontFamily: 'PlayfairDisplay-SemiBold',
   textAlign: 'center',
-  marginBottom: 20,
-  marginTop: 45
+  marginBottom:30,
+ 
 },
 headerContainer: {
   marginLeft: "auto",
@@ -219,8 +219,8 @@ headerContainer: {
 
 },
 headercon: {
-  marginRight: "auto",
-
+  justifyContent:"center",
+  paddingVertical:40
 },
 headerButton: {
   marginTop: 10,
@@ -232,11 +232,10 @@ headerIcon: {
 headerprof: {
   width: 30,
   height: 30,
+  position:"relative",
+  top:10
 
 },
-
-
-
 
 
 });
