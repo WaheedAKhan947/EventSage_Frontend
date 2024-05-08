@@ -300,14 +300,14 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   dropdownContent: {
-    position: 'absolute',
+    // position: 'absolute',
     backgroundColor: '#242424',
     width: "100%",
     maxHeight: 300,
     borderRadius: 10,
-    top: 40,
+    top: 0,
     paddingHorizontal: 20,
-    zIndex:999,
+    // zIndex:999,
   },
   dropdownItem: {
     paddingVertical: 20,

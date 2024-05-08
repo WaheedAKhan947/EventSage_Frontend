@@ -18,6 +18,7 @@ import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
 import StorageManager from '../../storage/StorageManager';
 import { ENDPOINTS } from '../../api/apiRoutes';
 import API from '../../api/apiService';
+import DropdownModal from '../Modals/DropdownModal';
 
 
 const Reservation = ({ navigation }: any) => {
@@ -31,7 +32,9 @@ const Reservation = ({ navigation }: any) => {
   const [selectedOption, setSelectedOption] = useState('');
   const [showModal, setShowModal] = useState<Boolean>(false);
   const [fullName, setFullName] = useState('');
+  const [reservationResturantModal, setReservationResturantModal] = useState(false)
 
+  console.log("reservationResturantModal :",reservationResturantModal)
   const [guests, setGuests] = useState<Number>(0);
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState('');
@@ -215,8 +218,15 @@ const Reservation = ({ navigation }: any) => {
   const preferredTimes = generatePreferredTimes();
   const backupTimes = generateBackupTimes();
 
+//  const  handleSelectResturantModal=()=>{
+//   console.log("handle select ")
+//     setReservationResturantModal(!reservationResturantModal);
+//   }
+
+
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
+    {/* {reservationResturantModal &&  <DropdownModal  setOpen={setReservationResturantModal} open={reservationResturantModal}/>} */}
       <View style={styles.headercon}>
         <View>
           <TouchableOpacity
@@ -527,11 +537,13 @@ const Reservation = ({ navigation }: any) => {
         </View>
 
         <View style={styles.totaltext}>
+          {/* <TouchableOpacity onPress={handleSelectResturantModal}> */}
+
           <Text style={styles.text}>Total price:</Text>
+          {/* </TouchableOpacity> */}
           <Text style={styles.textp}>$ {totalPayments}</Text>
         </View>
-
-
+       
 
       </View>
 
