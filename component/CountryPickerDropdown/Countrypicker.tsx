@@ -99,8 +99,8 @@ const styles = StyleSheet.create({
       width: "100%",
       maxHeight: 300,
       borderRadius: 10,
-      top: 40,
-      zIndex: 999, 
+      // top: 40,
+      // zIndex: 999, 
       paddingHorizontal: 20,
     },
     dropdownItem: {
