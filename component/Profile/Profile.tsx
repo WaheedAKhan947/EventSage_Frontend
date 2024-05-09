@@ -26,6 +26,7 @@ const Profile = ({navigation}: any) => {
       try {
         const storedUserDataString = await StorageManager.get('userData');
         console.log('stored data is:', storedUserDataString);
+        console.log('sotred daya isdjkfhsdfhu:', storedUserDataString);
         // Check if data exists
         if (!storedUserDataString) {
           throw new Error('User data not found in async storage');
@@ -33,6 +34,7 @@ const Profile = ({navigation}: any) => {
 
         const parsedUserData = storedUserDataString;
         setStoredUserData(parsedUserData);
+        console.log(UserData);
         console.log(UserData);
       } catch (error) {
         console.error(error);

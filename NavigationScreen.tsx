@@ -1,7 +1,7 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {createContext, useState} from 'react';
-import {enableScreens} from 'react-native-screens';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { createContext, useState } from 'react';
+import { enableScreens } from 'react-native-screens';
 import SignUp from './component/SignUp/SignUp';
 import Reservation from './component/ReservationReq/Reservation';
 import Privacy from './component/privacyPage/Privacy';
@@ -14,7 +14,7 @@ import Reservations from './component/ReservationsHistory/ReservationsHistory';
 import PaymentMehtod from './component/paymentMethod/PaymentMehtod';
 import ManagePayment from './component/ManagePayment/ManagePayment';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, View,Text } from 'react-native';
+import { Image, View, Text } from 'react-native';
 import ReservationRequest from './component/ReservationRequest/ReservationRequest';
 import ApprovedReq from './component/AppovedRequests/ApprovedReq';
 import DeniedReq from './component/DeniedRequests/DeniedReq';
@@ -29,28 +29,28 @@ const NavigationScreen = () => {
 
   const Stack = createNativeStackNavigator();
 
-  function ReservationApproval(){
-    return(
+  function ReservationApproval() {
+    return (
       <Tab.Navigator initialRouteName='reservationrequests'
-      screenOptions={{
-        headerShown: false,
-        activeTintColor: '#FFFFFF',
-        inactiveTintColor: '#CCCCCC',
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          position: 'absolute',
-          elevation: 0,
-          backgroundColor: '#353535',
-          height: 75,
-        },
-      }}>
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: '#FFFFFF',
+          tabBarInactiveTintColor: '#CCCCCC',
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            position: 'absolute',
+            elevation: 0,
+            backgroundColor: '#353535',
+            height: 75,
+          },
+        }}>
         <Tab.Screen
           name="reservationrequests"
           component={ReservationRequest}
           options={{
-            tabBarIcon: ({focused}) => (
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{color:"#fff"}}>Pending</Text>
+            tabBarIcon: ({ focused }) => (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ color: "#fff" }}>Pending</Text>
                 {focused && (
                   <View
                     style={{
@@ -60,12 +60,12 @@ const NavigationScreen = () => {
                       borderRadius: 5,
                       width: 8,
                       height: 8,
-                  
-          }}
-        />
-    )
-  }
-  </View>
+
+                    }}
+                  />
+                )
+                }
+              </View>
             ),
           }}
         />
@@ -73,9 +73,9 @@ const NavigationScreen = () => {
           name="approvedrequest"
           component={ApprovedReq}
           options={{
-            tabBarIcon: ({focused}) => (
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{color:"#fff"}}>Approved</Text>
+            tabBarIcon: ({ focused }) => (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ color: "#fff" }}>Approved</Text>
                 {focused && (
                   <View
                     style={{
@@ -85,12 +85,12 @@ const NavigationScreen = () => {
                       borderRadius: 5,
                       width: 8,
                       height: 8,
-                  
-          }}
-        />
-    )
-  }
-  </View>
+
+                    }}
+                  />
+                )
+                }
+              </View>
             ),
           }}
         />
@@ -98,9 +98,9 @@ const NavigationScreen = () => {
           name="deniedrequest"
           component={DeniedReq}
           options={{
-            tabBarIcon: ({focused}) => (
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{color:"#fff"}}>Denied</Text>
+            tabBarIcon: ({ focused }) => (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ color: "#fff" }}>Denied</Text>
                 {focused && (
                   <View
                     style={{
@@ -110,12 +110,12 @@ const NavigationScreen = () => {
                       borderRadius: 5,
                       width: 8,
                       height: 8,
-                  
-          }}
-        />
-    )
-  }
-  </View>
+
+                    }}
+                  />
+                )
+                }
+              </View>
             ),
           }}
         />
@@ -130,8 +130,8 @@ const NavigationScreen = () => {
         initialRouteName="reservation"
         screenOptions={{
           headerShown: false,
-          activeTintColor: '#FFFFFF',
-          inactiveTintColor: '#CCCCCC',
+          tabBarActiveTintColor: '#FFFFFF',
+          tabBarInactiveTintColor: '#CCCCCC',
           tabBarShowLabel: false,
           tabBarStyle: {
             position: 'absolute',
@@ -144,8 +144,8 @@ const NavigationScreen = () => {
           name="reservation"
           component={Reservation}
           options={{
-            tabBarIcon: ({focused}) => (
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            tabBarIcon: ({ focused }) => (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Image
                   source={require('../front-end/assets/TabLogos/resverationLogo.png')}
                   resizeMode="contain"
@@ -176,8 +176,8 @@ const NavigationScreen = () => {
           name="reservationhistory"
           component={Reservations}
           options={{
-            tabBarIcon: ({focused}) => (
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            tabBarIcon: ({ focused }) => (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Image
                   source={require('../front-end/assets/TabLogos/chat-history-fill.png')}
                   resizeMode="contain"
@@ -208,8 +208,8 @@ const NavigationScreen = () => {
           name="managepayment"
           component={ManagePayment}
           options={{
-            tabBarIcon: ({focused}) => (
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            tabBarIcon: ({ focused }) => (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Image
                   source={require('../front-end/assets/TabLogos/credit-card-02.png')}
                   resizeMode="contain"
@@ -240,8 +240,8 @@ const NavigationScreen = () => {
           name="profile"
           component={Profile}
           options={{
-            tabBarIcon: ({focused}) => (
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            tabBarIcon: ({ focused }) => (
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Image
                   source={require('../front-end/assets/TabLogos/user-03.png')}
                   resizeMode="contain"
@@ -273,11 +273,11 @@ const NavigationScreen = () => {
   }
 
   return (
-    <GlobalContext.Provider value={{user: user, setUser: setUser}}>
+    <GlobalContext.Provider value={{ user: user, setUser: setUser }}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Login"
-          screenOptions={{headerShown: false}}>
+          screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Signup" component={SignUp} />
           <Stack.Screen name="reservation" component={ReservationStack} />
@@ -295,7 +295,7 @@ const NavigationScreen = () => {
           <Stack.Screen name="managepayment" component={ManagePayment} />
           <Stack.Screen name="approvedrequest" component={ApprovedReq} />
           <Stack.Screen name="deniedrequest" component={DeniedReq} />
-          
+
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalContext.Provider>

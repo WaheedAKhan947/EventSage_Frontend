@@ -101,13 +101,17 @@ const Privacy = ({navigation}: any) => {
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={styles.headerButton}>
+        >
           <Image
             source={require('../../assets/wback.png')}
             style={styles.headerIcon}
           />
         </TouchableOpacity>
-        <Text style={styles.title}>Terms & </Text>
+      </View>
+      
+
+      <View style={{flex:1,paddingBottom:20}}>
+      <Text style={styles.title}>Terms & </Text>
         <Text style={styles.title}>Privacy Policy</Text>
       </View>
 
@@ -121,6 +125,7 @@ const Privacy = ({navigation}: any) => {
         </Text>
       </View>
 
+<View style={{flex:2}}>
       {termsAndConditionsData.map((section, index) => (
         <View key={index} style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>{section.number}</Text>
@@ -129,6 +134,7 @@ const Privacy = ({navigation}: any) => {
           </Text>
         </View>
       ))}
+      </View>
     </ScrollView>
   );
 };
@@ -136,26 +142,32 @@ const Privacy = ({navigation}: any) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#000',
-    padding: 20,
+    paddingHorizontal: 10,
+    paddingTop:10
   },
   headerContainer: {
-    width: '100%',  
-    marginBottom: 20, 
+    flex:1,
+    justifyContent:"center",
+    paddingVertical:30
+
+    
   },
   headerButton: {
+    tintColor:"#fff"
     
   },
   headerIcon: {
     width: 30,
     height: 30,
-    marginBottom:20
+    marginBottom:20,
+    tintColor:"#fff"
     
   },
   title: {
-    fontSize: 30,
-    color: '#fff',
-    fontFamily: 'IbarraRealNova-Regular',
     textAlign:"center",
+    fontSize: 32,
+     color: 'white',
+    fontFamily: 'PlayfairDisplay-SemiBold',
     
   },
 
@@ -169,27 +181,28 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight:"700",
     marginBottom: 5,
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-SemiBold',
   },
   text: {
     color: '#E6E6E9',
     marginLeft: 20,
     fontSize: 13,
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-regular',
   },
   term: {
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Medium',
     color: '#fff',
     fontSize: 16,
   },
   termcontent: {
-    fontFamily: 'Poppinss',
+    fontFamily: 'Poppins-Regular',
     color: '#E6E6E9',
     fontSize: 13,
     marginTop: 15,
   },
   terms: {
-    marginTop: 30,
+    flex:1,
+    
   },
 });
 

@@ -22,11 +22,15 @@ const PaymentMethod = ({navigation}: any) => {
   const [cardNumber, setCardNumber] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [cardInfo, setCardInfo] = useState<any>(null);
+  const [loading,setLoading ] = useState<Boolean>(false);
+
 
   const handlePayment = async () => {
-    try {
-      if (!selectedCountry || !cardNumber || !exp || !cvv || !zipCode) {
-        throw new Error('Please fill in all required fields.');
+    if(loading){
+      return
+    }
+    if (!selectedCountry || !cardNumber || !exp || !cvv || !zipCode) {
+      throw new Error('Please fill in all required fields.');
       }
 
       const paymentData = {
@@ -36,8 +40,11 @@ const PaymentMethod = ({navigation}: any) => {
         cvv,
         zipCode,
       };
+      try {
+        setLoading(true)
       let userId =  await StorageManager.get('userId');
      let response= await API.post(`${ENDPOINTS.USER.CARDINFO}/${userId}`, paymentData)
+     await StorageManager.put('userData', response.user);
       Alert.alert('Success',response?.message)
       navigation.navigate('reservation');
     } catch (error) {
@@ -45,6 +52,8 @@ const PaymentMethod = ({navigation}: any) => {
         'Error',
         error.message || 'Failed to process payment. Please try again later.',
       );
+    } finally{
+      setLoading(false)
     }
   };
 
@@ -103,7 +112,7 @@ const PaymentMethod = ({navigation}: any) => {
             />
             <TextInput
               style={styles.input}
-              placeholder="Exp: MM/YY"
+              placeholder="Exp: MM/YYYY"
               placeholderTextColor="#fff"
               value={exp}
               onChangeText={setExp}

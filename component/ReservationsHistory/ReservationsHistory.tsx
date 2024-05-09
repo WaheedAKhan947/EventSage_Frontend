@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -15,23 +15,39 @@ import StorageManager from '../../storage/StorageManager';
 import { ENDPOINTS } from '../../api/apiRoutes';
 import API from '../../api/apiService';
 
+
+interface Reservation {
+  restaurant: string;
+  date: string;
+  totalPayments: string;
+  guests: string;
+  preferredTime:string;
+}
+
 const Reservations = ({ navigation }: any) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const scrollViewRef = useRef(null);
   const isFocused = useIsFocused();
-  const [reservations, setReservations] = useState([]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [loading, setLoading] = useState<Boolean>(false);
+
 
 
   
   const fetchData = async () => {
+    if(loading){
+      return 
+    }
     const userId =await StorageManager.get('userId');
     try {
+      setLoading(true)
       const response = await API.get(
         `${ENDPOINTS.USER.GETRESERVATION}/${userId}`
       );
       console.log("response in get api :", response);
       if (response.success) {
         setReservations(response?.reservations);
+       console.log("leght of reservation :" ,response?.reservations?.length)
       } else {
         const errorMessage = response.message || 'Something went wrong.';
         Alert.alert('Error', errorMessage);
@@ -39,12 +55,20 @@ const Reservations = ({ navigation }: any) => {
     } catch (error) {
       console.error('Error fetching data:', error);
       Alert.alert('Error', 'Something went wrong. Please try again later.');
+    } finally{
+      setLoading(false)
     }
   };
-
   useEffect(() => {
-    fetchData(); 
-  }, []); 
+    console.log("useEffect Call .... reservation history");
+    fetchData();
+
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchData();
+    });
+
+    return unsubscribe;
+  }, [navigation]); 
 
   useEffect(() => {
     if (isFocused && scrollViewRef.current) {
@@ -65,7 +89,7 @@ const Reservations = ({ navigation }: any) => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.headercon}>
         <View>
         <TouchableOpacity
@@ -94,13 +118,13 @@ const Reservations = ({ navigation }: any) => {
       </View>
 
 
-      <View style={{paddingVertical:20}}>
+      <View style={{paddingVertical:40}}>
         <Text style={styles.title}>RESERVATION HISTORY</Text>
         </View>
 
-       
-        <ScrollView contentContainerStyle={styles.reservationsContainer}>
-  {Array.isArray(reservations) && reservations.length > 0 && (
+ <View style={{paddingBottom:80}}>
+        {/* <ScrollView contentContainerStyle={styles.reservationsContainer}> */}
+  {loading ? <View><Text style={{color:'white'}}>Loading..</Text></View> : Array.isArray(reservations) && reservations.length > 0 && (
     reservations?.map((item, index) => (
       <View style={styles.mainbox} key={index}>
         <View style={styles.box1}>
@@ -110,7 +134,9 @@ const Reservations = ({ navigation }: any) => {
         <View style={styles.box2}>
           <View style={styles.b1}>
             <Text style={{ fontSize: 13, fontFamily: "Poppins-Light", color: "#E6E6E9" }}>Date</Text>
-            <Text style={{ fontSize: 14, fontFamily: "Poppins-Medium", color: "#fff" }}>{item.date}</Text>
+            {/* <Text style={{ fontSize: 14, fontFamily: "Poppins-Medium", color: "#fff" }}>{item.date} </Text> */}
+            <Text style={{ fontSize: 14, fontFamily: "Poppins-Medium", color: "#fff" }}>{item.preferredTime} </Text>
+           
           </View>
           <View style={styles.b2}>
             <Text style={{ fontSize: 13, color: "#E6E6E9" }}>Total</Text>
@@ -121,13 +147,17 @@ const Reservations = ({ navigation }: any) => {
             <Text style={{ fontSize: 14, color: "#fff" }}>{item.guests}</Text>
           </View>
         </View>
+        
       </View>
+     
     ))
+    
   )}
-</ScrollView>
- 
+  </View>
 
-    </View>
+
+
+    </ScrollView>
 
  
 
@@ -137,6 +167,7 @@ const Reservations = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   reservationsContainer: {
     
+    
   },
 
   mainbox:{
@@ -145,7 +176,7 @@ const styles = StyleSheet.create({
     color:"#fff",
     height:160,
     padding:15,
-    borderRadius:5,
+    borderRadius:10,
     marginTop:10
     
   },
@@ -218,7 +249,7 @@ headerContainer: {
 },
 headercon: {
   justifyContent:"center",
-  paddingVertical:30
+  marginVertical:40
 },
 headerButton: {
   marginTop: 10,

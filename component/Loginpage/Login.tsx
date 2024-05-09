@@ -212,7 +212,7 @@ const SignIn = ({navigation}: any) => {
             By signing in, I accept the Terms of Service and Community
             Guidelines and have red{' '}
             <Text
-              onPress={() => navigation.navigate('reservation')}
+              onPress={() => navigation.navigate('privacy')}
               style={styles.privacytext}>
               {' '}
               Privacy Policy
@@ -318,6 +318,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textDecorationLine: 'underline',
     fontFamily: 'Poppins-Medium',
+    marginLeft:5
   },
 });
 

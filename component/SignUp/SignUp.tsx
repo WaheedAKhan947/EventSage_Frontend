@@ -429,6 +429,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textDecorationLine: 'underline',
     fontFamily: 'Poppins-Medium',
+    marginLeft:5
   },
   icon: {
     marginBottom: 5,

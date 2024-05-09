@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Image,
   ScrollView,
@@ -7,21 +7,20 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
-import API, {ENDPOINTS} from '../../api/apiService';
+import { useIsFocused } from '@react-navigation/native';
+import API, { ENDPOINTS } from '../../api/apiService';
 import StorageManager from '../../storage/StorageManager';
 
-const ManagePayment = ({navigation}: any) => {
+const ManagePayment = ({ navigation }: any) => {
   const scrollViewRef = useRef(null);
   const isFocused = useIsFocused();
-  const [name, setName] = useState(null); // State to store card info
-  // const [createAt, setCreatedAt] = useState(null);
+  const [name, setName] = useState(null);
 
   useEffect(() => {
     if (isFocused) {
       fetchCardInfo();
       if (scrollViewRef.current) {
-        (scrollViewRef.current as ScrollView).scrollTo({y: 0, animated: false});
+        (scrollViewRef.current as ScrollView).scrollTo({ y: 0, animated: false });
       }
     }
   }, [isFocused]);
@@ -57,37 +56,40 @@ const ManagePayment = ({navigation}: any) => {
       );
       await StorageManager.put('userData', response.user);
       console.log(response);
-
       setPaymentMethods(response.user.cardInfo);
 
-      // Optionally, update the paymentMethods state after successful deletion
-      // setPaymentMethods(prevMethods =>
-      //   prevMethods.filter(method => method._id !== idToDelete),
-      // );
+
       console.log('Card deleted successfully');
     } catch (error) {
       console.log('Error deleting card:', error);
-      // Handle errors, such as displaying an alert or logging the error
       throw new Error('Failed to delete card. Please try again later.');
     }
   };
 
   const formatDate = (date: any) => {
     let date1 = new Date(date);
-    const options = {
-      year: 'numeric', // 'numeric', '2-digit'
-      month: '2-digit', // 'numeric', '2-digit', 'long', 'short', 'narrow'
-      day: '2-digit', // 'numeric', '2-digit'
-      hour: '2-digit', // 'numeric', '2-digit'
-      minute: '2-digit', // 'numeric', '2-digit'
-      second: '2-digit', // 'numeric', '2-digit'
-      hour12: true, // Whether to use 12-hour clock (true) or 24-hour clock (false)
+    // const options = {
+    //   year: 'numeric', 
+    //   month: '2-digit',
+    //   day: '2-digit',
+    //   hour: '2-digit', 
+    //   minute: '2-digit', 
+    //   second: '2-digit', 
+    //   hour12: true, 
+    // };
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true,
     };
-    // Format the date and time according to the options
-    const formattedDateTime = date1.toLocaleString(undefined, options);
 
-    console.log('Formatted Date and Time: ', formattedDateTime);
-    // setCreatedAt(formattedDateTime); // Assuming setCreatedAt is defined somewhere in your component
+    const formattedDateTime = date1.toLocaleString(undefined, options);
+    
+
     return formattedDateTime;
   };
 
@@ -95,26 +97,26 @@ const ManagePayment = ({navigation}: any) => {
     navigation.navigate('paymentmethod');
   };
   return (
-    <View  style={styles.container}>
-      <View style={{paddingVertical:40,marginTop:20}}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={{ paddingVertical: 40, marginTop: 20 }}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image source={require('../../assets/wback.png')} />
         </TouchableOpacity>
-        </View>
-        <View style={{paddingVertical:20}}>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 32,
-              fontFamily: 'PlayfairDisplay-SemiBold',
-              textAlign: 'center',
-              
-            }}>
-            PAYMENT METHODS
-          </Text>
-        </View>
+      </View>
+      <View style={{ paddingVertical: 20 }}>
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 32,
+            fontFamily: 'PlayfairDisplay-SemiBold',
+            textAlign: 'center',
 
-        <ScrollView contentContainerStyle={styles.reservationsContainer}>
+          }}>
+          PAYMENT METHODS
+        </Text>
+      </View>
+
+      <ScrollView contentContainerStyle={styles.reservationsContainer}>
         {paymentMethods.map(method => (
           <View key={method._id} style={styles.mainbox}>
             <View style={styles.box1}>
@@ -136,14 +138,13 @@ const ManagePayment = ({navigation}: any) => {
             </View>
           </View>
         ))}
-        </ScrollView>
-
         <TouchableOpacity style={styles.addNew} onPress={addPaymentMethod}>
           <Image source={require('../../assets/addnew.png')} />
           <Text style={styles.addNewText}>Add New</Text>
         </TouchableOpacity>
-      
-    </View>
+      </ScrollView>
+
+    </ScrollView>
   );
 };
 
@@ -171,7 +172,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   reservationsContainer: {
-   
+    flex: 1,
+    marginBottom: 80
+
+
   },
   box1: {
     flexDirection: 'row',
@@ -187,10 +191,10 @@ const styles = StyleSheet.create({
   b1: {},
   b2: {},
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#000',
     paddingHorizontal: 10,
-   paddingTop:10
+    paddingTop: 10
   },
   main: {
     flexDirection: 'row',
@@ -199,10 +203,10 @@ const styles = StyleSheet.create({
   },
   addNew: {
     flexDirection: 'row',
-    alignItems: 'center',
+
     padding: 10,
     marginTop: 10,
-    marginBottom: 150,
+
   },
   addNewText: {
     fontFamily: 'Poppins-Regular',

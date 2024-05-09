@@ -13,28 +13,18 @@ import {
 import DatePicker from 'react-native-modern-datepicker';
 import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
 import DropdownComponent from '../ResturantDropDown/DropDown';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
 import StorageManager from '../../storage/StorageManager';
 import { ENDPOINTS } from '../../api/apiRoutes';
 import API from '../../api/apiService';
-import DropdownModal from '../Modals/DropdownModal';
 
 
 const Reservation = ({ navigation }: any) => {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
-  const apiUrl = process.env.apiUrl;
-
   const startDate = getFormatedDate(tomorrow, 'YYYY/MM/DD');
-
   const [selectedOption, setSelectedOption] = useState('');
-  const [showModal, setShowModal] = useState<Boolean>(false);
-  const [fullName, setFullName] = useState('');
-  const [reservationResturantModal, setReservationResturantModal] = useState(false)
-
-  console.log("reservationResturantModal :",reservationResturantModal)
   const [guests, setGuests] = useState<Number>(0);
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState('');
@@ -47,12 +37,11 @@ const Reservation = ({ navigation }: any) => {
   const [showPreferredTimePicker, setShowPreferredTimePicker] = useState(false);
   const [showBackupTimePicker, setShowBackupTimePicker] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [hoveredItemIndex, setHoveredItemIndex] = useState(null);
+  const [hoveredItemIndex, setHoveredItemIndex] = useState<number | null>(null);
 
-  const handleMouseEnter = index => {
+  const handleMouseEnter = (index: number) => {
     setHoveredItemIndex(index);
   };
-
   const handleMouseLeave = () => {
     setHoveredItemIndex(null);
   };
@@ -89,21 +78,6 @@ const Reservation = ({ navigation }: any) => {
     }
   };
   
-
-   
-
-  const handlePreferredTimeChange = (event: any, selectedTime: any) => {
-    const currentTime = selectedTime || selectedPreferredTime;
-    setShowPreferredTimePicker(false);
-    setSelectedPreferredTime(currentTime);
-  };
-
-  const handleBackupTimeChange = (event: any, selectedTime: any) => {
-    const currentTime = selectedTime || selectedBackupTime;
-    setShowBackupTimePicker(false);
-    setSelectedBackupTime(currentTime);
-  };
-
   const showPreferredTimePickerModal = () => {
     setShowPreferredTimePicker(true);
   };
@@ -112,20 +86,7 @@ const Reservation = ({ navigation }: any) => {
     setShowBackupTimePicker(true);
   };
 
-  const [cardNumber, setCardNumber] = useState('');
 
-  const handleCardNumberChange = (text: string) => {
-    const numericValue = text.replace(/[^0-9]/g, '');
-    setCardNumber(numericValue);
-  };
-
-  const handleDropdownSelect = (option: string) => {
-    setSelectedOption(option);
-  };
-
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
 
   const handleOnPress = () => {
     setOpen(!open);
@@ -218,15 +179,8 @@ const Reservation = ({ navigation }: any) => {
   const preferredTimes = generatePreferredTimes();
   const backupTimes = generateBackupTimes();
 
-//  const  handleSelectResturantModal=()=>{
-//   console.log("handle select ")
-//     setReservationResturantModal(!reservationResturantModal);
-//   }
-
-
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
-    {/* {reservationResturantModal &&  <DropdownModal  setOpen={setReservationResturantModal} open={reservationResturantModal}/>} */}
       <View style={styles.headercon}>
         <View>
           <TouchableOpacity
@@ -243,12 +197,11 @@ const Reservation = ({ navigation }: any) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.headerContainer}>
+        <View >
             <Image
               source={require('../../assets/confirmed_logo.png')}
               style={styles.logo}
             />
-    
         </View>
       </View>
 
@@ -258,7 +211,7 @@ const Reservation = ({ navigation }: any) => {
       </View>
 
       <View style={{ flex: 2, flexDirection: "column" }}>
-        <View style={{ gap: 30 }}>
+        <View style={{ gap: 35 }}>
           <DropdownComponent onValueChange={setSelectedOption} />
 
 
@@ -493,14 +446,13 @@ const Reservation = ({ navigation }: any) => {
                                     styles.modalItem,
                                     hoveredItemIndex === index &&
                                     styles.modalItemHovered,
-                                    // Check if this time is selected
                                     selectedBackupTime &&
                                     selectedBackupTime.getHours() ===
                                     time.hour &&
                                     selectedBackupTime.getMinutes() ===
                                     time.minute && {
-                                      backgroundColor: '#FFFFFF', // White background when selected
-                                      color: '#000000', // Black text color when selected
+                                      backgroundColor: '#FFFFFF', 
+                                      color: '#000000', 
                                     },
                                   ]}
                                   onPressIn={() => handleMouseEnter(index)}
@@ -533,16 +485,18 @@ const Reservation = ({ navigation }: any) => {
               </View>
             </Modal>
           )}
+          
         </View>
+
+
+
 
         <View style={styles.totaltext}>
-          {/* <TouchableOpacity onPress={handleSelectResturantModal}> */}
-
           <Text style={styles.text}>Total price:</Text>
-          {/* </TouchableOpacity> */}
           <Text style={styles.textp}>$ {totalPayments}</Text>
         </View>
-       
+
+
 
       </View>
 
@@ -551,7 +505,7 @@ const Reservation = ({ navigation }: any) => {
           flex: 1,
           alignItems: "center",
           justifyContent: "center",
-          marginBottom: 35,
+          marginBottom: 30,
 
         }}>
         <TouchableOpacity style={styles.button} onPress={handleReservation}>
@@ -567,8 +521,8 @@ const styles = StyleSheet.create({
   modalRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin:5,
-    
+    margin: 5
+
   },
   modalpref: {
     flex: 1,
@@ -583,31 +537,27 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     position: 'relative',
-    top: 34
-
-
-
+    top: 30
   },
   modalprefcont: {
     backgroundColor: '#242424',
     borderRadius: 10,
     color: 'white',
-   padding:10,
+    padding: 25,
     width: "95%",
-    maxHeight: 260,
+    maxHeight: 300,
 
   },
   modalItem: {
     textAlign: 'center',
     fontSize: 16,
+    paddingVertical: 10,
     color: '#FFFFFF',
-    borderRadius: 10,
-    width: 110,
-    height: 40,
+    borderRadius: 5,
+    width: 120,
+    height: 50,
     backgroundColor: "#3E3E3E",
     fontFamily: "Poppins-Regular",
-    alignItems:"center"
-    
 
   },
   mainContainer: {
@@ -619,11 +569,6 @@ const styles = StyleSheet.create({
   pagecontent: {
      flex: 1,
      justifyContent:"center"
-  },
-  headerContainer: {
-    marginLeft: "auto",
-    marginRight: 'auto'
-  
   },
 
   dropdownContainer: {
@@ -703,14 +648,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    top: 160,
-    left: 65
+    top: 95,
+    left: 70
   },
   modalContent: {
     backgroundColor: '#242424',
     alignItems: "center",
-    width: 110,
-    height: 250,
+    width: 120,
+    height: 300,
     color: '#fff',
 
 
@@ -777,7 +722,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     position:"relative",
-    top:30
+    top:10
     
   },
   centeredview: {
