@@ -25,7 +25,7 @@ const Profile = ({navigation}: any) => {
     const fetchUserData = async () => {
       try {
         const storedUserDataString = await StorageManager.get('userData');
-        console.log('sotred daya isdjkfhsdfhu:', storedUserDataString);
+        console.log('stored data is:', storedUserDataString);
         // Check if data exists
         if (!storedUserDataString) {
           throw new Error('User data not found in async storage');
@@ -43,11 +43,21 @@ const Profile = ({navigation}: any) => {
     fetchUserData();
   }, []);
 
-  const handleUpdateProfile = () => {
-    Alert.alert(
-      'Profile Updated',
-      'Your profile details have been successfully updated.',
-    );
+  const handleUpdateProfile = async () => {
+    try {
+      // Update the user data in the storage
+      await StorageManager.put('userData', UserData);
+
+      // Show an alert indicating successful update
+      Alert.alert(
+        'Profile Updated',
+        'Your profile details have been successfully updated.',
+      );
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      // Show an alert for any errors that occur during the update process
+      Alert.alert('Error', 'Failed to update profile. Please try again later.');
+    }
   };
 
   function handleLogout(): void {

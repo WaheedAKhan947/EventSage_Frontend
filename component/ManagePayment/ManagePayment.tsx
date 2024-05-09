@@ -15,6 +15,7 @@ const ManagePayment = ({navigation}: any) => {
   const scrollViewRef = useRef(null);
   const isFocused = useIsFocused();
   const [name, setName] = useState(null); // State to store card info
+  // const [createAt, setCreatedAt] = useState(null);
 
   useEffect(() => {
     if (isFocused) {
@@ -28,7 +29,7 @@ const ManagePayment = ({navigation}: any) => {
     try {
       const userData = await StorageManager.get('userData');
 
-      console.log('userdadjfdfjkegilgjerhkrekh:', userData);
+      console.log('User Data:', userData);
       setPaymentMethods(userData.cardInfo);
       setName(userData.fullName);
     } catch (error) {
@@ -38,22 +39,56 @@ const ManagePayment = ({navigation}: any) => {
 
   const [paymentMethods, setPaymentMethods] = useState([
     {
-      id: '',
+      _id: '',
       fullName: '',
       cardType: '',
       holderName: '',
       addedDate: '',
       cardNumber: '',
+      date: '',
       expiryDate: '',
     },
   ]);
 
-  const deletePaymentMethod = (id: string) => {
-    console.log('id : ', id);
+  const deletePaymentMethod = async (idToDelete: string) => {
+    try {
+      const response = await API.deleteResource(
+        `${ENDPOINTS.USER.CARDINFO}/${idToDelete}`,
+      );
+      await StorageManager.put('userData', response.user);
+      console.log(response);
 
-    setPaymentMethods(prevMethods =>
-      prevMethods.filter(method => method.id !== id),
-    );
+      setPaymentMethods(response.user.cardInfo);
+
+      // Optionally, update the paymentMethods state after successful deletion
+      // setPaymentMethods(prevMethods =>
+      //   prevMethods.filter(method => method._id !== idToDelete),
+      // );
+      console.log('Card deleted successfully');
+    } catch (error) {
+      console.log('Error deleting card:', error);
+      // Handle errors, such as displaying an alert or logging the error
+      throw new Error('Failed to delete card. Please try again later.');
+    }
+  };
+
+  const formatDate = (date: any) => {
+    let date1 = new Date(date);
+    const options = {
+      year: 'numeric', // 'numeric', '2-digit'
+      month: '2-digit', // 'numeric', '2-digit', 'long', 'short', 'narrow'
+      day: '2-digit', // 'numeric', '2-digit'
+      hour: '2-digit', // 'numeric', '2-digit'
+      minute: '2-digit', // 'numeric', '2-digit'
+      second: '2-digit', // 'numeric', '2-digit'
+      hour12: true, // Whether to use 12-hour clock (true) or 24-hour clock (false)
+    };
+    // Format the date and time according to the options
+    const formattedDateTime = date1.toLocaleString(undefined, options);
+
+    console.log('Formatted Date and Time: ', formattedDateTime);
+    // setCreatedAt(formattedDateTime); // Assuming setCreatedAt is defined somewhere in your component
+    return formattedDateTime;
   };
 
   const addPaymentMethod = () => {
@@ -81,10 +116,10 @@ const ManagePayment = ({navigation}: any) => {
 
         <ScrollView contentContainerStyle={styles.reservationsContainer}>
         {paymentMethods.map(method => (
-          <View key={method.id} style={styles.mainbox}>
+          <View key={method._id} style={styles.mainbox}>
             <View style={styles.box1}>
               <Text style={styles.cardText}>{method.cardNumber}</Text>
-              <TouchableOpacity onPress={() => deletePaymentMethod(method.id)}>
+              <TouchableOpacity onPress={() => deletePaymentMethod(method._id)}>
                 <Image source={require('../../assets/wdlt.png')} />
               </TouchableOpacity>
             </View>
@@ -92,7 +127,7 @@ const ManagePayment = ({navigation}: any) => {
               <View style={styles.b1}>
                 <Text style={styles.holderName}>{name}</Text>
                 <Text style={styles.dateText}>
-                  Added on: {method?.expiryDate}
+                  Added on: {formatDate(method.date)}
                 </Text>
               </View>
               <View style={styles.b2}>
