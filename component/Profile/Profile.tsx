@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
 import StorageManager from '../../storage/StorageManager';
-import {ENDPOINTS} from '../../api/apiService';
+import API, {ENDPOINTS} from '../../api/apiService';
 
 const Profile = ({navigation}: any) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -46,15 +46,25 @@ const Profile = ({navigation}: any) => {
   }, []);
 
   const handleUpdateProfile = async () => {
+    const updateData = {
+      fullName: UserData.fullName,
+      phone: UserData.phone,
+      email: UserData?.email
+    };
+    console.log("data:", updateData)
     try {
       // Update the user data in the storage
+      let response = await API.put(`${ENDPOINTS.USER.UPDATEPROFILE}`, updateData
+      );
+      console.log('response :', response);
       await StorageManager.put('userData', UserData);
-
       // Show an alert indicating successful update
       Alert.alert(
         'Profile Updated',
         'Your profile details have been successfully updated.',
-      );
+      );  
+      console.log('Profile updated (New Full Name) :', UserData.fullName);
+      console.log('Profile updated (New Phone Number) :', UserData.phone);
     } catch (error) {
       console.error('Error updating profile:', error);
       // Show an alert for any errors that occur during the update process
@@ -77,37 +87,36 @@ const Profile = ({navigation}: any) => {
   return (
     <View style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.headercon}>
-        <View>
-          <TouchableOpacity
-            onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
-            <Image
-              source={require('../../assets/menutwo.png')}
-              style={styles.headerprof}
-            />
-            <ProfileDropdown
-              isVisible={isDropdownVisible}
-              onLogout={handleLogout}
-              onAccountSettings={handleAccountSettings}
-              onClose={handleClose}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.headerContainer}>
-          
+        <View style={styles.headercon}>
+          <View>
+            <TouchableOpacity
+              onPress={() => setIsDropdownVisible(!isDropdownVisible)}>
+              <Image
+                source={require('../../assets/menutwo.png')}
+                style={styles.headerprof}
+              />
+              <ProfileDropdown
+                isVisible={isDropdownVisible} 
+                onLogout={handleLogout} 
+                onAccountSettings={handleAccountSettings}
+                onClose={handleClose}
+                fullName={UserData.fullName} // Pass the full name as prop
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.headerContainer}>
             <Image
               source={require('../../assets/confirmed_logo.png')}
               style={styles.logo}
             />
-         
+          </View>
         </View>
-      </View>
-      
-      <View>
-        <Text style={styles.title}>MY PROFILE</Text>
-        <Text style={styles.subtitle}>
-          Track your personal information here
-        </Text>
+
+        <View>
+          <Text style={styles.title}>MY PROFILE</Text>
+          <Text style={styles.subtitle}>
+            Track your personal information here
+          </Text>
         </View>
         <View style={styles.mainbox}>
           <View style={styles.box1}>
@@ -130,7 +139,7 @@ const Profile = ({navigation}: any) => {
                   placeholderTextColor="#fff"
                   value={UserData.email}
                   onChangeText={text =>
-                    setStoredUserData({...UserData, email: String})
+                    setStoredUserData({...UserData, email: text})
                   }
                 />
               </View>
@@ -141,25 +150,23 @@ const Profile = ({navigation}: any) => {
                   placeholderTextColor="#fff"
                   value={UserData.phone} // Ensure this matches the key in UserData state
                   onChangeText={text =>
-                    setStoredUserData({...UserData, phone: number})
+                    setStoredUserData({...UserData, phone: text})
                   }
                   keyboardType="numeric"
                 />
               </View>
             </View>
           </View>
+        </View>
+        <View style={styles.box2}>
+          <View style={{alignSelf: 'center', justifyContent: 'center'}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleUpdateProfile}>
+              <Text style={styles.buttonText}>Update Changes</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.box2}>
-            <View
-              style={{alignSelf: 'center', justifyContent: 'center'}}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={handleUpdateProfile}>
-                <Text style={styles.buttonText}>Update Changes</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        
+        </View>
       </ScrollView>
     </View>
   );
@@ -179,9 +186,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 155,
     height: 50,
-    alignSelf:"center"
- 
-   
+    alignSelf: 'center',
   },
 
   icon: {
@@ -220,8 +225,8 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
   },
   headercon: {
-    flex:1,
-    justifyContent:"center"
+    flex: 1,
+    justifyContent: 'center',
   },
   headerButton: {
     marginTop: 10,
@@ -233,8 +238,8 @@ const styles = StyleSheet.create({
   headerprof: {
     width: 30,
     height: 30,
-    position:"relative",
-    top:30
+    position: 'relative',
+    top: 30,
   },
 
   input: {
@@ -277,8 +282,8 @@ const styles = StyleSheet.create({
   },
   box1: {},
   box2: {
-    flex:1,
-    marginBottom:20
+    flex: 1,
+    marginBottom: 20,
   },
 });
 

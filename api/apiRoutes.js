@@ -6,6 +6,7 @@ const USER = {
   GETRESERVATION:'reservation/reservation/user',
   CARDINFO: 'auth/cardinfo',
   RESERVATION: 'reservation/reservation',
+  UPDATEPROFILE: 'auth/updateProfile'
 };
 
 export const ENDPOINTS = {
