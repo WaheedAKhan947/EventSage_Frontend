@@ -35,7 +35,6 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     fetchFullNameFromStorage();
   }, []);
 
-
   return (
     <Modal
       animationType="fade"

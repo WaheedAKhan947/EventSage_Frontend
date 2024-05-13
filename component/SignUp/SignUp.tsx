@@ -11,7 +11,6 @@ import {
   Animated,
 } from 'react-native';
 import API, {ENDPOINTS} from '../../api/apiService';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import StorageManager from '../../storage/StorageManager';
 
 const SignUp = ({navigation}: any) => {
@@ -345,7 +344,7 @@ const SignUp = ({navigation}: any) => {
               textAlign: 'center',
               justifyContent: 'center',
               width: 360,
-              marginBottom:10
+              marginBottom: 10,
             }}>
             By signing in, I accept the Terms of Service and Community
             Guidelines and have red{' '}
@@ -429,7 +428,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textDecorationLine: 'underline',
     fontFamily: 'Poppins-Medium',
-    marginLeft:5
+    marginLeft: 5,
   },
   icon: {
     marginBottom: 5,

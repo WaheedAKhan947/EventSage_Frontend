@@ -1,5 +1,3 @@
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useRef, useState} from 'react';
 import {
   StyleSheet,
@@ -28,7 +26,9 @@ const SignIn = ({navigation}: any) => {
   };
 
   const handleSignIn = async () => {
-    if (isSigningIn) return;
+    if (isSigningIn) {
+      return;
+    }
     setIsSigningIn(true);
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in all fields.');
@@ -39,16 +39,12 @@ const SignIn = ({navigation}: any) => {
       const payload = {email, password};
       const response = await API.post(ENDPOINTS.USER.LOGIN, payload);
       const userId = response?.user?._id;
-      // const userIdString = userId.toString();
-      console.log("response login:",response)
+      console.log('response login:', response);
       await StorageManager.put('userId', userId);
       await StorageManager.put('token', response?.token);
       await StorageManager.put('userData', response.user);
       Alert.alert('Success', response.message || 'Sign-in successful!');
-      // if(response){
       navigation.navigate('reservation');
-      // }
-      // navigation.navigate('paymentmethod');
     } catch (error: any) {
       const errorMessage = error.response
         ? error.response.data.message
@@ -207,7 +203,7 @@ const SignIn = ({navigation}: any) => {
               textAlign: 'center',
               justifyContent: 'center',
               width: 360,
-              marginBottom:10
+              marginBottom: 10,
             }}>
             By signing in, I accept the Terms of Service and Community
             Guidelines and have red{' '}
@@ -318,7 +314,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textDecorationLine: 'underline',
     fontFamily: 'Poppins-Medium',
-    marginLeft:5
+    marginLeft: 5,
   },
 });
 
