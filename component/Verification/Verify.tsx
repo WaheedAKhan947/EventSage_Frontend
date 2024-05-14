@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   Image,
-  Dimensions,
   Alert,
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
 } from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -56,9 +53,9 @@ const Verify = ({navigation}: any) => {
         Alert.alert(
           'Success',
           response.data.message ||
-          'Verification successful, please update your password!',
+            'Verification successful, please update your password!',
         );
-        navigation.navigate('confirmation', { email: emailID });
+        navigation.navigate('confirmation', {email: emailID});
       } else {
         const errorMessage = response.data.message || 'Something went wrong.';
         Alert.alert('Error', errorMessage);
@@ -104,23 +101,22 @@ const Verify = ({navigation}: any) => {
     }
   };
 
-  const handleContactSupport = () => { };
+  const handleContactSupport = () => {};
 
   return (
     <View style={styles.container}>
-      <View style={{flex:3,justifyContent:"center"}}>
-      <View>
-      <Image
-        source={require('../../assets/tutu_white.png')}
-        style={styles.logo}
-      />
-      </View>
+      <View style={{flex: 3, justifyContent: 'center'}}>
+        <View>
+          <Image
+            source={require('../../assets/tutu_white.png')}
+            style={styles.logo}
+          />
+        </View>
       </View>
 
-      
       <View style={styles.maincontent}>
         <View>
-        <Text style={styles.title}>Forgot Password</Text>
+          <Text style={styles.title}>Forgot Password</Text>
         </View>
         <View>
           <Text style={styles.subtitle}>Password recovery email sent to </Text>
@@ -130,16 +126,16 @@ const Verify = ({navigation}: any) => {
         </View>
       </View>
 
-      <View style={{ flex:3,}}>
-      <OTPInputView
-        style={styles.otpInput}
-        pinCount={4}
-        autoFocusOnLoad
-        codeInputFieldStyle={styles.underlineStyleBase}
-        codeInputHighlightStyle={styles.underlineStyleHighLighted}
-        onCodeFilled={code => setCode(code)}
-      />
-     
+      <View style={{flex: 3}}>
+        <OTPInputView
+          style={styles.otpInput}
+          pinCount={4}
+          autoFocusOnLoad
+          codeInputFieldStyle={styles.underlineStyleBase}
+          codeInputHighlightStyle={styles.underlineStyleHighLighted}
+          onCodeFilled={code => setCode(code)}
+        />
+
         <View style={styles.resend}>
           <Text style={styles.vertext}>
             <TouchableOpacity onPress={handlePasswordReset} disabled={loading}>
@@ -149,10 +145,10 @@ const Verify = ({navigation}: any) => {
             </TouchableOpacity>
           </Text>
         </View>
-        </View>
-      
-      <View style={{flex:2,justifyContent:"flex-end"}}>
-        <View style={{alignItems: 'center',}}>
+      </View>
+
+      <View style={{flex: 2, justifyContent: 'flex-end'}}>
+        <View style={{alignItems: 'center'}}>
           <TouchableOpacity
             style={styles.button}
             disabled={loading}
@@ -181,7 +177,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000000',
-    
   },
   backButton: {
     position: 'absolute',
@@ -229,7 +224,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: 160,
   },
-
   buttonText: {
     color: '#000000',
     fontSize: 16,
@@ -240,7 +234,6 @@ const styles = StyleSheet.create({
     height: 122,
     alignSelf: 'center',
     marginTop: 30,
-    // marginBottom: 20,
   },
   subtitle: {
     fontSize: 16,
@@ -250,16 +243,16 @@ const styles = StyleSheet.create({
     lineHeight: 25,
   },
   title: {
-   textAlign:"center",
+    textAlign: 'center',
     fontSize: 32,
     color: '#F4F4F6',
     fontFamily: 'PlayfairDisplay-Bold',
     textTransform: 'uppercase',
   },
   maincontent: {
-    flex:3,
-    alignItems:"center",
-    gap:5,
+    flex: 3,
+    alignItems: 'center',
+    gap: 5,
   },
   verifycode: {
     flexDirection: 'row',
@@ -270,14 +263,13 @@ const styles = StyleSheet.create({
     fontFamily: 'IbarraRealNova-Regular',
     fontSize: 16,
   },
-
   resend: {
     alignItems: 'flex-start',
     fontSize: 16,
     paddingHorizontal: 20,
     fontWeight: '500',
-    color:"#fff",
-    marginTop:20
+    color: '#fff',
+    marginTop: 20,
   },
   contactsup: {
     marginTop: 15,
@@ -305,11 +297,9 @@ const styles = StyleSheet.create({
     width: 40,
     height: 45,
   },
-
   borderStyleHighLighted: {
     borderColor: '#fff',
   },
-
   underlineStyleBase: {
     width: 70,
     height: 60,
@@ -317,7 +307,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     fontSize: 30,
   },
-
   underlineStyleHighLighted: {
     borderColor: '#fff',
   },
@@ -326,7 +315,6 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     alignSelf: 'center',
-   
   },
 });
 

@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Forget = ({navigation}: any) => {
   const [email, setEmail] = useState('');
-  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [, setIsSigningUp] = useState(false);
   const emailFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
   const handlePasswordReset = async () => {
     try {
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
   main1: {
     flex: 2,
   },
-
   container: {
     flex: 1,
     paddingHorizontal: 20,
@@ -202,7 +201,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-
   legalTexted: {
     color: '#F4F4F6',
     fontSize: 11,
@@ -214,12 +212,10 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontFamily: 'Poppins-Medium',
   },
-
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-
   subtitle: {
     fontSize: 16,
     color: '#F4F4F6',
@@ -236,7 +232,6 @@ const styles = StyleSheet.create({
   maincontent: {
     alignItems: 'center',
   },
-
   label: {
     position: 'absolute',
     color: '#E6E6E9',

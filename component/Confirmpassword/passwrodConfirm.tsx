@@ -1,31 +1,30 @@
-import React, {useEffect, useState,useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
   TextInput,
   Text,
   StyleSheet,
   Alert,
-  SafeAreaView,
   TouchableOpacity,
   Image,
   ScrollView,
-  Animated
+  Animated,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const Confirmpass = ({navigation}: any) => {
   const [newPassword, setNewPassword] = useState('');
   const [emailID, setEmailID] = useState<string | null>(null);
-  const [password, setPassword] = useState('');
+  const [password] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [loading, setLoading] = useState(false);
   const passwordFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
-  const confirmpasswordFloatingLabelAnimation = useRef(new Animated.Value(0)).current;
-  // const navigation = useNavigation();
+  const confirmpasswordFloatingLabelAnimation = useRef(
+    new Animated.Value(0),
+  ).current;
   useEffect(() => {
     const fetchEmail = async () => {
       const email = await AsyncStorage.getItem('userEmail');
@@ -121,8 +120,6 @@ const Confirmpass = ({navigation}: any) => {
     }
   };
 
-  
-
   const passwordFloatingLabelStyle = {
     top: passwordFloatingLabelAnimation.interpolate({
       inputRange: [0, 1],
@@ -146,97 +143,95 @@ const Confirmpass = ({navigation}: any) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={{flex:2,justifyContent:"center",}}>
-      <View>
-     <Image
-          source={require('../../assets/tutu_white.png')}
-          style={styles.logo}
-        />
+      <View style={{flex: 2, justifyContent: 'center'}}>
+        <View>
+          <Image
+            source={require('../../assets/tutu_white.png')}
+            style={styles.logo}
+          />
         </View>
-        </View>
+      </View>
 
-         <View style={{flex:1,alignItems:"center",}}>
+      <View style={{flex: 1, alignItems: 'center'}}>
         <Text style={styles.title}>Change Password</Text>
         <Text style={styles.subtitle}>
-           Enter a different password with the previous
+          Enter a different password with the previous
         </Text>
-     </View> 
+      </View>
 
-
-     <View style={{flex:3,}}>
-     <View style={{ flexDirection: "column", gap: 40}}>
-      <View style={styles.inputContainer}>
-      <Animated.Text style={[styles.label, passwordFloatingLabelStyle]}>Password</Animated.Text>
-          <TextInput
-            style={styles.input}
-            placeholderTextColor="#FFFFFF"
-            value={newPassword}
-            onChangeText={setNewPassword}
-            secureTextEntry={!showPassword}
-            onFocus={handlePasswordFocus}
+      <View style={{flex: 3}}>
+        <View style={{flexDirection: 'column', gap: 40}}>
+          <View style={styles.inputContainer}>
+            <Animated.Text style={[styles.label, passwordFloatingLabelStyle]}>
+              Password
+            </Animated.Text>
+            <TextInput
+              style={styles.input}
+              placeholderTextColor="#FFFFFF"
+              value={newPassword}
+              onChangeText={setNewPassword}
+              secureTextEntry={!showPassword}
+              onFocus={handlePasswordFocus}
               onBlur={handleBlur}
-          />
-
-          <TouchableOpacity onPress={togglePasswordVisibility}>
-            <Image
-              source={require('../../assets/hiddenpass.png')}
-              style={styles.icon}
             />
-          </TouchableOpacity>
-        </View>
 
+            <TouchableOpacity onPress={togglePasswordVisibility}>
+              <Image
+                source={require('../../assets/hiddenpass.png')}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.inputContainer}>
-        <Animated.Text style={[styles.label, confirmpasswordFloatingLabelStyle]}>Confirm Password</Animated.Text>
-          <TextInput
-            style={styles.input}
-            placeholderTextColor="#FFFFFF"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            secureTextEntry={!showPassword2}
-            onFocus={handleConfirmPasswordFocus}
+          <View style={styles.inputContainer}>
+            <Animated.Text
+              style={[styles.label, confirmpasswordFloatingLabelStyle]}>
+              Confirm Password
+            </Animated.Text>
+            <TextInput
+              style={styles.input}
+              placeholderTextColor="#FFFFFF"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry={!showPassword2}
+              onFocus={handleConfirmPasswordFocus}
               onBlur={handleBlur}
-          />
-
-          <TouchableOpacity onPress={togglePasswordVisibility2}>
-            <Image
-              source={require('../../assets/hiddenpass.png')}
-              style={styles.icon}
             />
-          </TouchableOpacity>
-        </View>
-        </View>
-        </View>
 
-       <View style={{flex:1,alignItems:"center",justifyContent:"flex-end",}}>
-     <TouchableOpacity
+            <TouchableOpacity onPress={togglePasswordVisibility2}>
+              <Image
+                source={require('../../assets/hiddenpass.png')}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end'}}>
+        <TouchableOpacity
           style={styles.button}
           onPress={handleChangePassword}
           disabled={loading}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-        </View> 
-
+      </View>
     </ScrollView>
-
-
   );
- };
+};
 
- const styles = StyleSheet.create({
-
-  container:{
-    flex:1,
-   paddingHorizontal:20,
-  backgroundColor: '#000',
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: '#000',
   },
-    logo: {
+  logo: {
     width: 126,
     height: 122,
     alignSelf: 'center',
   },
-    subtitle: {
+  subtitle: {
     fontSize: 16,
     color: '#F4F4F6',
     fontFamily: 'Poppins-Light',
@@ -246,9 +241,9 @@ const Confirmpass = ({navigation}: any) => {
     color: '#F4F4F6',
     fontFamily: 'PlayfairDisplay-SemiBold',
   },
-    input: {
-      flex:1,
-    height:50,
+  input: {
+    flex: 1,
+    height: 50,
     backgroundColor: 'transparent',
     color: '#FFFFFF',
     fontSize: 16,
@@ -259,15 +254,15 @@ const Confirmpass = ({navigation}: any) => {
     alignItems: 'flex-end',
     borderBottomWidth: 1,
     borderBottomColor: 'white',
-    justifyContent:"space-between"
+    justifyContent: 'space-between',
   },
-    icon: {
+  icon: {
     marginBottom: 5,
     width: 20,
     height: 20,
     tintColor: 'white',
   },
-    button: {
+  button: {
     backgroundColor: '#E6E6E9',
     paddingVertical: 10,
     paddingHorizontal: 10,
@@ -275,7 +270,7 @@ const Confirmpass = ({navigation}: any) => {
     alignItems: 'center',
     justifyContent: 'center',
     width: 160,
-    height:60
+    height: 60,
   },
   buttonText: {
     color: 'black',
@@ -284,12 +279,11 @@ const Confirmpass = ({navigation}: any) => {
     fontFamily: 'poppins',
   },
   label: {
-    position: "absolute",
-    color: "#E6E6E9",
-    fontFamily: "Poppins-Light",
+    position: 'absolute',
+    color: '#E6E6E9',
+    fontFamily: 'Poppins-Light',
     fontSize: 13,
   },
-
 });
 
 export default Confirmpass;

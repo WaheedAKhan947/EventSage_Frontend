@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,16 +10,13 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import DatePicker from 'react-native-modern-datepicker';
-import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
+import DatePicker, {getFormatedDate} from 'react-native-modern-datepicker';
 import DropdownComponent from '../ResturantDropDown/DropDown';
 import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
-import StorageManager from '../../storage/StorageManager';
-import { ENDPOINTS } from '../../api/apiRoutes';
+import {ENDPOINTS} from '../../api/apiRoutes';
 import API from '../../api/apiService';
 
-
-const Reservation = ({ navigation }: any) => {
+const Reservation = ({}: any) => {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
@@ -48,12 +45,18 @@ const Reservation = ({ navigation }: any) => {
 
   const handleReservation = async () => {
     try {
-      
-      if (!selectedOption || !date || !guests || !selectedBackupTime || !selectedPreferredTime || !totalPayments) {
+      if (
+        !selectedOption ||
+        !date ||
+        !guests ||
+        !selectedBackupTime ||
+        !selectedPreferredTime ||
+        !totalPayments
+      ) {
         Alert.alert('Error', 'Please fill in all required fields.');
         return;
       }
-  
+
       const reservationData = {
         restaurant: selectedOption,
         date: date,
@@ -62,10 +65,12 @@ const Reservation = ({ navigation }: any) => {
         backupTime: selectedBackupTime,
         totalPayments: totalPayments,
       };
-  
-      const userId = await StorageManager.get('userId');
-      const response = await API.post(ENDPOINTS.USER.RESERVATION, reservationData);
-      console.log("respoonse :",response)
+
+      const response = await API.post(
+        ENDPOINTS.USER.RESERVATION,
+        reservationData,
+      );
+      console.log('respoonse :', response);
       if (response.success) {
         Alert.alert('Success', response.message || 'Reservation successful');
       } else {
@@ -74,10 +79,13 @@ const Reservation = ({ navigation }: any) => {
       }
     } catch (error) {
       console.error('Error making reservation:', error);
-      Alert.alert('Error Reservation:', 'Failed to make reservation. Please try again later.');
+      Alert.alert(
+        'Error Reservation:',
+        'Failed to make reservation. Please try again later.',
+      );
     }
   };
-  
+
   const showPreferredTimePickerModal = () => {
     setShowPreferredTimePicker(true);
   };
@@ -85,8 +93,6 @@ const Reservation = ({ navigation }: any) => {
   const showBackupTimePickerModal = () => {
     setShowBackupTimePicker(true);
   };
-
-
 
   const handleOnPress = () => {
     setOpen(!open);
@@ -98,9 +104,9 @@ const Reservation = ({ navigation }: any) => {
 
   const updateTotalPrice = (restaurant: string, selectedDate: any) => {
     const dateComponents = selectedDate.split('/');
-    const year = parseInt(dateComponents[0]);
-    const month = parseInt(dateComponents[1]) - 1;
-    const day = parseInt(dateComponents[2]);
+    const year = parseInt(dateComponents[0], 10);
+    const month = parseInt(dateComponents[1], 10) - 1;
+    const day = parseInt(dateComponents[2], 10);
 
     const dateObject = new Date(year, month, day);
     if (isNaN(dateObject.getTime())) {
@@ -150,7 +156,11 @@ const Reservation = ({ navigation }: any) => {
   }
 
   const [modalVisible, setModalVisible] = useState(false);
-  const guestsOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Example options
+  const guestsOptions = [
+    100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800,
+    850, 900, 950, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900,
+    2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000,
+  ]; // Example options
 
   const handleGuestSelect = (guest: number) => {
     setGuests(guest);
@@ -161,7 +171,7 @@ const Reservation = ({ navigation }: any) => {
     const preferredTimes = [];
     for (let hour = 1; hour <= 12; hour++) {
       for (let minute = 0; minute <= 30; minute += 30) {
-        preferredTimes.push({ hour, minute });
+        preferredTimes.push({hour, minute});
       }
     }
     return preferredTimes;
@@ -170,7 +180,7 @@ const Reservation = ({ navigation }: any) => {
     const backupTimes = [];
     for (let hour = 1; hour <= 12; hour++) {
       for (let minute = 0; minute <= 30; minute += 30) {
-        backupTimes.push({ hour, minute });
+        backupTimes.push({hour, minute});
       }
     }
     return backupTimes;
@@ -197,24 +207,20 @@ const Reservation = ({ navigation }: any) => {
             />
           </TouchableOpacity>
         </View>
-        <View >
-            <Image
-              source={require('../../assets/confirmed_logo.png')}
-              style={styles.logo}
-            />
+        <View>
+          <Image
+            source={require('../../assets/confirmed_logo.png')}
+            style={styles.logo}
+          />
         </View>
       </View>
-
       <View style={styles.pagecontent}>
         <Text style={styles.title}>RESERVATION REQUEST</Text>
         <Text style={styles.subtitle}>Make your first reservations</Text>
       </View>
-
-      <View style={{ flex: 2, flexDirection: "column" }}>
-        <View style={{ gap: 35 }}>
+      <View style={{flex: 2, flexDirection: 'column'}}>
+        <View style={{gap: 35}}>
           <DropdownComponent onValueChange={setSelectedOption} />
-
-
           <View style={styles.row}>
             <TouchableOpacity
               style={[styles.halfWidth, styles.dropdownContainer]}
@@ -235,7 +241,6 @@ const Reservation = ({ navigation }: any) => {
                 style={styles.dropdownIcon}
               />
             </TouchableOpacity>
-
             <Modal animationType="slide" transparent={true} visible={open}>
               <View style={styles.centeredview}>
                 <View style={styles.modalview}>
@@ -247,7 +252,7 @@ const Reservation = ({ navigation }: any) => {
                       selectedTextColor: '#000000',
                       mainColor: '#ffffff',
                       textFontSize: 20,
-                      textHeaderFontSize: 20
+                      textHeaderFontSize: 20,
                     }}
                     style={styles.datePicker}
                     mode="calendar"
@@ -261,7 +266,6 @@ const Reservation = ({ navigation }: any) => {
                 </View>
               </View>
             </Modal>
-
             <TouchableOpacity
               style={[styles.halfWidth, styles.dropdownContainer]}
               onPress={() => setModalVisible(true)}>
@@ -278,8 +282,6 @@ const Reservation = ({ navigation }: any) => {
                 style={styles.dropdownIcon}
               />
             </TouchableOpacity>
-
-            {/* Modal for guest selection */}
             <Modal
               visible={modalVisible}
               animationType="slide"
@@ -287,7 +289,7 @@ const Reservation = ({ navigation }: any) => {
               onRequestClose={() => setModalVisible(false)}>
               <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
-                  <ScrollView >
+                  <ScrollView>
                     {guestsOptions.map(guest => (
                       <TouchableOpacity
                         key={guest}
@@ -299,7 +301,6 @@ const Reservation = ({ navigation }: any) => {
                               color: 'white',
                               borderBottomWidth: 1,
                               borderBottomColor: '#E6E6E9',
-
                             },
                           ]}>
                           {guest}
@@ -311,8 +312,6 @@ const Reservation = ({ navigation }: any) => {
               </View>
             </Modal>
           </View>
-
-          {/* Dropdown for Preferred Time */}
           <TouchableOpacity
             style={styles.dropdownContainer}
             onPress={showPreferredTimePickerModal}>
@@ -330,7 +329,6 @@ const Reservation = ({ navigation }: any) => {
               style={styles.dropdownIcon}
             />
           </TouchableOpacity>
-
           {showPreferredTimePicker && (
             <Modal
               transparent={true}
@@ -340,65 +338,64 @@ const Reservation = ({ navigation }: any) => {
               <View style={styles.modalpref}>
                 <View style={styles.modalprefcont}>
                   <ScrollView>
-                    {[...Array(Math.ceil(preferredTimes.length / 3)).keys()].map(
-                      rowIndex => (
-                        <View key={rowIndex} style={styles.modalRow}>
-                          {preferredTimes
-                            .slice(rowIndex * 3, (rowIndex + 1) * 3)
-                            .map((time, index) => (
-                              <TouchableOpacity
-                                key={index}
-                                onPress={() => {
-                                  const newDate = new Date();
-                                  newDate.setHours(time.hour);
-                                  newDate.setMinutes(time.minute);
-                                  setSelectedPreferredTime(newDate);
-                                  setShowPreferredTimePicker(false);
-                                }}>
-                                <Text
-                                  onPressIn={() => handleMouseEnter(index)}
-                                  onPressOut={handleMouseLeave}
-                                  style={[
-                                    styles.modalItem,
-                                    hoveredItemIndex === index &&
+                    {[
+                      ...Array(Math.ceil(preferredTimes.length / 3)).keys(),
+                    ].map(rowIndex => (
+                      <View key={rowIndex} style={styles.modalRow}>
+                        {preferredTimes
+                          .slice(rowIndex * 3, (rowIndex + 1) * 3)
+                          .map((time, index) => (
+                            <TouchableOpacity
+                              key={index}
+                              onPress={() => {
+                                const newDate = new Date();
+                                newDate.setHours(time.hour);
+                                newDate.setMinutes(time.minute);
+                                setSelectedPreferredTime(newDate);
+                                setShowPreferredTimePicker(false);
+                              }}>
+                              <Text
+                                onPressIn={() => handleMouseEnter(index)}
+                                onPressOut={handleMouseLeave}
+                                style={[
+                                  styles.modalItem,
+                                  hoveredItemIndex === index &&
                                     styles.modalItemHovered,
-                                    // Check if this time is selected
-                                    selectedPreferredTime &&
+                                  // Check if this time is selected
+                                  selectedPreferredTime &&
                                     selectedPreferredTime.getHours() ===
-                                    time.hour &&
+                                      time.hour &&
                                     selectedPreferredTime.getMinutes() ===
-                                    time.minute && {
+                                      time.minute && {
                                       backgroundColor: '#FFFFFF', // White background
                                       color: '#000000', // Gray text color
                                     },
-                                  ]}>
-                                  {time.hour > 12 ? time.hour - 12 : time.hour}:
-                                  {time.minute === 0 ? '00' : '30'}{' '}
-                                  <Text
-                                    style={{
-                                      color:
-                                        selectedPreferredTime &&
-                                          selectedPreferredTime.getHours() ===
-                                          time.hour &&
-                                          selectedPreferredTime.getMinutes() ===
-                                          time.minute
-                                          ? '#000000'
-                                          : '#FFFFFF',
-                                    }}>
-                                    {time.hour >= 12 ? 'AM' : 'PM'}
-                                  </Text>
+                                ]}>
+                                {time.hour > 12 ? time.hour - 12 : time.hour}:
+                                {time.minute === 0 ? '00' : '30'}{' '}
+                                <Text
+                                  style={{
+                                    color:
+                                      selectedPreferredTime &&
+                                      selectedPreferredTime.getHours() ===
+                                        time.hour &&
+                                      selectedPreferredTime.getMinutes() ===
+                                        time.minute
+                                        ? '#000000'
+                                        : '#FFFFFF',
+                                  }}>
+                                  {time.hour >= 12 ? 'AM' : 'PM'}
                                 </Text>
-                              </TouchableOpacity>
-                            ))}
-                        </View>
-                      ),
-                    )}
+                              </Text>
+                            </TouchableOpacity>
+                          ))}
+                      </View>
+                    ))}
                   </ScrollView>
                 </View>
               </View>
             </Modal>
           )}
-
           <TouchableOpacity
             style={styles.dropdownContainer}
             onPress={showBackupTimePickerModal}>
@@ -416,7 +413,6 @@ const Reservation = ({ navigation }: any) => {
               style={styles.dropdownIcon}
             />
           </TouchableOpacity>
-
           {showBackupTimePicker && (
             <Modal
               transparent={true}
@@ -445,15 +441,15 @@ const Reservation = ({ navigation }: any) => {
                                   style={[
                                     styles.modalItem,
                                     hoveredItemIndex === index &&
-                                    styles.modalItemHovered,
+                                      styles.modalItemHovered,
                                     selectedBackupTime &&
-                                    selectedBackupTime.getHours() ===
-                                    time.hour &&
-                                    selectedBackupTime.getMinutes() ===
-                                    time.minute && {
-                                      backgroundColor: '#FFFFFF', 
-                                      color: '#000000', 
-                                    },
+                                      selectedBackupTime.getHours() ===
+                                        time.hour &&
+                                      selectedBackupTime.getMinutes() ===
+                                        time.minute && {
+                                        backgroundColor: '#FFFFFF',
+                                        color: '#000000',
+                                      },
                                   ]}
                                   onPressIn={() => handleMouseEnter(index)}
                                   onPressOut={handleMouseLeave}>
@@ -463,9 +459,9 @@ const Reservation = ({ navigation }: any) => {
                                     style={{
                                       color:
                                         selectedBackupTime &&
-                                          selectedBackupTime.getHours() ===
+                                        selectedBackupTime.getHours() ===
                                           time.hour &&
-                                          selectedBackupTime.getMinutes() ===
+                                        selectedBackupTime.getMinutes() ===
                                           time.minute
                                           ? '#000000'
                                           : '#FFFFFF',
@@ -476,43 +472,30 @@ const Reservation = ({ navigation }: any) => {
                               </TouchableOpacity>
                             ))}
                         </View>
-
                       ),
                     )}
                   </ScrollView>
                 </View>
-
               </View>
             </Modal>
           )}
-          
         </View>
-
-
-
-
         <View style={styles.totaltext}>
           <Text style={styles.text}>Total price:</Text>
           <Text style={styles.textp}>$ {totalPayments}</Text>
         </View>
-
-
-
       </View>
-
       <View
         style={{
           flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
+          alignItems: 'center',
+          justifyContent: 'center',
           marginBottom: 30,
-
         }}>
         <TouchableOpacity style={styles.button} onPress={handleReservation}>
           <Text style={styles.buttonText}>Request Reservation</Text>
         </TouchableOpacity>
       </View>
-
     </ScrollView>
   );
 };
@@ -521,8 +504,7 @@ const styles = StyleSheet.create({
   modalRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 5
-
+    margin: 5,
   },
   modalpref: {
     flex: 1,
@@ -530,23 +512,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     bottom: 45,
-
   },
   modalback: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
     position: 'relative',
-    top: 30
+    top: 30,
   },
   modalprefcont: {
     backgroundColor: '#242424',
     borderRadius: 10,
     color: 'white',
     padding: 25,
-    width: "95%",
+    width: '95%',
     maxHeight: 300,
-
   },
   modalItem: {
     textAlign: 'center',
@@ -556,21 +536,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 120,
     height: 50,
-    backgroundColor: "#3E3E3E",
-    fontFamily: "Poppins-Regular",
-
+    backgroundColor: '#3E3E3E',
+    fontFamily: 'Poppins-Regular',
   },
   mainContainer: {
     flex: 1,
     paddingHorizontal: 10,
     backgroundColor: '#000000',
-    paddingTop:10
+    paddingTop: 10,
   },
   pagecontent: {
-     flex: 1,
-     justifyContent:"center"
+    flex: 1,
+    justifyContent: 'center',
   },
-
   dropdownContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -593,9 +571,7 @@ const styles = StyleSheet.create({
     color: '#E6E6E9',
     marginRight: 'auto',
     fontFamily: 'Poppins-Regular',
-
   },
-
   dropdownIcon: {
     width: 20,
     height: 20,
@@ -607,12 +583,10 @@ const styles = StyleSheet.create({
     padding: 20,
     fontFamily: 'IbarraRealNova-Regular',
   },
-
   buttonDone: {
     width: '70%',
     marginTop: 10,
   },
-
   button: {
     backgroundColor: '#E6E6E9',
     paddingVertical: 16,
@@ -623,10 +597,8 @@ const styles = StyleSheet.create({
     width: 230,
   },
   scrollView: {
-
     color: '#fff',
   },
-
   buttonText: {
     color: 'black',
     fontSize: 16,
@@ -636,7 +608,6 @@ const styles = StyleSheet.create({
     width: 155,
     height: 50,
     alignSelf: 'center',
-    
   },
   image: {
     width: 20,
@@ -649,16 +620,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     top: 95,
-    left: 70
+    left: 70,
   },
   modalContent: {
     backgroundColor: '#242424',
-    alignItems: "center",
+    alignItems: 'center',
     width: 120,
     height: 300,
     color: '#fff',
-
-
   },
   input: {
     flex: 1,
@@ -674,7 +643,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   icon: {
-    
     width: 26,
     height: 24,
   },
@@ -705,15 +673,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: 'PlayfairDisplay-SemiBold',
     textAlign: 'center',
-   
   },
-
   headercon: {
     flex: 1,
-    justifyContent: "center",
-  
+    justifyContent: 'center',
   },
- 
   headerIcon: {
     width: 24,
     height: 24,
@@ -721,9 +685,8 @@ const styles = StyleSheet.create({
   headerprof: {
     width: 30,
     height: 30,
-    position:"relative",
-    top:10
-    
+    position: 'relative',
+    top: 10,
   },
   centeredview: {
     flex: 1,
@@ -736,8 +699,6 @@ const styles = StyleSheet.create({
     height: 300,
     backgroundColor: '#2D0717',
     alignItems: 'center',
-
-
   },
   datePicker: {
     backgroundColor: '#242424',
