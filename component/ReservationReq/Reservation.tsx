@@ -209,7 +209,7 @@ const Reservation = ({}: any) => {
         </View>
         <View>
           <Image
-            source={require('../../assets/confirmed_logo.png')}
+            source={require('../../assets/Logo2.png')}
             style={styles.logo}
           />
         </View>
@@ -312,120 +312,38 @@ const Reservation = ({}: any) => {
               </View>
             </Modal>
           </View>
-          <TouchableOpacity
-            style={styles.dropdownContainer}
-            onPress={showPreferredTimePickerModal}>
-            <Image
-              source={require('../../assets/selecttime.png')}
-              style={styles.image}
-            />
-            <Text style={styles.dropdownText}>
-              {selectedPreferredTime
-                ? selectedPreferredTime.toLocaleTimeString()
-                : 'Prefer Time'}
-            </Text>
-            <Image
-              source={require('../../assets/selectdp.png')}
-              style={styles.dropdownIcon}
-            />
-          </TouchableOpacity>
-          {showPreferredTimePicker && (
-            <Modal
-              transparent={true}
-              visible={showPreferredTimePicker}
-              animationType="slide"
-              onRequestClose={() => setShowPreferredTimePicker(false)}>
-              <View style={styles.modalpref}>
-                <View style={styles.modalprefcont}>
-                  <ScrollView>
-                    {[
-                      ...Array(Math.ceil(preferredTimes.length / 3)).keys(),
-                    ].map(rowIndex => (
-                      <View key={rowIndex} style={styles.modalRow}>
-                        {preferredTimes
-                          .slice(rowIndex * 3, (rowIndex + 1) * 3)
-                          .map((time, index) => (
-                            <TouchableOpacity
-                              key={index}
-                              onPress={() => {
-                                const newDate = new Date();
-                                newDate.setHours(time.hour);
-                                newDate.setMinutes(time.minute);
-                                setSelectedPreferredTime(newDate);
-                                setShowPreferredTimePicker(false);
-                              }}>
-                              <Text
-                                onPressIn={() => handleMouseEnter(index)}
-                                onPressOut={handleMouseLeave}
-                                style={[
-                                  styles.modalItem,
-                                  hoveredItemIndex === index &&
-                                    styles.modalItemHovered,
-                                  // Check if this time is selected
-                                  selectedPreferredTime &&
-                                    selectedPreferredTime.getHours() ===
-                                      time.hour &&
-                                    selectedPreferredTime.getMinutes() ===
-                                      time.minute && {
-                                      backgroundColor: '#FFFFFF', // White background
-                                      color: '#000000', // Gray text color
-                                    },
-                                ]}>
-                                {time.hour > 12 ? time.hour - 12 : time.hour}:
-                                {time.minute === 0 ? '00' : '30'}{' '}
-                                <Text
-                                  style={{
-                                    color:
-                                      selectedPreferredTime &&
-                                      selectedPreferredTime.getHours() ===
-                                        time.hour &&
-                                      selectedPreferredTime.getMinutes() ===
-                                        time.minute
-                                        ? '#000000'
-                                        : '#FFFFFF',
-                                  }}>
-                                  {time.hour >= 12 ? 'AM' : 'PM'}
-                                </Text>
-                              </Text>
-                            </TouchableOpacity>
-                          ))}
-                      </View>
-                    ))}
-                  </ScrollView>
-                </View>
-              </View>
-            </Modal>
-          )}
-          <TouchableOpacity
-            style={styles.dropdownContainer}
-            onPress={showBackupTimePickerModal}>
-            <Image
-              source={require('../../assets/clock-plus.png')}
-              style={styles.image}
-            />
-            <Text style={styles.dropdownText}>
-              {selectedBackupTime
-                ? selectedBackupTime.toLocaleTimeString()
-                : 'Backup Time'}
-            </Text>
-            <Image
-              source={require('../../assets/selectdp.png')}
-              style={styles.dropdownIcon}
-            />
-          </TouchableOpacity>
-          {showBackupTimePicker && (
-            <Modal
-              transparent={true}
-              visible={showBackupTimePicker}
-              animationType="slide"
-              onRequestClose={() => setShowBackupTimePicker(false)}>
-              <View style={styles.modalback}>
-                <View style={styles.modalprefcont}>
-                  <ScrollView>
-                    {[...Array(Math.ceil(backupTimes.length / 3)).keys()].map(
-                      rowIndex => (
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={[styles.dropdownContainer, styles.halfWidth]}
+              onPress={showPreferredTimePickerModal}>
+              <Image
+                source={require('../../assets/selecttime.png')}
+                style={styles.image}
+              />
+              <Text style={styles.dropdownText}>
+                {selectedPreferredTime
+                  ? selectedPreferredTime.toLocaleTimeString()
+                  : 'Prefer Time'}
+              </Text>
+              <Image
+                source={require('../../assets/selectdp.png')}
+                style={styles.dropdownIcon}
+              />
+            </TouchableOpacity>
+            {showPreferredTimePicker && (
+              <Modal
+                transparent={true}
+                visible={showPreferredTimePicker}
+                animationType="slide"
+                onRequestClose={() => setShowPreferredTimePicker(false)}>
+                <View style={styles.modalpref}>
+                  <View style={styles.modalprefcont}>
+                    <ScrollView>
+                      {[
+                        ...Array(Math.ceil(preferredTimes.length / 3)).keys(),
+                      ].map(rowIndex => (
                         <View key={rowIndex} style={styles.modalRow}>
-                          {backupTimes
+                          {preferredTimes
                             .slice(rowIndex * 3, (rowIndex + 1) * 3)
                             .map((time, index) => (
                               <TouchableOpacity
@@ -434,34 +352,35 @@ const Reservation = ({}: any) => {
                                   const newDate = new Date();
                                   newDate.setHours(time.hour);
                                   newDate.setMinutes(time.minute);
-                                  setSelectedBackupTime(newDate);
-                                  setShowBackupTimePicker(false);
+                                  setSelectedPreferredTime(newDate);
+                                  setShowPreferredTimePicker(false);
                                 }}>
                                 <Text
+                                  onPressIn={() => handleMouseEnter(index)}
+                                  onPressOut={handleMouseLeave}
                                   style={[
                                     styles.modalItem,
                                     hoveredItemIndex === index &&
                                       styles.modalItemHovered,
-                                    selectedBackupTime &&
-                                      selectedBackupTime.getHours() ===
+                                    // Check if this time is selected
+                                    selectedPreferredTime &&
+                                      selectedPreferredTime.getHours() ===
                                         time.hour &&
-                                      selectedBackupTime.getMinutes() ===
+                                      selectedPreferredTime.getMinutes() ===
                                         time.minute && {
-                                        backgroundColor: '#FFFFFF',
-                                        color: '#000000',
+                                        backgroundColor: '#FFFFFF', // White background
+                                        color: '#000000', // Gray text color
                                       },
-                                  ]}
-                                  onPressIn={() => handleMouseEnter(index)}
-                                  onPressOut={handleMouseLeave}>
+                                  ]}>
                                   {time.hour > 12 ? time.hour - 12 : time.hour}:
                                   {time.minute === 0 ? '00' : '30'}{' '}
                                   <Text
                                     style={{
                                       color:
-                                        selectedBackupTime &&
-                                        selectedBackupTime.getHours() ===
+                                        selectedPreferredTime &&
+                                        selectedPreferredTime.getHours() ===
                                           time.hour &&
-                                        selectedBackupTime.getMinutes() ===
+                                        selectedPreferredTime.getMinutes() ===
                                           time.minute
                                           ? '#000000'
                                           : '#FFFFFF',
@@ -472,17 +391,102 @@ const Reservation = ({}: any) => {
                               </TouchableOpacity>
                             ))}
                         </View>
-                      ),
-                    )}
-                  </ScrollView>
+                      ))}
+                    </ScrollView>
+                  </View>
                 </View>
-              </View>
-            </Modal>
-          )}
+              </Modal>
+            )}
+            <TouchableOpacity
+              style={[styles.dropdownContainer, styles.halfWidth]}
+              onPress={showBackupTimePickerModal}>
+              <Image
+                source={require('../../assets/clock-plus.png')}
+                style={styles.image}
+              />
+              <Text style={styles.dropdownText}>
+                {selectedBackupTime
+                  ? selectedBackupTime.toLocaleTimeString()
+                  : 'Backup Time'}
+              </Text>
+              <Image
+                source={require('../../assets/selectdp.png')}
+                style={styles.dropdownIcon}
+              />
+            </TouchableOpacity>
+            {showBackupTimePicker && (
+              <Modal
+                transparent={true}
+                visible={showBackupTimePicker}
+                animationType="slide"
+                onRequestClose={() => setShowBackupTimePicker(false)}>
+                <View style={styles.modalback}>
+                  <View style={styles.modalprefcont}>
+                    <ScrollView>
+                      {[...Array(Math.ceil(backupTimes.length / 3)).keys()].map(
+                        rowIndex => (
+                          <View key={rowIndex} style={styles.modalRow}>
+                            {backupTimes
+                              .slice(rowIndex * 3, (rowIndex + 1) * 3)
+                              .map((time, index) => (
+                                <TouchableOpacity
+                                  key={index}
+                                  onPress={() => {
+                                    const newDate = new Date();
+                                    newDate.setHours(time.hour);
+                                    newDate.setMinutes(time.minute);
+                                    setSelectedBackupTime(newDate);
+                                    setShowBackupTimePicker(false);
+                                  }}>
+                                  <Text
+                                    style={[
+                                      styles.modalItem,
+                                      hoveredItemIndex === index &&
+                                        styles.modalItemHovered,
+                                      selectedBackupTime &&
+                                        selectedBackupTime.getHours() ===
+                                          time.hour &&
+                                        selectedBackupTime.getMinutes() ===
+                                          time.minute && {
+                                          backgroundColor: '#FFFFFF',
+                                          color: '#000000',
+                                        },
+                                    ]}
+                                    onPressIn={() => handleMouseEnter(index)}
+                                    onPressOut={handleMouseLeave}>
+                                    {time.hour > 12
+                                      ? time.hour - 12
+                                      : time.hour}
+                                    :{time.minute === 0 ? '00' : '30'}{' '}
+                                    <Text
+                                      style={{
+                                        color:
+                                          selectedBackupTime &&
+                                          selectedBackupTime.getHours() ===
+                                            time.hour &&
+                                          selectedBackupTime.getMinutes() ===
+                                            time.minute
+                                            ? '#000000'
+                                            : '#FFFFFF',
+                                      }}>
+                                      {time.hour >= 12 ? 'AM' : 'PM'}
+                                    </Text>
+                                  </Text>
+                                </TouchableOpacity>
+                              ))}
+                          </View>
+                        ),
+                      )}
+                    </ScrollView>
+                  </View>
+                </View>
+              </Modal>
+            )}
+          </View>
         </View>
         <View style={styles.totaltext}>
-          <Text style={styles.text}>Total price:</Text>
-          <Text style={styles.textp}>$ {totalPayments}</Text>
+          <Text style={styles.text}>Price/head:</Text>
+          <Text style={styles.textp}>RS {totalPayments}</Text>
         </View>
       </View>
       <View
@@ -511,7 +515,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     position: 'relative',
-    bottom: 45,
+    bottom: 75,
   },
   modalback: {
     flex: 1,
@@ -524,25 +528,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#242424',
     borderRadius: 10,
     color: 'white',
-    padding: 25,
     width: '95%',
-    maxHeight: 300,
+    maxHeight: 220,
+    padding: 10,
   },
   modalItem: {
     textAlign: 'center',
     fontSize: 16,
-    paddingVertical: 10,
     color: '#FFFFFF',
-    borderRadius: 5,
-    width: 120,
-    height: 50,
+    borderRadius: 10,
+    width: 100,
+    height: 35,
     backgroundColor: '#3E3E3E',
     fontFamily: 'Poppins-Regular',
+    paddingVertical: 5,
+    margin: 4,
   },
   mainContainer: {
     flex: 1,
     paddingHorizontal: 10,
-    backgroundColor: '#000000',
+    backgroundColor: '#1B3132',
     paddingTop: 10,
   },
   pagecontent: {
@@ -595,6 +600,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 230,
+    marginBottom: 12,
   },
   scrollView: {
     color: '#fff',
@@ -606,7 +612,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 155,
-    height: 50,
+    height: 75,
     alignSelf: 'center',
   },
   image: {

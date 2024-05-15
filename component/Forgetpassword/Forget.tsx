@@ -85,10 +85,7 @@ const Forget = ({navigation}: any) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{flex: 2, justifyContent: 'center'}}>
-        <Image
-          source={require('../../assets/tutu_white.png')}
-          style={styles.logo}
-        />
+        <Image source={require('../../assets/Logo.png')} style={styles.logo} />
       </View>
 
       <View style={{flex: 1}}>
@@ -145,7 +142,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#000000',
+    backgroundColor: '#1B3132',
   },
   backButton: {
     position: 'absolute',

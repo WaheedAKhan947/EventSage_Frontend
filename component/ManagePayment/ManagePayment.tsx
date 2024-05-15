@@ -88,6 +88,9 @@ const ManagePayment = ({navigation}: any) => {
           <Image source={require('../../assets/wback.png')} />
         </TouchableOpacity>
       </View>
+      <View style={styles.headerContainer}>
+        <Image source={require('../../assets/Logo2.png')} style={styles.logo} />
+      </View>
       <View style={{paddingVertical: 20}}>
         <Text
           style={{
@@ -132,6 +135,11 @@ const ManagePayment = ({navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
+  logo: {
+    width: 155,
+    height: 75,
+    alignSelf: 'center',
+  },
   cardText: {
     fontSize: 20,
     color: '#fff',
@@ -173,7 +181,7 @@ const styles = StyleSheet.create({
   b2: {},
   container: {
     flexGrow: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#1B3132',
     paddingHorizontal: 10,
     paddingTop: 10,
   },

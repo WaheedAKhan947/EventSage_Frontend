@@ -7,6 +7,7 @@ import {
   Alert,
   Image,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import ProfileDropdown from '../ProfileDpdown/ProfileDropdown';
 import {useIsFocused} from '@react-navigation/native';
@@ -104,7 +105,7 @@ const Reservations = ({navigation}: any) => {
 
         <View style={styles.headerContainer}>
           <Image
-            source={require('../../assets/confirmed_logo.png')}
+            source={require('../../assets/Logo2.png')}
             style={styles.logo}
           />
         </View>
@@ -118,7 +119,7 @@ const Reservations = ({navigation}: any) => {
         {/* <ScrollView contentContainerStyle={styles.reservationsContainer}> */}
         {loading ? (
           <View>
-            <Text style={{color: 'white'}}>Loading..</Text>
+            <ActivityIndicator size="large" color="#fff" />
           </View>
         ) : (
           Array.isArray(reservations) &&
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: 10,
-    backgroundColor: '#000000',
+    backgroundColor: '#1B3132',
     fontSize: 16,
     fontFamily: 'IbarraRealNova-Regular',
     paddingTop: 20,
@@ -224,7 +225,7 @@ const styles = StyleSheet.create({
 
   logo: {
     width: 155,
-    height: 50,
+    height: 75,
     alignSelf: 'center',
   },
 

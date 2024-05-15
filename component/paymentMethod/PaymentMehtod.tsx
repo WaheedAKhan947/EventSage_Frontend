@@ -22,38 +22,40 @@ const PaymentMethod = ({navigation}: any) => {
   const [cardNumber, setCardNumber] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [cardInfo, setCardInfo] = useState<any>(null);
-  const [loading,setLoading ] = useState<Boolean>(false);
-
+  const [loading, setLoading] = useState<Boolean>(false);
 
   const handlePayment = async () => {
-    if(loading){
-      return
+    if (loading) {
+      return;
     }
     if (!selectedCountry || !cardNumber || !exp || !cvv || !zipCode) {
       throw new Error('Please fill in all required fields.');
-      }
+    }
 
-      const paymentData = {
-        regionOrCountry: selectedCountry,
-        cardNumber,
-        expiryDate: exp,
-        cvv,
-        zipCode,
-      };
-      try {
-        setLoading(true)
-      let userId =  await StorageManager.get('userId');
-     let response= await API.post(`${ENDPOINTS.USER.CARDINFO}/${userId}`, paymentData)
-     await StorageManager.put('userData', response.user);
-      Alert.alert('Success',response?.message)
+    const paymentData = {
+      regionOrCountry: selectedCountry,
+      cardNumber,
+      expiryDate: exp,
+      cvv,
+      zipCode,
+    };
+    try {
+      setLoading(true);
+      let userId = await StorageManager.get('userId');
+      let response = await API.post(
+        `${ENDPOINTS.USER.CARDINFO}/${userId}`,
+        paymentData,
+      );
+      await StorageManager.put('userData', response.user);
+      Alert.alert('Success', response?.message);
       navigation.navigate('reservation');
     } catch (error) {
       Alert.alert(
         'Error',
         error.message || 'Failed to process payment. Please try again later.',
       );
-    } finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,12 +75,12 @@ const PaymentMethod = ({navigation}: any) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={{flex:1, justifyContent: 'center'}}>
+      <View style={{flex: 1, justifyContent: 'center'}}>
         <View>
-            <Image
-              source={require('../../assets/tutu_white.png')}
-              style={styles.logo}
-            />
+          <Image
+            source={require('../../assets/tutu_white.png')}
+            style={styles.logo}
+          />
         </View>
       </View>
 
@@ -180,9 +182,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#000',
+    backgroundColor: '#1B3132',
     fontSize: 16,
-    paddingTop:30
+    paddingTop: 30,
   },
   countryPickerContainer: {
     color: '#fff',
@@ -194,7 +196,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#E6E6E9',
     height: 50,
-    
   },
   row: {
     flexDirection: 'row',
@@ -251,7 +252,6 @@ const styles = StyleSheet.create({
     width: 126,
     height: 122,
     alignSelf: 'center',
-   
   },
   image: {
     width: 20,
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontFamily: 'Poppins-Medium',
-    zIndex:1,
+    zIndex: 1,
   },
   inputContainer: {
     flexDirection: 'row',

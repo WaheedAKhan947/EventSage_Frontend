@@ -113,10 +113,7 @@ const SignIn = ({navigation}: any) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{flex: 2, justifyContent: 'center'}}>
-        <Image
-          source={require('../../assets/tutu_white.png')}
-          style={styles.logo}
-        />
+        <Image source={require('../../assets/Logo.png')} style={styles.logo} />
       </View>
 
       <View style={styles.maincontainer}>
@@ -223,7 +220,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#000',
+    backgroundColor: '#1B3132',
   },
 
   main1: {

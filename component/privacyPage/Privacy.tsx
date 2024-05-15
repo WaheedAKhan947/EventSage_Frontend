@@ -13,7 +13,7 @@ const termsAndConditionsData = [
     number: '1. ',
     title: 'Acceptance of Terms:',
     content:
-      'These Terms constitute a legally binding agreement between you and Confirmed by Tutu regarding your use of the App. By using the App, you acknowledge that you have read, understood, and agree to be bound by these Terms.',
+      'These Terms constitute a legally binding agreement between you and EventSage regarding your use of the App. By using the App, you acknowledge that you have read, understood, and agree to be bound by these Terms.',
   },
   {
     number: '2. ',
@@ -25,13 +25,13 @@ const termsAndConditionsData = [
     number: '3. ',
     title: 'Reservation Services:',
     content:
-      'Confirmed by Tutu provides a platform that allows users to make restaurant reservations. We do not own or operate any restaurants listed on the App. The availability of reservations is subject to the discretion of the participating restaurants.',
+      'EventSage provides a platform that allows users to make restaurant reservations. We do not own or operate any restaurants listed on the App. The availability of reservations is subject to the discretion of the participating restaurants.',
   },
   {
     number: '4. ',
     title: 'Reservation Confirmation:',
     content:
-      'While Confirmed by Tutu endeavors to confirm reservations accurately, we cannot guarantee the availability of reservations at all times. The confirmation of a reservation is subject to the availability of tables at the chosen restaurant.',
+      'While EventSage endeavors to confirm reservations accurately, we cannot guarantee the availability of reservations at all times. The confirmation of a reservation is subject to the availability of tables at the chosen restaurant.',
   },
   {
     number: '5. ',
@@ -43,7 +43,7 @@ const termsAndConditionsData = [
     number: '6. ',
     title: 'Accuracy of Information:',
     content:
-      'Confirmed by Tutu strives to provide accurate information about restaurants, including their locations, operating hours, menus, and reservation availability. However, we do not guarantee the accuracy, completeness, or reliability of any information provided on the App.',
+      'EventSage strives to provide accurate information about restaurants, including their locations, operating hours, menus, and reservation availability. However, we do not guarantee the accuracy, completeness, or reliability of any information provided on the App.',
   },
   {
     number: '7. ',
@@ -67,13 +67,13 @@ const termsAndConditionsData = [
     number: '10.',
     title: ' Disclaimer of Warranties:',
     content:
-      'The App is provided on an "as is" and "as available" basis, without any warranties of any kind, either express or implied. Confirmed by Tutu disclaims all warranties, including, but not limited to, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.',
+      'The App is provided on an "as is" and "as available" basis, without any warranties of any kind, either express or implied. EventSage disclaims all warranties, including, but not limited to, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.',
   },
   {
     number: '11.',
     title: ' Limitation of Liability:',
     content:
-      'In no event shall Confirmed by Tutu be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with your use of the App, including, but not limited to, damages for loss of profits, goodwill, use, data, or other intangible losses.',
+      'In no event shall EventSage be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with your use of the App, including, but not limited to, damages for loss of profits, goodwill, use, data, or other intangible losses.',
   },
   {
     number: '12.',
@@ -85,7 +85,7 @@ const termsAndConditionsData = [
     number: '13.',
     title: ' Changes to Terms:',
     content:
-      'Confirmed by Tutu reserves the right to update or modify these Terms at any time without prior notice. Your continued use of the App after any such changes constitutes your acceptance of the new Terms.',
+      'EventSage reserves the right to update or modify these Terms at any time without prior notice. Your continued use of the App after any such changes constitutes your acceptance of the new Terms.',
   },
   {
     number: '14.',
@@ -99,41 +99,38 @@ const Privacy = ({navigation}: any) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-        >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
             source={require('../../assets/wback.png')}
             style={styles.headerIcon}
           />
         </TouchableOpacity>
       </View>
-      
 
-      <View style={{flex:1,paddingBottom:20}}>
-      <Text style={styles.title}>Terms & </Text>
+      <View style={{flex: 1, paddingBottom: 20}}>
+        <Text style={styles.title}>Terms & </Text>
         <Text style={styles.title}>Privacy Policy</Text>
       </View>
 
       <View style={styles.terms}>
         <Text style={styles.term}>Terms & Conditions:</Text>
         <Text style={styles.termcontent}>
-          By downloading, accessing, or using the Confirmed by Tutu mobile
+          By downloading, accessing, or using the EventSage mobile
           application ("App") and its related services, you agree to comply with
           and be bound by the following terms and conditions ("Terms"). If you
           do not agree to these Terms, you may not use the App.
         </Text>
       </View>
 
-<View style={{flex:2}}>
-      {termsAndConditionsData.map((section, index) => (
-        <View key={index} style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>{section.number}</Text>
-          <Text style={styles.sectionTitle}>
-            {section.title} <Text style={styles.text}>{section.content}</Text>
-          </Text>
-        </View>
-      ))}
+      <View style={{flex: 2}}>
+        {termsAndConditionsData.map((section, index) => (
+          <View key={index} style={styles.sectionContainer}>
+            <Text style={styles.sectionTitle}>{section.number}</Text>
+            <Text style={styles.sectionTitle}>
+              {section.title} <Text style={styles.text}>{section.content}</Text>
+            </Text>
+          </View>
+        ))}
       </View>
     </ScrollView>
   );
@@ -141,34 +138,29 @@ const Privacy = ({navigation}: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#000',
+    backgroundColor: '#1B3132',
     paddingHorizontal: 10,
-    paddingTop:10
+    paddingTop: 10,
   },
   headerContainer: {
-    flex:1,
-    justifyContent:"center",
-    paddingVertical:30
-
-    
+    flex: 1,
+    justifyContent: 'center',
+    paddingVertical: 30,
   },
   headerButton: {
-    tintColor:"#fff"
-    
+    tintColor: '#fff',
   },
   headerIcon: {
     width: 30,
     height: 30,
-    marginBottom:20,
-    tintColor:"#fff"
-    
+    marginBottom: 20,
+    tintColor: '#fff',
   },
   title: {
-    textAlign:"center",
+    textAlign: 'center',
     fontSize: 32,
-     color: 'white',
+    color: 'white',
     fontFamily: 'PlayfairDisplay-SemiBold',
-    
   },
 
   sectionContainer: {
@@ -179,7 +171,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: '#fff',
     fontSize: 13,
-    fontWeight:"700",
+    fontWeight: '700',
     marginBottom: 5,
     fontFamily: 'Poppins-SemiBold',
   },
@@ -201,8 +193,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   terms: {
-    flex:1,
-    
+    flex: 1,
   },
 });
 
