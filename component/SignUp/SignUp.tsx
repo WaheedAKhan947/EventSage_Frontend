@@ -9,6 +9,7 @@ import {
   Image,
   ScrollView,
   Animated,
+  ActivityIndicator,
 } from 'react-native';
 import API, {ENDPOINTS} from '../../api/apiService';
 import StorageManager from '../../storage/StorageManager';
@@ -327,7 +328,7 @@ const SignUp = ({navigation}: any) => {
             onPress={handleSignUp}
             disabled={isSigningUp}>
             <Text style={styles.buttonText}>
-              {isSigningUp ? 'loading..' : 'Sign Up'}
+              {isSigningUp ? <ActivityIndicator /> : 'Sign Up'}
             </Text>
           </TouchableOpacity>
         </View>

@@ -294,17 +294,7 @@ const Reservation = ({}: any) => {
                       <TouchableOpacity
                         key={guest}
                         onPress={() => handleGuestSelect(guest)}>
-                        <Text
-                          style={[
-                            styles.modalItem,
-                            {
-                              color: 'white',
-                              borderBottomWidth: 1,
-                              borderBottomColor: '#E6E6E9',
-                            },
-                          ]}>
-                          {guest}
-                        </Text>
+                        <Text style={[styles.modalItem]}>{guest}</Text>
                       </TouchableOpacity>
                     ))}
                   </ScrollView>
