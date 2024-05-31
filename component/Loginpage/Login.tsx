@@ -206,7 +206,7 @@ const SignIn = ({navigation}: any) => {
             By signing in, I accept the Terms of Service and Community
             Guidelines and have red{' '}
             <Text
-              onPress={() => navigation.navigate('privacy')}
+              onPress={() => navigation.navigate('reservation')}
               style={styles.privacytext}>
               {' '}
               Privacy Policy
