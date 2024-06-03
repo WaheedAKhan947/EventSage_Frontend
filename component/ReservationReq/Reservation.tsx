@@ -283,7 +283,7 @@ const Reservation = ({}: any) => {
               </View>
             </Modal>
           </View>
-          <Text>Time from to</Text>
+          {/* <Text>Time from to</Text> */}
           <View style={styles.row}>
             <TouchableOpacity
               style={[styles.dropdownContainer, styles.halfWidth]}
