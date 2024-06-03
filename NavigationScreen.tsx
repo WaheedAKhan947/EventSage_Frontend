@@ -146,7 +146,7 @@ const NavigationScreen = () => {
                   style={{
                     width: 25,
                     height: 25,
-                    tintColor: focused ? '#000000' : '#CCCCCC',
+                    tintColor: focused ? '#fff' : 'grey',
                   }}
                 />
                 {focused && (
@@ -178,7 +178,7 @@ const NavigationScreen = () => {
                   style={{
                     width: 25,
                     height: 25,
-                    tintColor: focused ? '#000000' : '#CCCCCC',
+                    tintColor: focused ? 'white' : 'grey',
                   }}
                 />
                 {focused && (
@@ -210,7 +210,7 @@ const NavigationScreen = () => {
                   style={{
                     width: 25,
                     height: 25,
-                    tintColor: focused ? '#000000' : '#CCCCCC',
+                    tintColor: focused ? 'white' : 'grey',
                   }}
                 />
                 {focused && (
@@ -242,7 +242,7 @@ const NavigationScreen = () => {
                   style={{
                     width: 25,
                     height: 25,
-                    tintColor: focused ? '#000000' : '#CCCCCC',
+                    tintColor: focused ? 'white' : 'grey',
                   }}
                 />
                 {focused && (

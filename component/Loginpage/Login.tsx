@@ -9,6 +9,7 @@ import {
   Image,
   ScrollView,
   Animated,
+  ActivityIndicator
 } from 'react-native';
 import API, {ENDPOINTS} from '../../api/apiService';
 import StorageManager from '../../storage/StorageManager';
@@ -113,10 +114,7 @@ const SignIn = ({navigation}: any) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{flex: 2, justifyContent: 'center'}}>
-        <Image
-          source={require('../../assets/tutu_white.png')}
-          style={styles.logo}
-        />
+        <Image source={require('../../assets/Logo.png')} style={styles.logo} />
       </View>
 
       <View style={styles.maincontainer}>
@@ -189,7 +187,7 @@ const SignIn = ({navigation}: any) => {
             onPress={handleSignIn}
             disabled={isSigningIn}>
             <Text style={styles.buttonText}>
-              {isSigningIn ? 'loading..' : 'Login'}
+              {isSigningIn ? <ActivityIndicator /> : 'Login'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -208,7 +206,7 @@ const SignIn = ({navigation}: any) => {
             By signing in, I accept the Terms of Service and Community
             Guidelines and have red{' '}
             <Text
-              onPress={() => navigation.navigate('privacy')}
+              onPress={() => navigation.navigate('reservation')}
               style={styles.privacytext}>
               {' '}
               Privacy Policy
@@ -223,7 +221,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#000',
+    backgroundColor: '#1B3132',
   },
 
   main1: {

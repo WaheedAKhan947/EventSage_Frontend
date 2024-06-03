@@ -11,26 +11,26 @@ import {
 
 const DropdownComponent = ({onValueChange}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const restaurants = [
-    {value: 'Mastros', label: 'Mastros'},
-    {value: 'STK', label: 'STK'},
-    {value: "Abe & Louie's", label: "Abe & Louie's"},
-    {value: 'Savr', label: 'Savr'},
-    {value: 'Mariel', label: 'Mariel'},
-    {value: 'Yvonnes', label: 'Yvonnes'},
-    {value: 'Ruka', label: 'Ruka'},
-    {value: 'Caveau', label: 'Caveau'},
-    {value: 'Grille 23', label: 'Grille 23'},
-    {value: 'Lolita Fort Point', label: 'Lolita Fort Point'},
-    {value: 'Lolita Back bay', label: 'Lolita Back bay'},
-    {value: 'Serafina', label: 'Serafina'},
-    {value: 'Atlantic Fish', label: 'Atlantic Fish'},
-    {value: 'Prima', label: 'Prima'},
+  const [eventType, setEventType] = useState(null);
+  const events = [
+    {value: 'Wedding Event', label: 'Wedding Event'},
+    {value: 'Engagement ceremony', label: 'Engagement ceremony'},
+    {value: 'Corporate Event', label: 'Corporate Event'},
+    {value: 'Cultural Event', label: 'Cultural Event'},
+    {value: 'Sports Event', label: 'Sports Event'},
+    {value: 'Concert', label: 'Concert'},
+    {value: 'Festival', label: 'Festival'},
+    {value: 'Exhibition', label: 'Exhibition'},
+    {value: 'Birthday Party', label: 'Birthday Party'},
+    {value: 'Graduation Party', label: 'Graduation Party'},
+    {value: 'Workshops and Seminars', label: 'Workshops and Seminars'},
+    {value: 'Award Ceremony', label: 'Award Ceremony'},
+    {value: 'Networking Event', label: 'Networking Event'},
+    {value: 'Fashion Show', label: 'Fashion Show'},
   ];
 
   const selectRestaurant = restaurantValue => {
-    setSelectedRestaurant(restaurantValue);
+    setEventType(restaurantValue);
     onValueChange(restaurantValue);
     setModalVisible(false);
   };
@@ -42,9 +42,7 @@ const DropdownComponent = ({onValueChange}) => {
         style={styles.dropdownButton}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image source={require('../../assets/building.png')} />
-          <Text style={styles.selectedRestaurant}>
-            {selectedRestaurant || 'Select Restaurant'}
-          </Text>
+          <Text style={styles.eventType}>{eventType || 'Event Type'}</Text>
         </View>
         <View>
           <Image
@@ -61,7 +59,7 @@ const DropdownComponent = ({onValueChange}) => {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <ScrollView>
-              {restaurants.map((restaurant, index) => (
+              {events.map((restaurant, index) => (
                 <TouchableOpacity
                   key={index}
                   onPress={() => selectRestaurant(restaurant.value)}>
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  selectedRestaurant: {
+  eventType: {
     color: '#fff',
     fontSize: 16,
     fontFamily: 'Poppins-Regular',

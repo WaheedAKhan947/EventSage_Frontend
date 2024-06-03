@@ -49,12 +49,14 @@ const Profile = ({navigation}: any) => {
     const updateData = {
       fullName: UserData.fullName,
       phone: UserData.phone,
-      email: UserData?.email
+      email: UserData?.email,
     };
-    console.log("data:", updateData)
+    console.log('data:', updateData);
     try {
       // Update the user data in the storage
-      let response = await API.put(`${ENDPOINTS.USER.UPDATEPROFILE}`, updateData
+      let response = await API.put(
+        `${ENDPOINTS.USER.UPDATEPROFILE}`,
+        updateData,
       );
       console.log('response :', response);
       await StorageManager.put('userData', UserData);
@@ -62,7 +64,7 @@ const Profile = ({navigation}: any) => {
       Alert.alert(
         'Profile Updated',
         'Your profile details have been successfully updated.',
-      );  
+      );
       console.log('Profile updated (New Full Name) :', UserData.fullName);
       console.log('Profile updated (New Phone Number) :', UserData.phone);
     } catch (error) {
@@ -96,8 +98,8 @@ const Profile = ({navigation}: any) => {
                 style={styles.headerprof}
               />
               <ProfileDropdown
-                isVisible={isDropdownVisible} 
-                onLogout={handleLogout} 
+                isVisible={isDropdownVisible}
+                onLogout={handleLogout}
                 onAccountSettings={handleAccountSettings}
                 onClose={handleClose}
                 fullName={UserData.fullName} // Pass the full name as prop
@@ -106,7 +108,7 @@ const Profile = ({navigation}: any) => {
           </View>
           <View style={styles.headerContainer}>
             <Image
-              source={require('../../assets/confirmed_logo.png')}
+              source={require('../../assets/Logo2.png')}
               style={styles.logo}
             />
           </View>
@@ -179,13 +181,13 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: 10,
-    backgroundColor: '#000000',
+    backgroundColor: '#1B3132',
     fontSize: 16,
   },
 
   logo: {
     width: 155,
-    height: 50,
+    height: 100,
     alignSelf: 'center',
   },
 
@@ -269,6 +271,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 230,
+    marginBottom: 20,
   },
 
   buttonText: {

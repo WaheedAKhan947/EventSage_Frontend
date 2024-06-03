@@ -146,7 +146,7 @@ const Confirmpass = ({navigation}: any) => {
       <View style={{flex: 2, justifyContent: 'center'}}>
         <View>
           <Image
-            source={require('../../assets/tutu_white.png')}
+            source={require('../../assets/Logo.png')}
             style={styles.logo}
           />
         </View>
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#000',
+    backgroundColor: '#1B3132',
   },
   logo: {
     width: 126,

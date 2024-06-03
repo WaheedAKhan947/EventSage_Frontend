@@ -9,6 +9,7 @@ import {
   Image,
   ScrollView,
   Animated,
+  ActivityIndicator,
 } from 'react-native';
 import API, {ENDPOINTS} from '../../api/apiService';
 import StorageManager from '../../storage/StorageManager';
@@ -217,10 +218,7 @@ const SignUp = ({navigation}: any) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{flex: 2, justifyContent: 'center', paddingTop: 5}}>
-        <Image
-          source={require('../../assets/tutu_white.png')}
-          style={styles.logo}
-        />
+        <Image source={require('../../assets/Logo.png')} style={styles.logo} />
       </View>
 
       <View style={styles.maincontainer}>
@@ -330,7 +328,7 @@ const SignUp = ({navigation}: any) => {
             onPress={handleSignUp}
             disabled={isSigningUp}>
             <Text style={styles.buttonText}>
-              {isSigningUp ? 'loading..' : 'Sign Up'}
+              {isSigningUp ? <ActivityIndicator /> : 'Sign Up'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -365,7 +363,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#000000',
+    backgroundColor: '#1B3132',
   },
   main1: {
     flex: 2,
