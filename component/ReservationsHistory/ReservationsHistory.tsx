@@ -16,11 +16,11 @@ import {ENDPOINTS} from '../../api/apiRoutes';
 import API from '../../api/apiService';
 
 interface Reservation {
-  restaurant: string;
+  eventType: string;
   date: string;
   totalPayments: string;
   guests: string;
-  preferredTime: string;
+  beginningTime: string;
 }
 
 const Reservations = ({navigation}: any) => {
@@ -133,7 +133,7 @@ const Reservations = ({navigation}: any) => {
                     fontFamily: 'Poppins-Light',
                     color: '#E6E6E9',
                   }}>
-                  Restaurant
+                  Event Type
                 </Text>
                 <Text
                   style={{
@@ -141,7 +141,7 @@ const Reservations = ({navigation}: any) => {
                     fontFamily: 'Poppins-Light',
                     color: '#fff',
                   }}>
-                  {item.restaurant}
+                  {item.eventType}
                 </Text>
               </View>
               <View style={styles.box2}>
@@ -161,20 +161,20 @@ const Reservations = ({navigation}: any) => {
                       fontFamily: 'Poppins-Medium',
                       color: '#fff',
                     }}>
-                    {new Date(item.preferredTime).toLocaleDateString()}{' '}
-                    {new Date(item.preferredTime).toLocaleTimeString()}{' '}
-                  </Text>
-                </View>
-                <View style={styles.b2}>
-                  <Text style={{fontSize: 13, color: '#E6E6E9'}}>Total</Text>
-                  <Text style={{fontSize: 14, color: '#fff'}}>
-                    {item.totalPayments}
+                    {new Date(item.beginningTime).toLocaleDateString()}{' '}
+                    {new Date(item.beginningTime).toLocaleTimeString()}{' '}
                   </Text>
                 </View>
                 <View style={styles.b3}>
                   <Text style={{fontSize: 13, color: '#E6E6E9'}}>Guests</Text>
                   <Text style={{fontSize: 14, color: '#fff'}}>
                     {item.guests}
+                  </Text>
+                </View>
+                <View style={styles.b2}>
+                  <Text style={{fontSize: 13, color: '#E6E6E9'}}>Total</Text>
+                  <Text style={{fontSize: 14, color: '#fff'}}>
+                    {item.totalPayments}
                   </Text>
                 </View>
               </View>
