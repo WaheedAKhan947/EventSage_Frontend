@@ -62,11 +62,11 @@ const Reservation = ({}: any) => {
       }
 
       const reservationData = {
-        restaurant: selectedOption,
+        eventType: selectedOption,
         date: date,
         guests: guests,
-        preferredTime: selectedPreferredTime,
-        backupTime: selectedBackupTime,
+        beginningTime: selectedPreferredTime,
+        endingTime: selectedBackupTime,
         pricePerHead: pricePerHead,
         totalPayments: totalPayments,
       };
@@ -295,7 +295,7 @@ const Reservation = ({}: any) => {
               <Text style={styles.dropdownText}>
                 {selectedPreferredTime
                   ? selectedPreferredTime.toLocaleTimeString()
-                  : 'Prefer Time'}
+                  : 'Beginning   Time'}
               </Text>
               <Image
                 source={require('../../assets/selectdp.png')}
@@ -379,7 +379,7 @@ const Reservation = ({}: any) => {
               <Text style={styles.dropdownText}>
                 {selectedBackupTime
                   ? selectedBackupTime.toLocaleTimeString()
-                  : 'Backup Time'}
+                  : 'Ending Time'}
               </Text>
               <Image
                 source={require('../../assets/selectdp.png')}
